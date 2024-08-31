@@ -500,6 +500,11 @@ hr.solid {
  
 }
 
+.servicos{
+  background-color: var(--background-color);
+  padding: 150px;
+}
+
 
 .servicos .servicos-item {
   background-color: var(--surface-color);
@@ -570,14 +575,17 @@ CONTATO
 
 
 .contato {
-  padding: 120px 0;
+  padding: 150px 0px;
   position: relative;
   clip-path: inset(0);
   background-color: #ffffff;
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: 100%;
  
 }
+
 
 .coluna-contato {
   flex: 1; 
