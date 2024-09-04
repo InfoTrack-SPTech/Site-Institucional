@@ -11,7 +11,7 @@ function handleScroll() {
   if (window.pageYOffset > 50) {
       header.style.backgroundColor = "#3a1b1be6";
   } else {
-      header.style.backgroundColor = "transparent";
+      header.style.backgroundColor = "#000";
   }
 }
 

@@ -100,6 +100,10 @@ h6 {
   padding: 0;
 }
 
+.mobile{
+  display: none;
+}
+
 .navmenu li {
   margin-left: 30px;
 }
@@ -136,7 +140,7 @@ h6 {
 }
 
 
-@media (max-width: 1200px) {
+/* @media (max-width: 1200px) {
   .container-header {
       flex-direction: column;
       align-items: flex-start;
@@ -158,13 +162,13 @@ h6 {
       width: 100%;
       text-align: center;
   }
-}
+} */
 
 
 /*--------------------------------------------------------------
 # MOBILE
 --------------------------------------------------------------*/
-@media (max-width: 1199px) {
+/* @media (max-width: 1199px) {
   .mobile-nav-toggle {
     color: var(--nav-color);
     font-size: 28px;
@@ -273,7 +277,7 @@ h6 {
     color: var(--contrast-color);
 
   
-}}
+}} */
 
 /*--------------------------------------------------------------
 INDEX
@@ -295,6 +299,8 @@ INDEX
 .index-section {
   background-color: #ffffff;
   color: white;
+  display: flex;
+  flex-direction: column;
   
 }
 
@@ -814,4 +820,31 @@ FOOTER
   text-decoration: none;
   transform: scale(1.07);
 }
+
+.sanduiche img{
+  height: 20px;
+}
+
+@media (min-width: 400px) and (max-width: 1080px) {
+  .navmenu ul{
+    display: none;
+  }
+
+  .mobile{
+    display: block;
+  }
+  .botaologin{
+    display: none;
+  }
+
+  .container-index{
+    margin-top: 70px;
+  }
+
+  .hero-img img{
+    width: 60%;
+  }
+
+  
+ }
 
