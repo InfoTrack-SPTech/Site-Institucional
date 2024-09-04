@@ -1,0 +1,151 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  
+  body {
+    color: #444444;
+    line-height: 1.6;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  .container {
+    width: 85%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px 0;
+  }
+  
+  .header {
+    background: #ffffff;
+    color: #444444;
+    padding: 10px 0;
+    border-bottom: 1px solid #DCDBD9;
+    text-align: center;
+  }
+  
+  .header .titulo {
+    font-size: 22px;
+    font-weight: 500;
+  }
+  
+  .header .navbar {
+    margin-top: 10px;
+  }
+  
+  .header .navbar li {
+    display: inline-block;
+    margin: 0 10px;
+  }
+  
+  .header .navbar a {
+    color: #444444;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 300;
+    transition: color 0.3s ease;
+  }
+  
+  .header .navbar a:hover {
+    color: #C9312D;
+  }
+  
+  .header .navbar .agora a {
+    color: #C9312D;
+  }
+  
+  .login {
+    background-image: url(/assets/computer-1591018_1920.jpg);
+    padding: 30px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .card-cadastro {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .card-cadastro h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: 400;
+    color: #444444;
+    text-align: center;
+  }
+  
+  .formulario .campo {
+    margin-bottom: 15px;
+  }
+  
+  .formulario .campo span {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #444444;
+    font-weight: 500;
+  }
+  
+  .formulario .campo input {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #DCDBD9;
+    background-color: #f9f9f9;
+    color: #444444;
+    transition: border-color 0.3s ease;
+  }
+  
+  .formulario .campo input:focus {
+    border-color: #C9312D;
+    outline: none;
+  }
+  
+  .botao {
+    width: 100%;
+    background: #C9312D;
+    color: #ffffff;
+    padding: 12px;
+    text-align: center;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+  }
+  
+  .botao:hover {
+    background: #A72622;
+  }
+  
+  .alerta_erro {
+    margin-top: 15px;
+    display: none; 
+    color: #C9312D;
+  }
+
+  .div_erros_login{
+    color: #C9312D;
+  }
+  
+  .card_erro {
+    background-color: #F8D7DA;
+    color: #C9312D;
+    padding: 10px;
+    border: 1px solid #F5C6CB;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+  }
+  
