@@ -31,4 +31,5 @@ body{
   height: 200px;
   background-color: dimgray;
   margin: 20px;
+  border: solid red;
 }
