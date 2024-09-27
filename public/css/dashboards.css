@@ -16,12 +16,22 @@ body{
   height: 100vh;
   background-color: dimgray;
 }
+.articlePai {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
 
 .article{
   width: 95%;
   height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+.articleLateral{
+  width: 100%;
+  height: 100%;
 }
 .sec1{
   display: flex;
@@ -47,7 +57,7 @@ body{
 .graficoLaterais{
   box-sizing: border-box;
   width: 99%;
-  height: 47.9vh;
+  height: 44.9vh;
   background-color: dimgray;
   margin-left: 3px;
 }
@@ -70,13 +80,22 @@ body{
   background-color: dimgray;
 }
 
-.articleLateral{
-  width: 100%;
-  height: 100%;
+.secFiltro{
+  width: 99%;
+  height: 30px;
+  margin-left: -10px;
+  margin-top: 9px;
+  background-color: dimgray;
 }
 
-.articlePai {
+.secFiltro{
   display: flex;
-  width: 100%;
-  height: 100vh;
+  justify-content: space-between;
+}
+
+.boxFiltro select{
+  width: 100px;
+  height: 100%;
+  background-color: black;
+  color: white;
 }
