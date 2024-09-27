@@ -20,16 +20,63 @@ body{
 .article{
   width: 95%;
   height: 100vh;
-  
+  display: flex;
+  flex-direction: column;
 }
 .sec1{
   display: flex;
+  padding: 10px;
+
 }
 
 .boxKpi{
-  width: 180px;
-  height: 200px;
+  width: 170px;
+  height: 100px;
   background-color: dimgray;
-  margin: 20px;
-  border: solid red;
+  margin-right: 6px;
+
+}
+
+.secLateral{
+  width: 100%;
+  height: 100%;
+  padding-top: 9px;
+  margin-left: -10px;
+}
+
+.graficoLaterais{
+  box-sizing: border-box;
+  width: 99%;
+  height: 47.9vh;
+  background-color: dimgray;
+  margin-left: 3px;
+}
+
+.primeiroBox{
+  margin-bottom: 5px;
+}
+
+.secMeio, .secBaixo{
+  display: flex;
+  width: 96.8%;
+  height: 40%;
+  margin-left: 10px;
+  justify-content: space-between;
+}
+
+.graficoMeio{
+  width: 49.6%;
+  height: 260px;
+  background-color: dimgray;
+}
+
+.articleLateral{
+  width: 100%;
+  height: 100%;
+}
+
+.articlePai {
+  display: flex;
+  width: 100%;
+  height: 100vh;
 }
