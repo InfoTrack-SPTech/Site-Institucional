@@ -20,83 +20,210 @@
       href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
-
-    <!-- scripts do Chart.js - 2022-1 -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <!--FONT AWESOME-->
-    <script
-      src="https://kit.fontawesome.com/9f7414eb10.js"
-      crossorigin="anonymous"
-    ></script>
   </head>
 
   <!-- <body onload=" atualizarFeed()"> -->
 
   <body>
     <main class="main">
-        <nav class="sidebar"></nav>
-        <article class="articlePai">
-          <article class="article">
-            <section class="sec1">
-              <div class="boxKpi"></div>
-              <div class="boxKpi"></div>
-              <div class="boxKpi"></div>
-              <div class="boxKpi"></div>
-            </section>
-  
-            <section class="secMeio">
-              <div class="graficoMeio"></div>
-              <div class="graficoMeio"></div>
-            </section>
-  
-            <section class="secBaixo">
-              <div class="graficoMeio"></div>
-              <div class="graficoMeio"></div>
-            </section>
-          </article>
-  
-          <article class="articleLateral">
-            <section class="secFiltro">
-              <div class="boxFiltro">
-                <select name="" id="">
-                  <option value="#">Periodo</option>
-                  <option value="manha">Manhã</option>
-                  <option value="tituloGraficos">Tarde</option>
-                </select>
-              </div>
-              <div class="boxFiltro">
-                <select name="" id="">
-                  <option value="#">Periodo</option>
-                  <option value="manha">Manhã</option>
-                  <option value="tituloGraficos">Tarde</option>
-                </select>
-              </div>
-              <div class="boxFiltro">
-                <select name="" id="">
-                  <option value="#">Periodo</option>
-                  
-                  <option value="manha">Manhã</option>
-                  <option value="tituloGraficos">Tarde</option>
-                </select>
-              </div>
-              <div class="boxFiltro">
-                <select name="" id="">
-                  <option value="#">Periodo</option>
-                  <option value="manha">Manhã</option>
-                  <option value="tituloGraficos">Tarde</option>
-                </select>
-              </div>
-            </section>
-            <section class="secLateral">
-              <div class="graficoLaterais primeiroBox"></div>
-              <div class="graficoLaterais"></div>
-            </section>
-          </article>
+      <nav class="sidebar">
+        <div class="sanduiche">
+            <img src="../assets/menu-aberto (1).png" alt="">
+        </div>
+      </nav>
+      <article class="articlePai">
+        <article class="article">
+          <section class="sec1">
+            <div class="boxKpi"></div>
+            <div class="boxKpi"></div>
+            <div class="boxKpi"></div>
+            <div class="boxKpi"></div>
+          </section>
+
+          <section class="secMeio">
+            <div class="graficoMeio"><canvas id="myChart1"></canvas></div>
+            <div class="graficoMeio"><canvas id="myChart2"></canvas></div>
+          </section>
+
+          <section class="secBaixo">
+            <div class="graficoMeio"><canvas id="myChart3"></canvas></div>
+            <div class="graficoMeio"><canvas id="myChart4"></canvas></div>
+          </section>
         </article>
-      </main>
+
+        <article class="articleLateral">
+          <section class="secFiltro">
+            <div class="boxFiltro">
+              <select name="" id="">
+                <option value="#">Periodo</option>
+                <option value="manha">Manhã</option>
+                <option value="tituloGraficos">Tarde</option>
+              </select>
+            </div>
+            <div class="boxFiltro">
+              <select name="" id="">
+                <option value="#">Periodo</option>
+                <option value="manha">Manhã</option>
+                <option value="tituloGraficos">Tarde</option>
+              </select>
+            </div>
+            <div class="boxFiltro">
+              <select name="" id="">
+                <option value="#">Periodo</option>
+
+                <option value="manha">Manhã</option>
+                <option value="tituloGraficos">Tarde</option>
+              </select>
+            </div>
+            <div class="boxFiltro">
+              <select name="" id="">
+                <option value="#">Periodo</option>
+                <option value="manha">Manhã</option>
+                <option value="tituloGraficos">Tarde</option>
+              </select>
+            </div>
+          </section>
+          <section class="secLateral">
+            <div class="graficoLaterais primeiroBox"><canvas id="myChart5"></canvas></div>
+            <div class="graficoLaterais"><canvas id="myChart6"></canvas></div>
+          </section>
+        </article>
+      </article>
+    </main>
   </body>
 </html>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx1 = document.getElementById("myChart1");
+  const ctx2 = document.getElementById('myChart2');
+  const ctx3 = document.getElementById('myChart3');
+  const ctx4 = document.getElementById('myChart4');
+  const ctx5 = document.getElementById('myChart5');
+  const ctx6 = document.getElementById('myChart6');
+
+  new Chart(ctx1, {
+    type: "bar",
+    data: {
+      labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+      datasets: [
+        {
+          label: "# of Votes",
+          data: [12, 19, 3, 5, 2, 3],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+  new Chart(ctx2, {
+    type: "doughnut",
+    data: {
+      labels: ["Red", "Blue", "Yellow"],
+      datasets: [
+        {
+          label: "# of Votes",
+          data: [12, 19, 3, 5, 2, 3],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+  new Chart(ctx3, {
+    type: "bar",
+    data: {
+      labels: ["Red", "Blue", "Yellow"],
+      datasets: [
+        {
+          label: "# of Votes",
+          data: [12, 19, 3, 5, 2, 3],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+  new Chart(ctx4, {
+    type: "doughnut",
+    data: {
+      labels: ["Red", "Blue", "Yellow"],
+      datasets: [
+        {
+          label: "# of Votes",
+          data: [12, 19, 3, 5, 2, 3],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+  new Chart(ctx5, {
+    type: "bar",
+    data: {
+      labels: ["Red", "Blue", "Yellow"],
+      datasets: [
+        {
+          label: "# of Votes",
+          data: [12, 19, 3, 5, 2, 3],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+  new Chart(ctx6, {
+    type: "line",
+    data: {
+      labels: ["Red", "Blue", "Yellow"],
+      datasets: [
+        {
+          label: "# of Votes",
+          data: [12, 19, 3, 5, 2, 3],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+</script>
 
 <script>
   //     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
