@@ -16,7 +16,7 @@ body{
   box-sizing: border-box;
   width: 5%;
   height: 100vh;
-  background-color: dimgray;
+  background-color: rgb(124, 0, 0);
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -25,8 +25,21 @@ body{
 
 .sanduiche img{
   margin-top: 5px;
-  height: 20px;
+  height: 25px;
 }
+.dashicon img{
+  margin-top: 40px;
+  height: 30px;
+}
+.conta img{
+  margin-top: 15px;
+  height: 30px;
+}
+.lembretes img{
+  margin-top: 15px;
+  height: 30px;
+}
+
 .articlePai {
   display: flex;
   width: 100%;
