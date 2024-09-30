@@ -21,7 +21,13 @@ body{
   padding: 20px;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
+  color: #fff;
   
+}
+
+.sidebar a{
+  font-size: 25px;
 }
 .sobrepor{
   z-index: 2;
