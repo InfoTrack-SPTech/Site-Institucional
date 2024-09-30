@@ -1,29 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <link
-      rel="shortcut icon"
-      href="../assets/icon/favicon2.ico"
-      type="image/x-icon"
-    />
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Info Dash</title>
+
+<head>
+  <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INFODASH</title>
 
     <link rel="stylesheet" href="./../css/dashboards.css" />
     <script src="../js/sessao.js"></script>
     <script src="./../js/alerta.js"></script>
     <script src="./../js/animacao.js" defer></script>
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet"
-    />
-  </head>
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet" />
+</head>
 
-  <!-- <body onload=" atualizarFeed()"> -->
+<!-- <body onload=" atualizarFeed()"> -->
 
   <body>
     <main class="main">
@@ -50,57 +46,60 @@
             <div class="boxKpi"></div>
           </section>
 
-          <section class="secMeio">
-            <div class="graficoMeio"><canvas id="myChart1"></canvas></div>
-            <div class="graficoMeio"><canvas id="myChart2"></canvas></div>
-          </section>
+        <section class="secMeio">
+          <div class="graficoMeio"><canvas id="myChart1"></canvas></div>
+          <div class="graficoMeio"><canvas id="myChart2"></canvas></div>
+        </section>
 
-          <section class="secBaixo">
-            <div class="graficoMeio"><canvas id="myChart3"></canvas></div>
-            <div class="graficoMeio"><canvas id="myChart4"></canvas></div>
-          </section>
-        </article>
-
-        <article class="articleLateral">
-          <section class="secFiltro">
-            <div class="boxFiltro">
-              <select name="" id="">
-                <option value="#">Periodo</option>
-                <option value="manha">Manhã</option>
-                <option value="tituloGraficos">Tarde</option>
-              </select>
-            </div>
-            <div class="boxFiltro">
-              <select name="" id="">
-                <option value="#">Periodo</option>
-                <option value="manha">Manhã</option>
-                <option value="tituloGraficos">Tarde</option>
-              </select>
-            </div>
-            <div class="boxFiltro">
-              <select name="" id="">
-                <option value="#">Periodo</option>
-
-                <option value="manha">Manhã</option>
-                <option value="tituloGraficos">Tarde</option>
-              </select>
-            </div>
-            <div class="boxFiltro">
-              <select name="" id="">
-                <option value="#">Periodo</option>
-                <option value="manha">Manhã</option>
-                <option value="tituloGraficos">Tarde</option>
-              </select>
-            </div>
-          </section>
-          <section class="secLateral">
-            <div class="graficoLaterais primeiroBox"><canvas id="myChart5"></canvas></div>
-            <div class="graficoLaterais"><canvas id="myChart6"></canvas></div>
-          </section>
-        </article>
+        <section class="secBaixo">
+          <div class="graficoMeio"><canvas id="myChart3"></canvas></div>
+          <div class="graficoMeio"><canvas id="myChart4"></canvas></div>
+        </section>
       </article>
-    </main>
-  </body>
+
+      <article class="articleLateral">
+        <section class="secFiltro">
+          <div class="boxFiltro">
+            <select name="" id="">
+              <option value="#">Periodo</option>
+              <option value="manha">Manhã</option>
+              <option value="tituloGraficos">Tarde</option>
+              <option value="tituloGraficos">Noite</option>
+              <option value="tituloGraficos">Madrugada</option>
+            </select>
+          </div>
+          <div class="boxFiltro">
+            <select name="" id="">
+              <option value="#">Periodo</option>
+              <option value="manha">Manhã</option>
+              <option value="tituloGraficos">Tarde</option>
+            </select>
+          </div>
+          <div class="boxFiltro">
+            <select name="" id="">
+              <option value="#">Periodo</option>
+
+              <option value="manha">Manhã</option>
+              <option value="tituloGraficos">Tarde</option>
+            </select>
+          </div>
+          <div class="boxFiltro">
+            <select name="" id="">
+              <option value="#">Periodo</option>
+              <option value="manha">Manhã</option>
+              <option value="tituloGraficos">Tarde</option>
+            </select>
+          </div>
+        </section>
+        <section class="secLateral">
+          <div class="graficoLaterais primeiroBox"><canvas id="myChart5"></canvas></div>
+          <div class="graficoLaterais"><canvas id="myChart6"></canvas></div>
+        </section>
+      </article>
+    </article>
+  </main>
+</body>
+
 </html>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -122,6 +121,8 @@
           label: "# of Votes",
           data: [12, 19, 3, 5, 2, 3],
           borderWidth: 1,
+          // backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          // borderColor: 'rgba(75, 192, 192, 1)',
         },
       ],
     },
@@ -129,6 +130,50 @@
       scales: {
         y: {
           beginAtZero: true,
+          ticks: {
+            color: '#FFFFFF',
+            font: {
+              size: 14,
+              family: 'Arial',
+              weight: 'bold',
+            },
+          },
+          title: {
+            display: true,
+            text: 'Número de Votos',
+            color: '#FFFFFF',
+            font: {
+              size: 16,
+              family: 'Arial',
+              weight: 'bold',
+            },
+          },
+          grid: {
+          display: false, 
+        },
+        },
+        x: {
+          ticks: {
+            color: '#FFFFFF',
+            font: {
+              size: 14,
+              family: 'Arial',
+              weight: 'bold',
+            },
+          },
+          title: {
+            display: true,
+            text: 'titulo',
+            color: '#FFFFFF', 
+            font: {
+              size: 16,
+              family: 'Arial',
+              weight: 'bold',
+            },
+          },
+          grid: {
+          display: false, // Remove as linhas de grade no eixo Y
+        },
         },
       },
     },

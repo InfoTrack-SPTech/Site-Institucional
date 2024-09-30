@@ -2,6 +2,7 @@ body{
   margin: 0;
   padding: 0;
   overflow: hidden;
+  background-color: black;
 
 }
 
@@ -31,18 +32,22 @@ body{
 .sanduiche img{
   margin-top: 5px;
   height: 25px;
+  cursor: pointer;
 }
 .dashicon img{
   margin-top: 40px;
   height: 30px;
+  cursor: pointer;
 }
 .conta img{
   margin-top: 15px;
   height: 30px;
+  cursor: pointer;
 }
 .lembretes img{
   margin-top: 15px;
   height: 30px;
+  cursor: pointer;
 }
 
 .articlePai {
@@ -71,8 +76,9 @@ body{
 .boxKpi{
   width: 170px;
   height: 100px;
-  background-color: dimgray;
+  background-color:   rgb(78, 78, 78);
   margin-right: 6px;
+  border-radius: 10%;
 
 }
 
@@ -87,34 +93,55 @@ body{
   box-sizing: border-box;
   width: 99%;
   height: 44.9vh;
-  background-color: dimgray;
+  background-color: rgb(78, 78, 78);
   margin-left: 3px;
+  border-radius: 5%;
 }
 
 .primeiroBox{
   margin-bottom: 5px;
 }
 
-.secMeio, .secBaixo{
+/* .secMeio, .secBaixo{
   display: flex;
   width: 96.8%;
-  height: 40%;
+  height: 38%;
   margin-left: 10px;
   justify-content: space-between;
+} */
+
+.secMeio {
+  display: flex;
+  width: 96.8%;
+  height: 30%;
+  margin-left: 10px;
+  justify-content: space-between;
+  margin-bottom: 8%; 
 }
+
+.secBaixo {
+  display: flex;
+  width: 96.8%;
+  height: 30%;
+  margin-left: 10px;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+
 
 .graficoMeio{
   width: 49.6%;
-  height: 260px;
-  background-color: dimgray;
+  height: 245px;
+  background-color: rgb(78, 78, 78);
+  border-radius: 5%;
 }
 
 .secFiltro{
   width: 99%;
-  height: 30px;
+  height: 35px;
   margin-left: -10px;
   margin-top: 9px;
-  background-color: dimgray;
+  background-color: rgb(0, 0, 0);
 }
 
 .secFiltro{
@@ -125,8 +152,10 @@ body{
 .boxFiltro select{
   width: 100px;
   height: 100%;
-  background-color: black;
+  background-color: rgb(104, 0, 0);
   color: white;
+  border-radius: 10%;
+  border-color: black;
 }
 
 
