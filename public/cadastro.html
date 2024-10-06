@@ -123,17 +123,41 @@
     const confirmarSenha = confirmacao_senha_input.value;
 
     if(nome == "" || email == "" || senha == "" || telefone == "" || idEmpresa <= 0){
-      alert("Informe todos os campos")
+      Swal.fire({
+        title: "Operação não realizada!", 
+        text: "Informe todos os campos",
+        icon: "error"
+      });
     } else if(email.indexOf("@") == -1 || email.indexOf(".") == -1){
-      alert("Esse email é inválido")
+      Swal.fire({
+        title: "Operação não realizada!", 
+        text: "Esse email é inválido",
+        icon: "error"
+      });
     } else if(senha.length < 8){
-      alert("Senha muito curta")
+      Swal.fire({
+        title: "Operação não realizada!", 
+        text: "Senha muito curta",
+        icon: "error"
+      });
     } else if(senha.indexOf("&") == -1 && senha.indexOf("@") == -1 && senha.indexOf("#") && senha.indexOf("$") == -1){
-      alert("A senha precisa de ao menos um caractere especial");
+      Swal.fire({
+        title: "Operação não realizada!", 
+        text: "A senha precisa de ao menos um caractere especial",
+        icon: "error"
+      });
     } else if(senha != confirmarSenha){
-      alert("As senhas não são iguais");
+      Swal.fire({
+        title: "Operação não realizada!", 
+        text: "As senhas não são iguais",
+        icon: "error"
+      });
     } else if(idEmpresa <= 0 || idEmpresa == "#"){
-      alert("A empresa selecionada é inválida")
+      Swal.fire({
+        title: "Operação não realizada!", 
+        text: "A empresa selecionada é inválida",
+        icon: "error"
+      });
     } else {
       
       fetch(`/usuarios/cadastrar/${idEmpresa}`, {
@@ -165,7 +189,7 @@
         } else{
           res.text().then((err) => {
             Swal.fire({
-              title: "Operação não concluída!", 
+              title: "Operação não realizada!", 
               text: err,
               icon: "error"
             });
