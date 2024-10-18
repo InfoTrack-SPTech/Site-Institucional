@@ -1,56 +1,89 @@
-body{
+body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: black;
+  background: linear-gradient(180deg, #666666, #E0E0E0);
 
 }
 
-.main{
+.main {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
   display: flex;
 
 }
-.sidebar{
+
+.sidebar {
   box-sizing: border-box;
   width: 5%;
   height: 100vh;
-  background-color: rgb(124, 0, 0);
+  background-color: #161616;
   padding: 20px;
   display: flex;
   flex-direction: column;
   cursor: pointer;
   color: #fff;
-  
+  text-decoration: none;
+
 }
 
-.sidebar a{
-  font-size: 25px;
+.sidebar a {
+  font-size: 20px;
+  margin-top: 28px;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
 }
-.sobrepor{
+
+.sidebar a:last-child {
+  margin-bottom: 0;
+}
+
+.sidebar a:hover {
+  background-color: rgba(1, 1, 155, 0.137);
+  text-decoration: none;
+}
+
+.sidebar img {
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.sidebar img:hover {
+  box-shadow: 0 0 10px rgb(169, 85, 247);
+  border-radius: 70%;
+  background-color: rgb(9, 68, 151);
+  color: #47008a;
+}
+
+.sobrepor {
   z-index: 2;
   width: 35%;
   align-items: left;
 }
 
-.sanduiche img{
+
+.sanduiche img {
   margin-top: 5px;
   height: 25px;
   cursor: pointer;
 }
-.dashicon img{
+
+.dashicon img {
   margin-top: 40px;
   height: 30px;
   cursor: pointer;
 }
-.conta img{
+
+.conta img {
   margin-top: 15px;
   height: 30px;
   cursor: pointer;
 }
-.lembretes img{
+
+.lembretes img {
   margin-top: 15px;
   height: 30px;
   cursor: pointer;
@@ -62,49 +95,50 @@ body{
   height: 100vh;
 }
 
-.article{
+.article {
   width: 95%;
   height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-.articleLateral{
+.articleLateral {
   width: 100%;
   height: 100%;
 }
-.sec1{
+
+.sec1 {
   display: flex;
   padding: 10px;
 
 }
 
-.boxKpi{
+.boxKpi {
   width: 170px;
   height: 100px;
-  background-color:   rgb(78, 78, 78);
+  background-color: #161616;
   margin-right: 6px;
-  border-radius: 10%;
+  /* border-radius: 10%; */
 
 }
 
-.secLateral{
+.secLateral {
   width: 100%;
   height: 100%;
   padding-top: 9px;
   margin-left: -10px;
 }
 
-.graficoLaterais{
+.graficoLaterais {
   box-sizing: border-box;
   width: 99%;
   height: 44.9vh;
-  background-color: rgb(78, 78, 78);
+  background-color: #161616;
   margin-left: 3px;
-  border-radius: 5%;
+  /* border-radius: 5%; */
 }
 
-.primeiroBox{
+.primeiroBox {
   margin-bottom: 5px;
 }
 
@@ -122,7 +156,7 @@ body{
   height: 30%;
   margin-left: 10px;
   justify-content: space-between;
-  margin-bottom: 8%; 
+  margin-bottom: 8%;
 }
 
 .secBaixo {
@@ -135,33 +169,51 @@ body{
 }
 
 
-.graficoMeio{
+.graficoMeio {
   width: 49.6%;
   height: 245px;
-  background-color: rgb(78, 78, 78);
-  border-radius: 5%;
+  background-color: #161616;
+  /* border-radius: 5%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin: 0 10px;  */
 }
 
-.secFiltro{
+.secFiltro {
   width: 99%;
   height: 35px;
   margin-left: -10px;
   margin-top: 9px;
-  background-color: rgb(0, 0, 0);
+  background-color: #666666;
 }
 
-.secFiltro{
+.secFiltro {
   display: flex;
   justify-content: space-between;
 }
 
-.boxFiltro select{
+.boxFiltro select {
   width: 100px;
   height: 100%;
-  background-color: rgb(104, 0, 0);
+  background-color: #161616;
   color: white;
   border-radius: 10%;
-  border-color: black;
+  /* border-color: black; */
 }
 
+.chart-bar {
+  background-color: #4A90E2; /* Azul Escuro */
+}
 
+.chart-pie {
+  background-color: #50E3C2; /* Verde Suave */
+}
+
+.chart-line {
+  background-color: #F5A623; /* Laranja Claro */
+}
+
+.chart-donut {
+  background-color: #BD10E0; /* Roxo Claro */
+}

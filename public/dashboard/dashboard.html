@@ -8,43 +8,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>INFODASH</title>
 
-    <link rel="stylesheet" href="./../css/dashboards.css" />
-    <script src="../js/sessao.js"></script>
-    <script src="./../js/alerta.js"></script>
-    <script src="./../js/animacao.js" defer></script>
+  <link rel="stylesheet" href="./../css/dashboards.css" />
+  <script src="../js/sessao.js"></script>
+  <script src="./../js/alerta.js"></script>
+  <script src="./../js/animacao.js" defer></script>
 
   <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link
     href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
     rel="stylesheet" />
+
 </head>
 
 <!-- <body onload=" atualizarFeed()"> -->
 
-  <body>
-    <main class="main">
-      <nav class="sidebar" id="menuSideBar">
-        <div class="sanduiche">
-            <img src="../assets/menu-aberto (1).png" alt="" id="iconMenuSideBar">
-        </div>
-        <div class="dashicon">
-            <img src="../assets/silhueta-de-icone-de-casa.png" alt="">
-        </div>
-        <div class="conta">
-            <img src="../assets/conta.png" alt="">
-        </div>
-        <div class="lembretes">
-            <img src="../assets/lembretes.png" alt="">
-        </div>
-      </nav>
-      <article class="articlePai">
-        <article class="article">
-          <section class="sec1">
-            <div class="boxKpi"></div>
-            <div class="boxKpi"></div>
-            <div class="boxKpi"></div>
-            <div class="boxKpi"></div>
-          </section>
+<body>
+  <main class="main">
+    <nav class="sidebar" id="menuSideBar">
+      <div class="sanduiche">
+        <img src="../assets/menu-aberto (1).png" alt="" id="iconMenuSideBar">
+      </div>
+      <div class="dashicon">
+        <img src="../assets/silhueta-de-icone-de-casa.png" alt="">
+      </div>
+      <div class="conta">
+        <img src="../assets/conta.png" alt="">
+      </div>
+      <div class="lembretes">
+        <img src="../assets/lembretes.png" alt="">
+      </div>
+    </nav>
+    <article class="articlePai">
+      <article class="article">
+        <section class="sec1">
+          <div class="boxKpi"></div>
+          <div class="boxKpi"></div>
+          <div class="boxKpi"></div>
+          <div class="boxKpi"></div>
+        </section>
 
         <section class="secMeio">
           <div class="graficoMeio"><canvas id="myChart1"></canvas></div>
@@ -60,8 +61,8 @@
       <article class="articleLateral">
         <section class="secFiltro">
           <div class="boxFiltro">
-            <select name="" id="">
-              <option value="#">Periodo</option>
+            <select ">
+              <option value=" #">Periodo</option>
               <option value="manha">Manhã</option>
               <option value="tituloGraficos">Tarde</option>
               <option value="tituloGraficos">Noite</option>
@@ -69,14 +70,14 @@
             </select>
           </div>
           <div class="boxFiltro">
-            <select name="" id="">
+            <select>
               <option value="#">Periodo</option>
               <option value="manha">Manhã</option>
               <option value="tituloGraficos">Tarde</option>
             </select>
           </div>
           <div class="boxFiltro">
-            <select name="" id="">
+            <select>
               <option value="#">Periodo</option>
 
               <option value="manha">Manhã</option>
@@ -84,7 +85,7 @@
             </select>
           </div>
           <div class="boxFiltro">
-            <select name="" id="">
+            <select>
               <option value="#">Periodo</option>
               <option value="manha">Manhã</option>
               <option value="tituloGraficos">Tarde</option>
@@ -115,14 +116,22 @@
   new Chart(ctx1, {
     type: "bar",
     data: {
-      labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+      labels: ["Red", "Blue", "Yellow", "Green", "Purple"],
       datasets: [
         {
-          label: "# of Votes",
+          label: "Top 5 crimes",
           data: [12, 19, 3, 5, 2, 3],
           borderWidth: 1,
-          // backgroundColor: 'rgba(75, 192, 192, 0.2)',
-          // borderColor: 'rgba(75, 192, 192, 1)',
+          backgroundColor: [
+            '#03045E',
+            '#1E90FF',
+            '#E6E6FA',
+            '#6A5ACD',
+            '#9370DB'
+          ],
+          borderColor: [
+            'rgba(255,255,255)'
+          ],
         },
       ],
     },
@@ -133,38 +142,28 @@
           ticks: {
             color: '#FFFFFF',
             font: {
-              size: 14,
+              size: 12,
               family: 'Arial',
               weight: 'bold',
             },
           },
-          title: {
-            display: true,
-            text: 'Número de Votos',
-            color: '#FFFFFF',
-            font: {
-              size: 16,
-              family: 'Arial',
-              weight: 'bold',
-            },
-          },
+
           grid: {
-          display: false, 
-        },
+            display: false,
+          },
         },
         x: {
           ticks: {
             color: '#FFFFFF',
             font: {
-              size: 14,
+              size: 12,
               family: 'Arial',
               weight: 'bold',
             },
           },
           title: {
             display: true,
-            text: 'titulo',
-            color: '#FFFFFF', 
+            color: '#FFFFFF',
             font: {
               size: 16,
               family: 'Arial',
@@ -172,21 +171,28 @@
             },
           },
           grid: {
-          display: false, // Remove as linhas de grade no eixo Y
-        },
+            display: false,
+          },
         },
       },
     },
   });
   new Chart(ctx2, {
-    type: "doughnut",
+    type: "pie",
     data: {
-      labels: ["Red", "Blue", "Yellow"],
+      labels: ["Red", "Blue"],
       datasets: [
         {
           label: "# of Votes",
-          data: [12, 19, 3, 5, 2, 3],
+          data: [12, 19],
           borderWidth: 1,
+          backgroundColor: [
+            'rgb(3, 4, 94)',
+            'rgb(148,0,211)'
+          ],
+          borderColor: [
+            'rgba(255,255,255)'
+          ],
         },
       ],
     },
@@ -194,10 +200,36 @@
       scales: {
         y: {
           beginAtZero: true,
+          ticks: {
+            color: '#FFFFFF',
+            font: {
+              size: 12,
+              family: 'Arial',
+              weight: 'bold',
+            },
+          },
+
+          grid: {
+            display: false,
+          },
+        },
+        x: {
+          ticks: {
+            color: '#FFFFFF',
+            font: {
+              size: 12,
+              family: 'Arial',
+              weight: 'bold',
+            },
+          },
+          grid: {
+            display: false,
+          },
         },
       },
     },
-  });
+  },
+  );
   new Chart(ctx3, {
     type: "bar",
     data: {
@@ -207,6 +239,12 @@
           label: "# of Votes",
           data: [12, 19, 3, 5, 2, 3],
           borderWidth: 1,
+          backgroundColor: [
+            'rgba(3, 4, 94)'
+          ],
+          borderColor: [
+            'rgba(255,255,255)'
+          ],
         },
       ],
     },
@@ -214,10 +252,36 @@
       scales: {
         y: {
           beginAtZero: true,
+          ticks: {
+            color: '#FFFFFF',
+            font: {
+              size: 12,
+              family: 'Arial',
+              weight: 'bold',
+            },
+          },
+
+          grid: {
+            display: false,
+          },
+        },
+        x: {
+          ticks: {
+            color: '#FFFFFF',
+            font: {
+              size: 12,
+              family: 'Arial',
+              weight: 'bold',
+            },
+          },
+          grid: {
+            display: false,
+          },
         },
       },
     },
-  });
+  },
+  );
   new Chart(ctx4, {
     type: "doughnut",
     data: {
@@ -225,8 +289,18 @@
       datasets: [
         {
           label: "# of Votes",
-          data: [12, 19, 3, 5, 2, 3],
+          data: [12, 19, 3],
           borderWidth: 1,
+          backgroundColor: [
+            'rgb(3, 4, 94)',
+            'rgb(148,0,211)',
+            'rgb(75,0,130)',
+            
+          ],
+          borderColor: [
+            'rgb(255,255,255)'
+
+          ],
         },
       ],
     },
@@ -234,10 +308,36 @@
       scales: {
         y: {
           beginAtZero: true,
+          ticks: {
+            color: '#FFFFFF',
+            font: {
+              size: 12,
+              family: 'Arial',
+              weight: 'bold',
+            },
+          },
+
+          grid: {
+            display: false,
+          },
+        },
+        x: {
+          ticks: {
+            color: '#FFFFFF',
+            font: {
+              size: 12,
+              family: 'Arial',
+              weight: 'bold',
+            },
+          },
+          grid: {
+            display: false,
+          },
         },
       },
     },
-  });
+  },
+  );
   new Chart(ctx5, {
     type: "bar",
     data: {
@@ -247,6 +347,12 @@
           label: "# of Votes",
           data: [12, 19, 3, 5, 2, 3],
           borderWidth: 1,
+          backgroundColor: [
+            'rgba(3, 4, 94)'
+          ],
+          borderColor: [
+            'rgba(255,255,255)'
+          ],
         },
       ],
     },
@@ -254,10 +360,36 @@
       scales: {
         y: {
           beginAtZero: true,
+          ticks: {
+            color: '#FFFFFF',
+            font: {
+              size: 12,
+              family: 'Arial',
+              weight: 'bold',
+            },
+          },
+
+          grid: {
+            display: false,
+          },
+        },
+        x: {
+          ticks: {
+            color: '#FFFFFF',
+            font: {
+              size: 12,
+              family: 'Arial',
+              weight: 'bold',
+            },
+          },
+          grid: {
+            display: false,
+          },
         },
       },
     },
-  });
+  },
+  );
   new Chart(ctx6, {
     type: "line",
     data: {
@@ -267,6 +399,12 @@
           label: "# of Votes",
           data: [12, 19, 3, 5, 2, 3],
           borderWidth: 1,
+          backgroundColor: [
+            '#F5A623'
+          ],
+          borderColor: [
+            'rgba(255,255,255)'
+          ],
         },
       ],
     },
@@ -274,10 +412,36 @@
       scales: {
         y: {
           beginAtZero: true,
+          ticks: {
+            color: '#FFFFFF',
+            font: {
+              size: 12,
+              family: 'Arial',
+              weight: 'bold',
+            },
+          },
+
+          grid: {
+            display: false,
+          },
+        },
+        x: {
+          ticks: {
+            color: '#FFFFFF',
+            font: {
+              size: 12,
+              family: 'Arial',
+              weight: 'bold',
+            },
+          },
+          grid: {
+            display: false,
+          },
         },
       },
     },
-  });
+  },
+  );
 </script>
 
 <script>
