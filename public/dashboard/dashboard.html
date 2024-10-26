@@ -12,6 +12,8 @@
   <script src="../js/sessao.js"></script>
   <script src="./../js/alerta.js"></script>
   <script src="./../js/animacao.js" defer></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/treemap.js"></script>
 
   <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link
@@ -41,20 +43,28 @@
     <article class="articlePai">
       <article class="article">
         <section class="sec1">
-          <div class="boxKpi"></div>
+          <div class="boxKpi kpiCrime">
+            <div>
+              <h1>Taxa de Ocorrência de Roubos e Furtos</h1>
+              <p>245.000</p>
+            </div>
+
+            <hr>
+            <div></div>
+          </div>
           <div class="boxKpi"></div>
           <div class="boxKpi"></div>
           <div class="boxKpi"></div>
         </section>
 
         <section class="secMeio">
-          <div class="graficoMeio"><canvas id="myChart1"></canvas></div>
-          <div class="graficoMeio"><canvas id="myChart2"></canvas></div>
+          <div id="graficoMeio"></div>
+          <div id="containerTreemap" style="width: 100%; height: 240px; "></div>
         </section>
 
         <section class="secBaixo">
-          <div class="graficoMeio"><canvas id="myChart3"></canvas></div>
-          <div class="graficoMeio"><canvas id="myChart4"></canvas></div>
+          <div class="graficoBaixo"><canvas id="myChart3"></canvas></div>
+          <div class="graficoBaixo"><canvas id="myChart4"></canvas></div>
         </section>
       </article>
 
@@ -62,7 +72,7 @@
         <section class="secFiltro">
           <div class="boxFiltro">
             <select ">
-              <option value=" #">Periodo</option>
+              <option value=" #" selected disabled>Período</option>
               <option value="manha">Manhã</option>
               <option value="tituloGraficos">Tarde</option>
               <option value="tituloGraficos">Noite</option>
@@ -71,12 +81,12 @@
           </div>
           <div class="boxFiltro">
             <select>
-              <option value="#">Periodo</option>
-              <option value="manha">Manhã</option>
-              <option value="tituloGraficos">Tarde</option>
+              <option value="#" selected disabled>Local</option>
+              <option value="manha">Comércio</option>
+              <option value="tituloGraficos">Residência</option>
             </select>
           </div>
-          <div class="boxFiltro">
+          <!-- <div class="boxFiltro">
             <select>
               <option value="#">Periodo</option>
 
@@ -90,12 +100,14 @@
               <option value="manha">Manhã</option>
               <option value="tituloGraficos">Tarde</option>
             </select>
-          </div>
+          </div> -->
         </section>
         <section class="secLateral">
           <div class="graficoLaterais primeiroBox"><canvas id="myChart5"></canvas></div>
           <div class="graficoLaterais"><canvas id="myChart6"></canvas></div>
         </section>
+
+
       </article>
     </article>
   </main>
@@ -113,123 +125,131 @@
   const ctx5 = document.getElementById('myChart5');
   const ctx6 = document.getElementById('myChart6');
 
-  new Chart(ctx1, {
-    type: "bar",
-    data: {
-      labels: ["Red", "Blue", "Yellow", "Green", "Purple"],
-      datasets: [
-        {
-          label: "Top 5 crimes",
-          data: [12, 19, 3, 5, 2, 3],
-          borderWidth: 1,
-          backgroundColor: [
-            '#03045E',
-            '#1E90FF',
-            '#E6E6FA',
-            '#6A5ACD',
-            '#9370DB'
-          ],
-          borderColor: [
-            'rgba(255,255,255)'
-          ],
-        },
-      ],
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: {
-            color: '#FFFFFF',
-            font: {
-              size: 12,
-              family: 'Arial',
-              weight: 'bold',
-            },
-          },
 
-          grid: {
-            display: false,
-          },
-        },
-        x: {
-          ticks: {
-            color: '#FFFFFF',
-            font: {
-              size: 12,
-              family: 'Arial',
-              weight: 'bold',
-            },
-          },
-          title: {
-            display: true,
-            color: '#FFFFFF',
-            font: {
-              size: 16,
-              family: 'Arial',
-              weight: 'bold',
-            },
-          },
-          grid: {
-            display: false,
-          },
-        },
-      },
+  Highcharts.chart('containerTreemap', {
+    chart: {
+        backgroundColor: 'rgb(31, 24, 54)',
+        events: {
+            load: function() {
+                this.update({
+                    title: {
+                        style: {
+                            color: '#FFFFFF',
+                            fontSize: '18px',
+                            fontWeight: 'bold'
+                        }
+                    }
+                })
+            }
+        }
     },
-  });
-  new Chart(ctx2, {
-    type: "pie",
-    data: {
-      labels: ["Red", "Blue"],
-      datasets: [
-        {
-          label: "# of Votes",
-          data: [12, 19],
-          borderWidth: 1,
-          backgroundColor: [
-            'rgb(3, 4, 94)',
-            'rgb(148,0,211)'
-          ],
-          borderColor: [
-            'rgba(255,255,255)'
-          ],
-        },
-      ],
+    colorAxis: {
+        minColor: '#FFFFFF',
+        maxColor: '#FF0000',
     },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: {
-            color: '#FFFFFF',
-            font: {
-              size: 12,
-              family: 'Arial',
-              weight: 'bold',
-            },
-          },
+    series: [{
+        type: 'treemap',
+        layoutAlgorithm: 'squarified',
+        clip: false,
+        data: [{
+            name: 'São Paulo',
+            value: 6,
+            color: '#F8BBD0'  // Rosa pastel
+        }, {
+            name: 'Botucatu',
+            value: 6,
+            color: '#B3E5FC'  // Azul pastel
+        }, {
+            name: 'Barueri',
+            value: 4,
+            color: '#C8E6C9'  // Verde pastel
+        }, {
+            name: 'Campinas',
+            value: 3,
+            color: '#E1BEE7'  // Lilás pastel
+        }, {
+            name: 'Santos',
+            value: 2,
+            color: '#FFF9C4'  // Amarelo pastel
+        }, {
+            name: 'Campina Grande',
+            value: 2,
+            color: '#F8BBD0'  // Rosa pastel
+        }, {
+            name: 'Itaí',
+            value: 1,
+            color: '#B3E5FC'  // Azul pastel
+        }]
+    }],
+    title: {
+        text: 'Municípios com mais registros de crimes',
+    },
+    tooltip: {
+        headerFormat: '',
+        pointFormat: '<b>{point.name}</b>: {point.value} crimes'
+    },
+    plotOptions: {
+        treemap: {
+            borderWidth: 2,
+            borderColor: '#000000'
+        }
+    }
+});
 
-          grid: {
-            display: false,
-          },
-        },
-        x: {
-          ticks: {
-            color: '#FFFFFF',
-            font: {
-              size: 12,
-              family: 'Arial',
-              weight: 'bold',
-            },
-          },
-          grid: {
-            display: false,
-          },
-        },
-      },
-    },
-  },
-  );
+ 
+  // new Chart(ctx2, {
+  //   type: "pie",
+  //   data: {
+  //     labels: ["Red", "Blue"],
+  //     datasets: [
+  //       {
+  //         label: "# of Votes",
+  //         data: [12, 19],
+  //         borderWidth: 1,
+  //         backgroundColor: [
+  //           'rgb(173, 216, 230)',
+  //           'rgb(152, 251, 152)'
+  //         ],
+  //         borderColor: [
+  //           'rgba(255,255,255)'
+  //         ],
+  //       },
+  //     ],
+  //   },
+  //   options: {
+  //     scales: {
+  //       y: {
+  //         beginAtZero: true,
+  //         ticks: {
+  //           color: '#FFFFFF',
+  //           font: {
+  //             size: 12,
+  //             family: 'Arial',
+  //             weight: 'bold',
+  //           },
+  //         },
+
+  //         grid: {
+  //           display: false,
+  //         },
+  //       },
+  //       x: {
+  //         ticks: {
+  //           color: '#FFFFFF',
+  //           font: {
+  //             size: 12,
+  //             family: 'Arial',
+  //             weight: 'bold',
+  //           },
+  //         },
+  //         grid: {
+  //           display: false,
+  //         },
+  //       },
+  //     },
+  //   },
+  // },
+  // );
   new Chart(ctx3, {
     type: "bar",
     data: {
@@ -240,10 +260,13 @@
           data: [12, 19, 3, 5, 2, 3],
           borderWidth: 1,
           backgroundColor: [
-            'rgba(3, 4, 94)'
+            'rgb(173, 216, 230)',
+            'rgb(152, 251, 152)',
+            'rgb(255, 182, 193)'
+
           ],
           borderColor: [
-            'rgba(255,255,255)'
+            '#000000'
           ],
         },
       ],
@@ -292,13 +315,13 @@
           data: [12, 19, 3],
           borderWidth: 1,
           backgroundColor: [
-            'rgb(3, 4, 94)',
-            'rgb(148,0,211)',
-            'rgb(75,0,130)',
-            
+            'rgb(255, 255, 204)',
+            'rgb(221, 160, 221)',
+            'rgb(255, 228, 181)',
+
           ],
           borderColor: [
-            'rgb(255,255,255)'
+            '#000000'
 
           ],
         },
@@ -348,10 +371,13 @@
           data: [12, 19, 3, 5, 2, 3],
           borderWidth: 1,
           backgroundColor: [
-            'rgba(3, 4, 94)'
+          'rgb(255, 255, 204)',
+            'rgb(221, 160, 221)',
+            'rgb(255, 228, 181)',
+
           ],
           borderColor: [
-            'rgba(255,255,255)'
+            '#000000'
           ],
         },
       ],
@@ -390,20 +416,24 @@
     },
   },
   );
-  new Chart(ctx6, {
-    type: "line",
+   new Chart(ctx6, {
+    type: "bar",
     data: {
-      labels: ["Red", "Blue", "Yellow"],
+      labels: ["Red", "Blue", "Yellow", "Green", "Purple"],
       datasets: [
         {
-          label: "# of Votes",
+          label: "Top 5 crimes",
           data: [12, 19, 3, 5, 2, 3],
           borderWidth: 1,
           backgroundColor: [
-            '#F5A623'
+          'rgb(173, 216, 230)',
+            'rgb(152, 251, 152)',
+            'rgb(255, 182, 193)',
+            'rgb(255, 255, 204)',
+            'rgb(221, 160, 221)'
           ],
           borderColor: [
-            'rgba(255,255,255)'
+            '#000000'
           ],
         },
       ],
@@ -434,14 +464,22 @@
               weight: 'bold',
             },
           },
+          title: {
+            display: true,
+            color: '#FFFFFF',
+            font: {
+              size: 16,
+              family: 'Arial',
+              weight: 'bold',
+            },
+          },
           grid: {
             display: false,
           },
         },
       },
     },
-  },
-  );
+  });
 </script>
 
 <script>
