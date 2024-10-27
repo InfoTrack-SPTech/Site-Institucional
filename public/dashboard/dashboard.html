@@ -272,71 +272,60 @@
   // },
   // );
   new Chart(ctx3, {
-  type: "bar",
+  type: 'bar',
   data: {
-    labels: ["Manhã"], // Adicionando todos os períodos aqui
-    datasets: [
-      {
-        label: "Manhã",
-        data: [30040],
-        borderWidth: 1,
-        backgroundColor: 'rgb(173, 216, 230)',
-        borderColor: '#000000',
-      },
-      {
-        label: "Tarde",
-        data: [26744],
-        borderWidth: 1,
-        backgroundColor: 'rgb(152, 251, 152)',
-        borderColor: '#000000',
-      },
-      {
-        label: "Noite",
-        data: [66855],
-        borderWidth: 1,
-        backgroundColor: 'rgb(255, 182, 193)',
-        borderColor: '#000000',
-      },
-      {
-        label: "Madrugada",
-        data: [18700],
-        borderWidth: 1,
-        backgroundColor: 'rgb(255, 255, 204)',
-        borderColor: '#000000',
-      },
+    labels: [
+      'Manhã',
+      'Tarde',
+      'Noite',
+      'Madrugada'
     ],
+    datasets: [{
+      label: 'Média de Roubos e Furtos por Período',
+      data: [30040, 26744, 66855, 18700], // Adicione os dados correspondentes a cada período
+      backgroundColor: [
+        'rgba(173, 216, 230, 1)', // Cor da Manhã
+        'rgba(152, 251, 152, 1)', // Cor da Tarde
+        'rgba(255, 182, 193, 1)', // Cor da Noite
+        'rgba(255, 255, 204, 1)'  // Cor da Madrugada
+      ],
+      borderColor: '#000000',
+      borderWidth: 1,
+    }],
   },
   options: {
+    responsive: true,
     plugins: {
       title: {
         display: true,
         text: 'Média de Roubos e Furtos em São Paulo por Período do Dia',
-        color: '#FFFFFF',
         font: {
           size: 18,
           family: 'Arial',
           weight: 'bold',
         },
-        padding: {
-          top: 10,
-          bottom: 30,
+        color: '#FFFFFF',
+      },
+      legend: {
+        display: false,
+      },
+      tooltip: {
+        callbacks: {
+          label: function(tooltipItem) {
+            return `Média: ${tooltipItem.raw}`;
+          },
         },
       },
     },
     scales: {
       y: {
         beginAtZero: true,
-        max: 70000,  // Define um valor máximo para o eixo Y
+        max: 70000, // Define um valor máximo para o eixo Y
         ticks: {
           color: '#FFFFFF',
-          font: {
-            size: 12,
-            family: 'Arial',
-            weight: 'bold',
-          },
         },
         grid: {
-          display: false,
+          display: false, // Remover a grade do gráfico
         },
       },
       x: {
@@ -344,19 +333,15 @@
         categoryPercentage: 0.9, // Aumenta o espaço das categorias
         ticks: {
           color: '#FFFFFF',
-          font: {
-            size: 12,
-            family: 'Arial',
-            weight: 'bold',
-          },
         },
         grid: {
-          display: false,
+          display: false, // Remover a grade do gráfico
         },
       },
     },
   },
 });
+
 
 
 new Chart(ctx5, {
