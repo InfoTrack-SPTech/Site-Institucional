@@ -65,3 +65,30 @@ function toggleMenu() {
 }
 
 iconMenuSideBar.addEventListener("click", toggleMenu);
+
+
+
+
+
+
+
+
+
+
+
+// Bairro	Total de Casos
+// Sé	35.000
+// Brás	30.000
+// Liberdade	28.000
+// Vila Madalena	25.000
+// Mooca	22.000
+// Itaim Bibi	20.000
+// Tatuapé	18.000
+
+
+
+// Resumo Visual:
+// Período	Total de Casos
+// Dia	180.000
+// Noite	200.000
+// Madrugada	56.035
