@@ -34,7 +34,9 @@ body {
   text-decoration: none;
   padding: 10px;
   border-radius: 5px;
+  font-family: Arial, Helvetica, sans-serif;
   color: white;
+  font-weight: bold;
 }
 
 .sidebar a:last-child {
@@ -60,7 +62,7 @@ body {
 
 .sobrepor {
   z-index: 2;
-  width: 35%;
+  width: 20%;
   align-items: left;
 }
 
@@ -118,8 +120,28 @@ body {
   height: 100px;
   background-color: rgb(31, 24, 54);
   margin-right: 6px;
-  /* border-radius: 10%; */
+  padding: 10px; 
+  box-sizing: border-box; 
+  display: flex; 
+  flex-direction: column; 
+  justify-content: space-between; 
+  color: white; 
+  
+}
 
+h5 {
+  font-size: 14px; 
+  margin: 0; 
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+p {
+  font-size: 16px; 
+  margin: 0; 
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .kpiCrime{
@@ -139,7 +161,7 @@ body {
 .graficoLaterais {
   box-sizing: border-box;
   width: 99%;
-  height: 44.9vh;
+  height: 48.2vh;
   background-color: rgb(31, 24, 54);
   margin-left: 3px;
   /* border-radius: 5%; */
@@ -225,3 +247,4 @@ body {
   font-size: 18px;
   font-weight: bold;
 }
+

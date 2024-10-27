@@ -45,16 +45,38 @@
         <section class="sec1">
           <div class="boxKpi kpiCrime">
             <div>
-              <h1>Taxa de Ocorrência de Roubos e Furtos</h1>
+              <h5>Taxa de Ocorrência de Roubos e Furtos</h5>
               <p>245.000</p>
             </div>
-
             <hr>
             <div></div>
           </div>
-          <div class="boxKpi"></div>
-          <div class="boxKpi"></div>
-          <div class="boxKpi"></div>
+          <div class="boxKpi kpiTop2">
+            <div>
+              <h5>Top 2: Incidentes Mais Frequentes</h5>
+              <p></p>
+            </div>
+            <hr>
+            <div></div>
+          </div>
+          <div class="boxKpi kpiCrimeBimestre">
+            <div>
+              <h5>Variação de Crimes por Bimestre</h5>
+              <p></p>
+            </div>
+            <hr>
+            <div></div>
+          </div>
+          <div class="boxKpi kpiRegistroLocal">
+            <div>
+              <h5>Variação de Registros por Local</h5>
+              <p>Residência</p>
+            </div>
+            <hr>
+            <div>
+              <p>Comércio</p>
+            </div>
+          </div>
         </section>
 
         <section class="secMeio">
@@ -68,7 +90,7 @@
         </section>
       </article>
 
-      <article class="articleLateral">
+      <!-- <article class="articleLateral">
         <section class="secFiltro">
           <div class="boxFiltro">
             <select ">
@@ -85,8 +107,8 @@
               <option value="manha">Comércio</option>
               <option value="tituloGraficos">Residência</option>
             </select>
-          </div>
-          <!-- <div class="boxFiltro">
+          </div> -->
+      <!-- <div class="boxFiltro">
             <select>
               <option value="#">Periodo</option>
 
@@ -101,14 +123,14 @@
               <option value="tituloGraficos">Tarde</option>
             </select>
           </div> -->
-        </section>
-        <section class="secLateral">
-          <div class="graficoLaterais primeiroBox"><canvas id="myChart5"></canvas></div>
-          <div class="graficoLaterais"><canvas id="myChart6"></canvas></div>
-        </section>
+      <!-- </section> -->
+      <section class="secLateral">
+        <div class="graficoLaterais primeiroBox"><canvas id="myChart5"></canvas></div>
+        <div class="graficoLaterais"><canvas id="myChart6"></canvas></div>
+      </section>
 
 
-      </article>
+    </article>
     </article>
   </main>
 </body>
@@ -128,75 +150,75 @@
 
   Highcharts.chart('containerTreemap', {
     chart: {
-        backgroundColor: 'rgb(31, 24, 54)',
-        events: {
-            load: function() {
-                this.update({
-                    title: {
-                        style: {
-                            color: '#FFFFFF',
-                            fontSize: '18px',
-                            fontWeight: 'bold'
-                        }
-                    }
-                })
+      backgroundColor: 'rgb(31, 24, 54)',
+      events: {
+        load: function () {
+          this.update({
+            title: {
+              style: {
+                color: '#FFFFFF',
+                fontSize: '18px',
+                fontWeight: 'bold'
+              }
             }
+          })
         }
+      }
     },
     colorAxis: {
-        minColor: '#FFFFFF',
-        maxColor: '#FF0000',
+      minColor: '#FFFFFF',
+      maxColor: '#FF0000',
     },
     series: [{
-        type: 'treemap',
-        layoutAlgorithm: 'squarified',
-        clip: false,
-        data: [{
-            name: 'São Paulo',
-            value: 6,
-            color: '#F8BBD0'  // Rosa pastel
-        }, {
-            name: 'Botucatu',
-            value: 6,
-            color: '#B3E5FC'  // Azul pastel
-        }, {
-            name: 'Barueri',
-            value: 4,
-            color: '#C8E6C9'  // Verde pastel
-        }, {
-            name: 'Campinas',
-            value: 3,
-            color: '#E1BEE7'  // Lilás pastel
-        }, {
-            name: 'Santos',
-            value: 2,
-            color: '#FFF9C4'  // Amarelo pastel
-        }, {
-            name: 'Campina Grande',
-            value: 2,
-            color: '#F8BBD0'  // Rosa pastel
-        }, {
-            name: 'Itaí',
-            value: 1,
-            color: '#B3E5FC'  // Azul pastel
-        }]
+      type: 'treemap',
+      layoutAlgorithm: 'squarified',
+      clip: false,
+      data: [{
+        name: 'Barrafunda',
+        value: 6,
+        color: '#F8BBD0'  // Rosa pastel
+      }, {
+        name: 'Lapa',
+        value: 6,
+        color: '#B3E5FC'  // Azul pastel
+      }, {
+        name: 'Morumbi',
+        value: 4,
+        color: '#C8E6C9'  // Verde pastel
+      }, {
+        name: 'Bela Vista',
+        value: 3,
+        color: '#E1BEE7'  // Lilás pastel
+      }, {
+        name: 'Capão Redondo',
+        value: 2,
+        color: '#FFF9C4'  // Amarelo pastel
+      }, {
+        name: 'Brás',
+        value: 2,
+        color: '#F8BBD0'  // Rosa pastel
+      }, {
+        name: 'Pinheiros',
+        value: 1,
+        color: '#B3E5FC'  // Azul pastel
+      }]
     }],
     title: {
-        text: 'Municípios com mais registros de crimes',
+      text: 'Bairros com mais registros de crimes',
     },
     tooltip: {
-        headerFormat: '',
-        pointFormat: '<b>{point.name}</b>: {point.value} crimes'
+      headerFormat: '',
+      pointFormat: '<b>{point.name}</b>: {point.value} crimes'
     },
     plotOptions: {
-        treemap: {
-            borderWidth: 2,
-            borderColor: '#000000'
-        }
+      treemap: {
+        borderWidth: 2,
+        borderColor: '#000000'
+      }
     }
-});
+  });
 
- 
+
   // new Chart(ctx2, {
   //   type: "pie",
   //   data: {
@@ -253,16 +275,48 @@
   new Chart(ctx3, {
     type: "bar",
     data: {
-      labels: ["Red", "Blue", "Yellow"],
+      labels: ["Periodo"],
       datasets: [
         {
-          label: "# of Votes",
-          data: [12, 19, 3, 5, 2, 3],
+          label: "Manhã",
+          data: [12],
           borderWidth: 1,
           backgroundColor: [
             'rgb(173, 216, 230)',
+          ],
+          borderColor: [
+            '#000000'
+          ],
+        },
+        {
+          label: "Tarde",
+          data: [12],
+          borderWidth: 1,
+          backgroundColor: [
             'rgb(152, 251, 152)',
+          ],
+          borderColor: [
+            '#000000'
+          ],
+        },
+        {
+          label: "Noite",
+          data: [12],
+          borderWidth: 1,
+          backgroundColor: [
             'rgb(255, 182, 193)'
+
+          ],
+          borderColor: [
+            '#000000'
+          ],
+        },
+        {
+          label: "Madrugada",
+          data: [12],
+          borderWidth: 1,
+          backgroundColor: [
+            'rgb(255, 255, 204)',
 
           ],
           borderColor: [
@@ -272,33 +326,51 @@
       ],
     },
     options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: {
-            color: '#FFFFFF',
-            font: {
-              size: 12,
-              family: 'Arial',
-              weight: 'bold',
-            },
+      plugins: {
+        title: {
+          display: true,
+          text: 'Roubos e Furtos em São Paulo por Período do Dia',
+          color: '#FFFFFF',
+          font: {
+            size: 18,
+            family: 'Arial',
+            weight: 'bold',
           },
-
-          grid: {
-            display: false,
+          padding: {
+            top: 10,
+            bottom: 30,
           },
         },
-        x: {
-          ticks: {
-            color: '#FFFFFF',
-            font: {
-              size: 12,
-              family: 'Arial',
-              weight: 'bold',
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              color: '#FFFFFF',
+              font: {
+                size: 12,
+                family: 'Arial',
+                weight: 'bold',
+              },
+            },
+
+            grid: {
+              display: false,
             },
           },
-          grid: {
-            display: false,
+          x: {
+            ticks: {
+              color: '#FFFFFF',
+              font: {
+                size: 12,
+                family: 'Arial',
+                weight: 'bold',
+              },
+            },
+            grid: {
+              display: false,
+            },
           },
         },
       },
@@ -306,7 +378,7 @@
   },
   );
   new Chart(ctx4, {
-    type: "doughnut",
+    type: "pie",
     data: {
       labels: ["Red", "Blue", "Yellow"],
       datasets: [
@@ -318,6 +390,7 @@
             'rgb(255, 255, 204)',
             'rgb(221, 160, 221)',
             'rgb(255, 228, 181)',
+            'rgb(255, 255, 204)',
 
           ],
           borderColor: [
@@ -328,33 +401,51 @@
       ],
     },
     options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: {
-            color: '#FFFFFF',
-            font: {
-              size: 12,
-              family: 'Arial',
-              weight: 'bold',
-            },
+      plugins: {
+        title: {
+          display: true,
+          text: 'Local de Roubos e Furtos em São Paulo',
+          color: '#FFFFFF',
+          font: {
+            size: 18,
+            family: 'Arial',
+            weight: 'bold',
           },
-
-          grid: {
-            display: false,
+          padding: {
+            top: 10,
+            bottom: 30,
           },
         },
-        x: {
-          ticks: {
-            color: '#FFFFFF',
-            font: {
-              size: 12,
-              family: 'Arial',
-              weight: 'bold',
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              color: '#FFFFFF',
+              font: {
+                size: 12,
+                family: 'Arial',
+                weight: 'bold',
+              },
+            },
+
+            grid: {
+              display: false,
             },
           },
-          grid: {
-            display: false,
+          x: {
+            ticks: {
+              color: '#FFFFFF',
+              font: {
+                size: 12,
+                family: 'Arial',
+                weight: 'bold',
+              },
+            },
+            grid: {
+              display: false,
+            },
           },
         },
       },
@@ -362,7 +453,7 @@
   },
   );
   new Chart(ctx5, {
-    type: "bar",
+    type: "line",
     data: {
       labels: ["Red", "Blue", "Yellow"],
       datasets: [
@@ -371,62 +462,80 @@
           data: [12, 19, 3, 5, 2, 3],
           borderWidth: 1,
           backgroundColor: [
-          'rgb(255, 255, 204)',
+            'rgb(255, 255, 204)',
             'rgb(221, 160, 221)',
             'rgb(255, 228, 181)',
 
           ],
           borderColor: [
-            '#000000'
+            '#FFFFFF'
           ],
         },
       ],
     },
     options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: {
-            color: '#FFFFFF',
-            font: {
-              size: 12,
-              family: 'Arial',
-              weight: 'bold',
-            },
+      plugins: {
+        title: {
+          display: true,
+          text: 'Percentual de variação em relação ao mês anterior',
+          color: '#FFFFFF',
+          font: {
+            size: 18,
+            family: 'Arial',
+            weight: 'bold',
           },
-
-          grid: {
-            display: false,
+          padding: {
+            top: 10,
+            bottom: 30,
           },
         },
-        x: {
-          ticks: {
-            color: '#FFFFFF',
-            font: {
-              size: 12,
-              family: 'Arial',
-              weight: 'bold',
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              color: '#FFFFFF',
+              font: {
+                size: 12,
+                family: 'Arial',
+                weight: 'bold',
+              },
+            },
+
+            grid: {
+              display: false,
             },
           },
-          grid: {
-            display: false,
+          x: {
+            ticks: {
+              color: '#FFFFFF',
+              font: {
+                size: 12,
+                family: 'Arial',
+                weight: 'bold',
+              },
+            },
+            grid: {
+              display: false,
+            },
           },
         },
       },
     },
   },
   );
-   new Chart(ctx6, {
+  new Chart(ctx6, {
     type: "bar",
     data: {
       labels: ["Red", "Blue", "Yellow", "Green", "Purple"],
       datasets: [
         {
-          label: "Top 5 crimes",
+          label: "Top 5 ruas",
           data: [12, 19, 3, 5, 2, 3],
           borderWidth: 1,
           backgroundColor: [
-          'rgb(173, 216, 230)',
+            'rgb(173, 216, 230)',
             'rgb(152, 251, 152)',
             'rgb(255, 182, 193)',
             'rgb(255, 255, 204)',
@@ -439,42 +548,60 @@
       ],
     },
     options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: {
-            color: '#FFFFFF',
-            font: {
-              size: 12,
-              family: 'Arial',
-              weight: 'bold',
-            },
+      plugins: {
+        title: {
+          display: true,
+          text: 'As 5 Ruas com os Maiores Índices de Criminalidade',
+          color: '#FFFFFF',
+          font: {
+            size: 18,
+            family: 'Arial',
+            weight: 'bold',
           },
-
-          grid: {
-            display: false,
+          padding: {
+            top: 10,
+            bottom: 30,
           },
         },
-        x: {
-          ticks: {
-            color: '#FFFFFF',
-            font: {
-              size: 12,
-              family: 'Arial',
-              weight: 'bold',
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              color: '#FFFFFF',
+              font: {
+                size: 12,
+                family: 'Arial',
+                weight: 'bold',
+              },
+            },
+
+            grid: {
+              display: false,
             },
           },
-          title: {
-            display: true,
-            color: '#FFFFFF',
-            font: {
-              size: 16,
-              family: 'Arial',
-              weight: 'bold',
+          x: {
+            ticks: {
+              color: '#FFFFFF',
+              font: {
+                size: 12,
+                family: 'Arial',
+                weight: 'bold',
+              },
             },
-          },
-          grid: {
-            display: false,
+            title: {
+              display: true,
+              color: '#FFFFFF',
+              font: {
+                size: 16,
+                family: 'Arial',
+                weight: 'bold',
+              },
+            },
+            grid: {
+              display: false,
+            },
           },
         },
       },
