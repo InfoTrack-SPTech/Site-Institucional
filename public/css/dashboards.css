@@ -109,6 +109,12 @@ body {
 .articleLateral {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  align-items: center;
+  margin: 5px;
 }
 
 .sec1 {
