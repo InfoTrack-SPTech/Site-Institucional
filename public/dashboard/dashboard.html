@@ -46,42 +46,45 @@
           <div class="boxKpi kpiCrime">
             <div class="textoKpi">
               
-              <p class="pKpi1">Total de Ocorrências: </p>  <p id="totalOcorrencia">436.035 casos</p>
-              <p class="pKpi1">Média Mensal: </p> <p> 43.604 casos</p>
-              <p class="pKpi1">Percentual de variação:</p>  <p> +9,01%</p>
+              <p class="pKpi2">436.035 </p>  <p>Total de ocorrências</p>
+              <p class="pKpi2">43.604</p> <p> Média Mensal de Casos</p>
+              <p class="pKpi2">+9,01%</p>  <p> Percentual de Variação Mensal</p>
+
+         
+
             </div>
             
           </div>
           <div class="boxKpi kpiTop2">
             <div class="textoKpi">
-              <h5>Distribuição Percentual de Casos de Furto e Roubo</h5>
-              <p>Furtos: 230.000 - 59,5%</p>
-              <p>Roubos: 181.035 - 41,5%</p>
+              <p class="pKpi2">59,5%<br> </p>  <p>(230.000) <br>Total de Furtos</p><br>
+              <p class="pKpi2">41,5%<br> </p>  <p>(181.035) <br>Total de Roubos</p>
             </div>
             
           </div>
           <div class="boxKpi kpiTop2">
             <div class="textoKpi">
-              <h5>Percentual total de casos por Locais
-              </h5>
-              <p>Comercial: 230.000<br><p class="p2">. 52,7%</p></p>
-              <p>Residencial: 206.035<br><p class="p2"> . 47,3%</p></p>
+                     
+              <p class="pKpi2">52,7%<br> </p>  <p>(230.000) <br>Comercial</p><br>
+              <p class="pKpi2">47,3%<br> </p>  <p>(206.035) <br>Residencial</p>
+  
               
             </div>
           </div>
           <div class="boxKpi kpiTop2">
             <div class="textoKpi">
-              <h5>Variação Mensal de Casos: Comercial vs. Residencial</h5>
-              <p>Residência: +2.5%
-              </p>
-              <p>Comercial: +1.8%</p>
+              <h5>Variação Mensal de Casos</h5>
+              
+              <p class="pKpi2">+1.8%<br> </p>  <p>Comercial</p>
+              <p class="pKpi2">+2.5%<br> </p>  <p>Residencial</p>
+        
             </div>
             
         </section>
 
         <section class="secMeio">
           <div id="graficoMeio"></div>
-          <div id="containerTreemap" style="width: 100%; height: 240px; "></div>
+          <div id="containerTreemap" style="width: 100%; height: 280px;"></div>
         </section>
 
         <section class="secBaixo">
@@ -149,7 +152,11 @@
 
   Highcharts.chart('containerTreemap', {
     chart: {
-      backgroundColor: 'rgb(31, 24, 54)',
+      backgroundColor: '#272B4A',
+      style: { 
+      borderRadius: '7px',
+      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)',
+       },
       events: {
         load: function () {
           this.update({
@@ -175,31 +182,31 @@
       data: [{
         name: 'Sé',
         value: 	35000,
-        color: '#F8BBD0'  // Rosa pastel
+        color: '#fa0f0f'  
       }, {
         name: 'Brás',
         value: 	30000,
-        color: '#B3E5FC'  // Azul pastel
+        color: '#FF4500'  // Azul pastel
       }, {
         name: 'Liberdade',
         value: 	28000,
-        color: '#C8E6C9'  // Verde pastel
+        color: '#ff7700'  // Verde pastel
       }, {
         name: 'Vila Madalena',
         value: 	25000,
-        color: '#E1BEE7'  // Lilás pastel
+        color: '#FFA500'  // Lilás pastel
       }, {
         name: 'Capão Redondo',
         value: 	22000,
-        color: '#FFF9C4'  // Amarelo pastel
+        color: '#FFFF00'  // Amarelo pastel
       }, {
         name: 'Itaim Bibi',
         value: 	20000,
-        color: '#F8BBD0'  // Rosa pastel
+        color: '#fafa39'  // Rosa pastel
       }, {
         name: 'Tatuapé',
         value: 	18000,
-        color: '#B3E5FC'  // Azul pastel
+        color: '#F0E68C'  // Azul pastel
       }]
     }],
     title: {
@@ -211,7 +218,7 @@
     },
     plotOptions: {
       treemap: {
-        borderWidth: 2,
+        borderWidth: 1,
         borderColor: '#000000'
       }
     }
@@ -350,6 +357,7 @@ new Chart(ctx5, {
     labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro"], // Nomes dos 10 meses
     datasets: [
       {
+        label: "Comercial",
         data: [42500, 44200 ,43100, 42700, 43800, 44000, 43300 ,44400, 42900, 43700], // Dados que somam mais de 46 mil
         borderWidth: 2,
         backgroundColor: 'rgba(0, 0, 0, 0)', // Sem cor de fundo
@@ -368,7 +376,7 @@ new Chart(ctx5, {
     plugins: {
       title: {
         display: true,
-        text: 'Comparativo de Variação Mensal: Crimes em Áreas Comerciais e Residenciais',
+        text: 'Comparativo Mensal de Crimes em Áreas Comerciais e Residenciais',
         color: '#FFFFFF',
         font: {
           size: 18,
@@ -383,7 +391,6 @@ new Chart(ctx5, {
     },
     scales: {
       y: {
-        beginAtZero: true,
         ticks: {
           color: '#FFFFFF',
           font: {
