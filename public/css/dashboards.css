@@ -206,10 +206,10 @@ p {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content:space-evenly;
   overflow: hidden;
   align-items: center;
-  margin: 5px;
+  margin-top: 5px;
 }
 
 .graficoLaterais {
@@ -219,9 +219,8 @@ p {
   background-color:#272B4A;
   margin-left: 3px;
   /* border-radius: 5%; */
-  padding: 5px;
   border-radius: 7px;
-  margin: 5px;
+  margin: 10px;
 }
 
 .primeiroBox {
@@ -238,10 +237,12 @@ p {
 
 .secMeio {
   display: flex;
-  width: 96.8%;
+  width: 100%;
   height: 30%;
   margin-left: 10px;
   justify-content: space-between;
+  background-color: red;
+  padding: 10px;
 }
 
 .secBaixo {
@@ -302,5 +303,13 @@ p {
   fill: #333366; 
   font-size: 18px;
   font-weight: bold;
+}
+
+#containerTreemap{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin: 10px;
 }
 
