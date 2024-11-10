@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Conta</title>
+
+    <link rel="stylesheet" href="./css/conta.css">
+    <script src="./js/animacao.js" defer></script>
+    <script src="./js/tema.js" defer></script>
+    <script src="./js/logoutModal.js"></script>
+    <script src="./js/fotoPerfil.js"></script>
+    <script src="./js/editarModal.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+
+
+</head>
+
+<body>
+    <div class="nav">
+        <nav class="sidebar" id="menuSideBar">
+            <div class="sanduiche">
+                <img src="../public/assets/menu-aberto (1).png" alt="" id="iconMenuSideBar">
+            </div>
+            <div class="dashicon">
+                <a href="./dashboard/dashboard.html">
+                    <img src="../public/assets/silhueta-de-icone-de-casa.png" alt="">
+                </a>
+            </div>
+            <div class="conta">
+                <a href="./conta.html">
+                    <img src="../public/assets/conta.png" alt="">
+                </a>
+            </div>
+            <div class="lembretes">
+                <img src="../public/assets/lock.png" alt="">
+            </div>
+            <div class="switch">
+                <input type="checkbox" id="themeSwitch" class="switch-input" role="switch">
+                <label for="themeSwitch" class="switch-label"></label>
+            </div>
+        </nav>
+        <main class="main-content">
+            <h1>Minha Conta</h1>
+            <div class="container">
+                <div class="section usuario-info">
+                    <img src="./assets/user.png" alt="foto-usuario" class="foto-usuario">
+                    <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                    <div class="nome-usuario">
+                        <h3>Nome do Usuário</h3>
+                    </div>
+                </div>
+                <div class="section usuario-info">
+                    <div class="detalhes-usuario">
+                        <p>Email: usuario@exemplo.com</p>
+                        <p>Telefone: (11) 1234-5678</p>
+                        <p>Senha: ********</p>
+                        <button id="editButton" class="edit-button">
+                            <img src="./assets/edit.png" alt="Edit" class="edit-icon">
+                        </button>
+                    </div>
+                </div>
+                <div id="editModal" class="modal" style="display:none;">
+                    <div class="modal-editar">
+                        <h3>Editar Informações</h3>
+                        <form class="edit-form">
+                            <div class="form-columns">
+                                <div class="form-column">
+                                    <label for="nome">Nome:</label>
+                                    <input type="text" id="nome" name="nome">
+                
+                                    <label for="email">Email:</label>
+                                    <input type="email" id="email" name="email">
+                
+                                    <label for="telefone">Telefone:</label>
+                                    <input type="tel" id="telefone" name="telefone">
+                                </div>
+                                <div class="form-column">
+                                    <label for="sobrenome">Sobrenome:</label>
+                                    <input type="text" id="sobrenome" name="sobrenome">
+                
+                                    <label for="senha">Senha:</label>
+                                    <input type="password" id="senha" name="senha">
+                
+                                    <label for="confirma-senha">Confirmar Senha:</label>
+                                    <input type="password" id="confirma-senha" name="confirma-senha">
+                                </div>
+                            </div>
+                            <div class="form-buttons">
+                                <button type="submit" class="salvar">Salvar</button>
+                                <button type="button" id="cancelEdit" class="cancelar">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="section usuario-info">
+                    <div class="empresa-usuario">
+                        <p>Empresa/Cargo</p>
+                    </div>
+                </div>
+                <main>
+                    <h2 class="logout" id="logoutButton">
+                        <img src="./assets/logout.png" alt="Logout Icon" class="logout-icon"> Sair da conta
+                    </h2>
+                </main>
+
+
+                <div id="logoutModal" class="modal" style="display:none;">
+                    <div class="modal-content">
+                        <p>Tem certeza de que deseja sair da conta?</p>
+                        <button id="confirmLogout" class="confirmarLogout">Confirmar</button>
+                        <button id="cancelLogout" class="cancelarLogout">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+</body>
+
+</html>
