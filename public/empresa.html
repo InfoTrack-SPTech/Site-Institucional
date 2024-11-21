@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciamento de Acessos</title>
+    <title>Gerenciamento de Empresas</title>
 
-    <link rel="stylesheet" href="./css/acessos.css">
+    <link rel="stylesheet" href="./css/empresa.css">
     <script src="./js/animacao.js" defer></script>
     <script src="./js/tema.js" defer></script>
-    <script src="./js/acessos.js" defer></script>
+    <script src="./js/empresa.js" defer></script>
 </head>
+
 <body>
     <div class="nav">
         <nav class="sidebar" id="menuSideBar">
@@ -28,7 +30,7 @@
             </div>
             <div class="lembretes">
                 <a href="./acessos.html">
-                <img src="../public/assets/lock.png" alt="">
+                    <img src="../public/assets/lock.png" alt="">
                 </a>
             </div>
             <div class="empresas">
@@ -42,7 +44,7 @@
             </div>
         </nav>
         <main class="main-content">
-            <h1>Gerenciamento de Acessos</h1>
+            <h1>Gerenciamento de Empresas</h1>
             <div class="container">
                 <div class="icon-container">
                     <img src="../public/assets/remove.png" alt="Icon 1" class="icon" id="deleteIcon">
@@ -51,7 +53,6 @@
                 </div>
                 <div class="section lista-acessos">
                     <div class="lista-usuario" id="lista-usuario">
-                        <!-- Usuários serão adicionados aqui -->
                     </div>
                 </div>
             </div>
@@ -59,7 +60,7 @@
                 <div class="modal-content">
                     <span class="close-button" id="closeModal">&times;</span>
                     <h2>Confirmar Exclusão</h2>
-                    <p>Tem certeza de que deseja excluir o(s) usuário(s) selecionado(s)?</p>
+                    <p>Tem certeza de que deseja excluir a(s) empresa(s) selecionada(s)?</p>
                     <button id="confirmDelete" class="confirm-button">Sim, excluir</button>
                     <button id="cancelDelete" class="cancel-button">Cancelar</button>
                 </div>
@@ -67,26 +68,31 @@
             <div id="addUserModal" class="modal">
                 <div class="modal-content">
                     <span class="close-button" id="closeAddUserModal">&times;</span>
-                    <h2>Adicionar Usuário</h2>
+                    <h2>Adicionar Empresa</h2>
                     <label for="userName">Nome:</label>
                     <input type="text" id="userName" placeholder="Digite o nome">
-                    <label for="userEmail">Email:</label>
-                    <input type="email" id="userEmail" placeholder="Digite o email">
-                    <button id="addUser" class="confirm-button">Adicionar Usuário</button>
+                    <label for="userCnpj">CNPJ:</label>
+                    <input type="text" id="userCnpj" placeholder="Digite o CNPJ">
+                    <label for="userPhone">Telefone:</label>
+                    <input type="text" id="userPhone" placeholder="Digite o telefone">
+                    <button id="addUser" class="confirm-button">Adicionar Empresa</button>
                 </div>
             </div>
             <div id="editUserModal" class="modal">
                 <div class="modal-content">
                     <span class="close-button" id="closeEditUserModal">&times;</span>
-                    <h2>Editar Usuário</h2>
+                    <h2>Editar Empresa</h2>
                     <label for="editUserName">Nome:</label>
                     <input type="text" id="editUserName" placeholder="Digite o nome">
-                    <label for="editUserEmail">Email:</label>
-                    <input type="email" id="editUserEmail" placeholder="Digite o email">
+                    <label for="editUserCnpj">CNPJ:</label>
+                    <input type="text" id="editUserCnpj" placeholder="Digite o CNPJ">
+                    <label for="editUserPhone">Telefone:</label>
+                    <input type="text" id="editUserPhone" placeholder="Digite o telefone">
                     <button id="saveUserChanges" class="confirm-button">Salvar Alterações</button>
                 </div>
             </div>
         </main>
     </div>
 </body>
+
 </html>
