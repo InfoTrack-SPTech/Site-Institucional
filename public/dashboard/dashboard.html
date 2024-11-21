@@ -31,13 +31,19 @@
         <img src="../assets/menu-aberto (1).png" alt="" id="iconMenuSideBar">
       </div>
       <div class="dashicon">
-        <img src="../assets/silhueta-de-icone-de-casa.png" alt="">
+        <!-- <a href="./dashboard.html"> -->
+          <img src="../assets/silhueta-de-icone-de-casa.png" alt="">
+        <!-- </a> -->
       </div>
       <div class="conta">
-        <img src="../assets/conta.png" alt="">
+        <!-- <a href="../conta.html"> -->
+          <img src="../assets/conta.png" alt="">
+        <!-- </a> -->
       </div>
       <div class="lembretes">
-        <img src="../assets/lock.png" alt="">
+        <!-- <a href="../acessos.html"> -->
+          <img src="../assets/lock.png" alt="">
+        <!-- </a> -->
       </div>
     </nav>
     <article class="articlePai">
@@ -45,42 +51,51 @@
         <section class="sec1">
           <div class="boxKpi kpiCrime">
             <div class="textoKpi">
-              
-              <p class="pKpi2" id="totalOcorrencia">436.035 </p>  <p>Total de ocorrências</p>
-              <p class="pKpi2" id="mediaMensal">43.604</p> <p> Média Mensal de Casos</p>
-              <p class="pKpi2" id="percentualDeVariacaoMensal">+9,01%</p>  <p> Percentual de Variação Mensal</p>
+
+              <p class="pKpi2" id="totalOcorrencia">436.035 </p>
+              <p>Total de ocorrências</p>
+              <p class="pKpi2" id="mediaMensal">43.604</p>
+              <p> Média Mensal de Casos</p>
+              <p class="pKpi2" id="percentualDeVariacaoMensal">+9,01%</p>
+              <p> Percentual de Variação Mensal</p>
             </div>
-            
+
           </div>
           <div class="boxKpi kpiTop2">
             <div class="textoKpi">
-              <p class="pKpi2" id="porcemtagemTotalFurtos">59,5%<br> </p>  <p id="totalFurto">(230.000) <br>Total de Furtos</p><br>
-              <p class="pKpi2" id="porcemtagemTotalRoubos">41,5%<br> </p>  <p id="totalRoubo">(181.035) <br>Total de Roubos</p>
+              <p class="pKpi2" id="porcemtagemTotalFurtos">59,5%<br> </p>
+              <p id="totalFurto">(230.000) <br>Total de Furtos</p><br>
+              <p class="pKpi2" id="porcemtagemTotalRoubos">41,5%<br> </p>
+              <p id="totalRoubo">(181.035) <br>Total de Roubos</p>
             </div>
-            
+
           </div>
           <div class="boxKpi kpiTop2">
             <div class="textoKpi">
-              <p class="pKpi2">52,7%<br> </p>  <p id="totalComercial">(230.000) <br>Comercial</p><br>
-              <p class="pKpi2">47,3%<br> </p>  <p id="totalResidencial">(206.035) <br>Residencial</p>
-  
-              
+              <p class="pKpi2">52,7%<br> </p>
+              <p id="totalComercial">(230.000) <br>Comercial</p><br>
+              <p class="pKpi2">47,3%<br> </p>
+              <p id="totalResidencial">(206.035) <br>Residencial</p>
+
+
             </div>
           </div>
           <div class="boxKpi kpiTop2">
             <div class="textoKpi">
               <h5>Variação Mensal de Casos</h5>
-              
-              <p class="pKpi2" id="varicaoComecial">+1.8%<br> </p>  <p>Comercial</p>
-              <p class="pKpi2" id="varicaoResidencial">+2.5%<br> </p>  <p>Residencial</p>
-        
+
+              <p class="pKpi2" id="varicaoComecial">+1.8%<br> </p>
+              <p>Comercial</p>
+              <p class="pKpi2" id="varicaoResidencial">+2.5%<br> </p>
+              <p>Residencial</p>
+
             </div>
-            
+
         </section>
 
-       
-          <div id="containerTreemap"></div>
-      
+
+        <div id="containerTreemap"></div>
+
 
         <section class="secBaixo">
           <div class="graficoBaixo"><canvas id="myChart3"></canvas></div>
@@ -148,10 +163,10 @@
   Highcharts.chart('containerTreemap', {
     chart: {
       backgroundColor: '#272B4A',
-      style: { 
-      borderRadius: '7px',
-      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)',
-       },
+      style: {
+        borderRadius: '7px',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)',
+      },
       events: {
         load: function () {
           this.update({
@@ -176,31 +191,31 @@
       clip: false,
       data: [{
         name: 'Sé',
-        value: 	35000,
-        color: '#fa0f0f'  
+        value: 35000,
+        color: '#fa0f0f'
       }, {
         name: 'Brás',
-        value: 	30000,
-        color: '#FF4500'  
+        value: 30000,
+        color: '#FF4500'
       }, {
         name: 'Liberdade',
-        value: 	28000,
+        value: 28000,
         color: '#ff7700'
       }, {
         name: 'Vila Madalena',
-        value: 	25000,
+        value: 25000,
         color: '#FFA500'
       }, {
         name: 'Capão Redondo',
-        value: 	22000,
-        color: '#FFFF00' 
+        value: 22000,
+        color: '#FFFF00'
       }, {
         name: 'Itaim Bibi',
-        value: 	20000,
-        color: '#fafa39'  
+        value: 20000,
+        color: '#fafa39'
       }, {
         name: 'Tatuapé',
-        value: 	18000,
+        value: 18000,
         color: '#F0E68C'  // Azul pastel
       }]
     }],
@@ -274,226 +289,226 @@
   // },
   // );
   new Chart(ctx3, {
-  type: 'bar',
-  data: {
-    labels: [
-      'Manhã',
-      'Tarde',
-      'Noite',
-      'Madrugada'
-    ],
-    datasets: [{
-      label: 'Média de Roubos e Furtos por Período',
-      data: [30040, 26744, 66855, 18700], // Adicione os dados correspondentes a cada período
-      backgroundColor: [
-        'rgba(173, 216, 230, 1)', // Cor da Manhã
-        'rgba(152, 251, 152, 1)', // Cor da Tarde
-        'rgba(255, 182, 193, 1)', // Cor da Noite
-        'rgba(255, 255, 204, 1)'  // Cor da Madrugada
+    type: 'bar',
+    data: {
+      labels: [
+        'Manhã',
+        'Tarde',
+        'Noite',
+        'Madrugada'
       ],
-      borderColor: '#000000',
-      borderWidth: 1,
-    }],
-  },
-  options: {
-    responsive: true,
-    plugins: {
-      title: {
-        display: true,
-        text: 'Média de Roubos e Furtos em São Paulo por Período do Dia',
-        font: {
-          size: 18,
-          family: 'Arial',
-          weight: 'bold',
-        },
-        color: '#FFFFFF',
-      },
-      legend: {
-        display: false,
-      },
-      tooltip: {
-        callbacks: {
-          label: function(tooltipItem) {
-            return `Média: ${tooltipItem.raw}`;
-          },
-        },
-      },
+      datasets: [{
+        label: 'Média de Roubos e Furtos por Período',
+        data: [30040, 26744, 66855, 18700], // Adicione os dados correspondentes a cada período
+        backgroundColor: [
+          'rgba(173, 216, 230, 1)', // Cor da Manhã
+          'rgba(152, 251, 152, 1)', // Cor da Tarde
+          'rgba(255, 182, 193, 1)', // Cor da Noite
+          'rgba(255, 255, 204, 1)'  // Cor da Madrugada
+        ],
+        borderColor: '#000000',
+        borderWidth: 1,
+      }],
     },
-    scales: {
-      y: {
-        beginAtZero: true,
-        max: 70000, // Define um valor máximo para o eixo Y
-        ticks: {
-          color: '#FFFFFF',
-        },
-        grid: {
-          display: false, // Remover a grade do gráfico
-        },
-      },
-      x: {
-        barPercentage: 0.8, // Aumenta a largura das barras
-        categoryPercentage: 0.9, // Aumenta o espaço das categorias
-        ticks: {
-          color: '#FFFFFF',
-        },
-        grid: {
-          display: false, // Remover a grade do gráfico
-        },
-      },
-    },
-  },
-});
-
-
-
-new Chart(ctx5, {
-  type: "line",
-  data: {
-    labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro"], // Nomes dos 10 meses
-    datasets: [
-      {
-        label: "Comercial",
-        data: [42500, 44200 ,43100, 42700, 43800, 44000, 43300 ,44400, 42900, 43700], // Dados que somam mais de 46 mil
-        borderWidth: 2,
-        backgroundColor: 'rgba(0, 0, 0, 0)', // Sem cor de fundo
-        borderColor: 'rgb(30, 144, 255)', // Azul para a linha comercial
-      },
-      {
-        label: "Residencial",
-        data: [43452, 43758, 43591, 43426, 43679, 43987, 43345, 43822, 43576, 43704], // Dados que somam mais de 46 mil
-        borderWidth: 2,
-        backgroundColor: 'rgba(0, 0, 0, 0)', // Sem cor de fundo
-        borderColor: 'rgb(255, 105, 180)', // Rosa para a linha residencial
-      },
-    ],
-  },
-  options: {
-    plugins: {
-      title: {
-        display: true,
-        text: 'Comparativo Mensal de Crimes em Áreas Comerciais e Residenciais',
-        color: '#FFFFFF',
-        font: {
-          size: 18,
-          family: 'Arial',
-          weight: 'bold',
-        },
-        padding: {
-          top: 10,
-          bottom: 30,
-        },
-      },
-    },
-    scales: {
-      y: {
-        ticks: {
-          color: '#FFFFFF',
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Média de Roubos e Furtos em São Paulo por Período do Dia',
           font: {
-            size: 12,
+            size: 18,
             family: 'Arial',
             weight: 'bold',
           },
+          color: '#FFFFFF',
         },
-        grid: {
+        legend: {
           display: false,
         },
+        tooltip: {
+          callbacks: {
+            label: function (tooltipItem) {
+              return `Média: ${tooltipItem.raw}`;
+            },
+          },
+        },
       },
-      x: {
-        ticks: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 70000, // Define um valor máximo para o eixo Y
+          ticks: {
+            color: '#FFFFFF',
+          },
+          grid: {
+            display: false, // Remover a grade do gráfico
+          },
+        },
+        x: {
+          barPercentage: 0.8, // Aumenta a largura das barras
+          categoryPercentage: 0.9, // Aumenta o espaço das categorias
+          ticks: {
+            color: '#FFFFFF',
+          },
+          grid: {
+            display: false, // Remover a grade do gráfico
+          },
+        },
+      },
+    },
+  });
+
+
+
+  new Chart(ctx5, {
+    type: "line",
+    data: {
+      labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro"], // Nomes dos 10 meses
+      datasets: [
+        {
+          label: "Comercial",
+          data: [42500, 44200, 43100, 42700, 43800, 44000, 43300, 44400, 42900, 43700], // Dados que somam mais de 46 mil
+          borderWidth: 2,
+          backgroundColor: 'rgba(0, 0, 0, 0)', // Sem cor de fundo
+          borderColor: 'rgb(30, 144, 255)', // Azul para a linha comercial
+        },
+        {
+          label: "Residencial",
+          data: [43452, 43758, 43591, 43426, 43679, 43987, 43345, 43822, 43576, 43704], // Dados que somam mais de 46 mil
+          borderWidth: 2,
+          backgroundColor: 'rgba(0, 0, 0, 0)', // Sem cor de fundo
+          borderColor: 'rgb(255, 105, 180)', // Rosa para a linha residencial
+        },
+      ],
+    },
+    options: {
+      plugins: {
+        title: {
+          display: true,
+          text: 'Comparativo Mensal de Crimes em Áreas Comerciais e Residenciais',
           color: '#FFFFFF',
           font: {
-            size: 12,
+            size: 18,
             family: 'Arial',
             weight: 'bold',
           },
-        },
-        grid: {
-          display: false,
+          padding: {
+            top: 10,
+            bottom: 30,
+          },
         },
       },
-    },
-  },
-});
-
-new Chart(ctx6, {
-  type: 'bar',
-  data: {
-    labels: [
-      'Rua das Flores', 
-      'Avenida Paulista', 
-      'Rua da Liberdade', 
-      'Rua dos Alfeneiros', 
-      'Rua dos Sampaio', 
-      'Avenida São João', 
-      'Rua da Esperança', 
-      'Rua do Comércio', 
-      'Rua da Cidadania', 
-      'Rua do Lazer'
-    ],
-    datasets: [{
-      label: 'Média de Casos por Dia',
-      data: [12.75, 15.30, 10.45, 18.90, 8.60, 14.25, 20.50, 11.15, 7.80, 9.95],
-      backgroundColor: [
-        'rgba(135, 206, 250, 1)', // Rua das Flores
-        'rgba(144, 238, 144, 1)', // Avenida Paulista
-        'rgba(255, 215, 0, 1)', // Rua da Liberdade
-        'rgba(255, 228, 196, 1)', // Rua dos Alfeneiros
-        'rgba(173, 216, 230, 1)', // Rua dos Sampaio
-        'rgba(221, 160, 221, 1)', // Avenida São João
-        'rgba(173, 255, 47, 1)', // Rua da Esperança
-        'rgba(176, 224, 230, 1)', // Rua do Comércio
-        'rgba(240, 230, 140, 1)', // Rua da Cidadania
-        'rgba(200, 200, 255, 1)' // Rua do Lazer
-      ],
-      borderColor: '#000000',
-      borderWidth: 1,
-    }],
-  },
-  options: {
-    responsive: true,
-    plugins: {
-      title: {
-        display: true,
-        text: 'As Ruas com as Maiores Médias de Índices de Criminalidade por Dia',
-        font: {
-          size: 18,
-          family: 'Arial',
-          weight: 'bold',
+      scales: {
+        y: {
+          ticks: {
+            color: '#FFFFFF',
+            font: {
+              size: 12,
+              family: 'Arial',
+              weight: 'bold',
+            },
+          },
+          grid: {
+            display: false,
+          },
         },
-        color: '#FFFFFF',
-      },
-      legend: {
-        display: false,
-      },
-      tooltip: {
-        callbacks: {
-          label: function(tooltipItem) {
-            return `Média: ${tooltipItem.raw}`;
+        x: {
+          ticks: {
+            color: '#FFFFFF',
+            font: {
+              size: 12,
+              family: 'Arial',
+              weight: 'bold',
+            },
+          },
+          grid: {
+            display: false,
           },
         },
       },
     },
-    scales: {
-      y: {
-        beginAtZero: true,
-        ticks: {
+  });
+
+  new Chart(ctx6, {
+    type: 'bar',
+    data: {
+      labels: [
+        'Rua das Flores',
+        'Avenida Paulista',
+        'Rua da Liberdade',
+        'Rua dos Alfeneiros',
+        'Rua dos Sampaio',
+        'Avenida São João',
+        'Rua da Esperança',
+        'Rua do Comércio',
+        'Rua da Cidadania',
+        'Rua do Lazer'
+      ],
+      datasets: [{
+        label: 'Média de Casos por Dia',
+        data: [12.75, 15.30, 10.45, 18.90, 8.60, 14.25, 20.50, 11.15, 7.80, 9.95],
+        backgroundColor: [
+          'rgba(135, 206, 250, 1)', // Rua das Flores
+          'rgba(144, 238, 144, 1)', // Avenida Paulista
+          'rgba(255, 215, 0, 1)', // Rua da Liberdade
+          'rgba(255, 228, 196, 1)', // Rua dos Alfeneiros
+          'rgba(173, 216, 230, 1)', // Rua dos Sampaio
+          'rgba(221, 160, 221, 1)', // Avenida São João
+          'rgba(173, 255, 47, 1)', // Rua da Esperança
+          'rgba(176, 224, 230, 1)', // Rua do Comércio
+          'rgba(240, 230, 140, 1)', // Rua da Cidadania
+          'rgba(200, 200, 255, 1)' // Rua do Lazer
+        ],
+        borderColor: '#000000',
+        borderWidth: 1,
+      }],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: 'As Ruas com as Maiores Médias de Índices de Criminalidade por Dia',
+          font: {
+            size: 18,
+            family: 'Arial',
+            weight: 'bold',
+          },
           color: '#FFFFFF',
         },
-        grid: {
-          display: false, // Remover a grade do gráfico
+        legend: {
+          display: false,
+        },
+        tooltip: {
+          callbacks: {
+            label: function (tooltipItem) {
+              return `Média: ${tooltipItem.raw}`;
+            },
+          },
         },
       },
-      x: {
-        ticks: {
-          color: '#FFFFFF',
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            color: '#FFFFFF',
+          },
+          grid: {
+            display: false, // Remover a grade do gráfico
+          },
         },
-        grid: {
-          display: false, // Remover a grade do gráfico
+        x: {
+          ticks: {
+            color: '#FFFFFF',
+          },
+          grid: {
+            display: false, // Remover a grade do gráfico
+          },
         },
       },
     },
-  },
-});
+  });
 
 </script>
 
@@ -508,229 +523,229 @@ new Chart(ctx6, {
   function obterDadosGrafico() {
 
 
-fetch(`/medidas/ultimas`).then(function (response) {
-    if (response.ok) {
-        response.json().then(function (resposta) {
-            
-            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-            resposta.reverse();
-            var global = resposta
-            console.log("imprimindo resposta")
-            console.log(resposta[0])
-            plotarGrafico(resposta);
-
-    fetch(`/medidas/local`).then(function (response) {
+    fetch(`/medidas/ultimas`).then(function (response) {
       if (response.ok) {
         response.json().then(function (resposta) {
-            
-              console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-              resposta.reverse();
-              var global = resposta
-              console.log("imprimindo resposta")
-              console.log(resposta[0])
-              plotarGrafico(resposta);
-            
-        });
-    } else {
-        console.error('Nenhum dado encontrado ou erro na API');
-    }
-})
-    .catch(function (error) {
-        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-    });
+
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+          resposta.reverse();
+          var global = resposta
+          console.log("imprimindo resposta")
+          console.log(resposta[0])
+          plotarGrafico(resposta);
+
+          fetch(`/medidas/local`).then(function (response) {
+            if (response.ok) {
+              response.json().then(function (resposta) {
+
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                resposta.reverse();
+                var global = resposta
+                console.log("imprimindo resposta")
+                console.log(resposta[0])
+                plotarGrafico(resposta);
+
+              });
+            } else {
+              console.error('Nenhum dado encontrado ou erro na API');
+            }
+          })
+            .catch(function (error) {
+              console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
 
 
 
         });
-    } else {
+      } else {
         console.error('Nenhum dado encontrado ou erro na API');
-    }
-})
-    .catch(function (error) {
+      }
+    })
+      .catch(function (error) {
         console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-    });
-}
+      });
+  }
 
 
 
 
-function plotarGrafico(resposta) {
+  function plotarGrafico(resposta) {
 
 
-console.log('iniciando plotagem do gráfico...');
-console.log('----------------------------------------------');
-console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":');
-console.log(resposta);
+    console.log('iniciando plotagem do gráfico...');
+    console.log('----------------------------------------------');
+    console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":');
+    console.log(resposta);
 
 
-for (i = 0; i < resposta.length; i++) {
-    var registro = resposta[i];
+    for (i = 0; i < resposta.length; i++) {
+      var registro = resposta[i];
 
 
-    if(registro.natureza == "Roubo"){
-      console.log(registro.totalCrimes)
-      totalRoubos += registro.totalCrimes
+      if (registro.natureza == "Roubo") {
+        console.log(registro.totalCrimes)
+        totalRoubos += registro.totalCrimes
+
+      }
+
+      if (registro.natureza == "Furto") {
+        console.log(registro.totalCrimes)
+        totalFurtos += registro.totalCrimes
+      }
+
+      if (registro.tipoLocal == "Residencial" && registro.mes == 11) {
+        totaisResidencial = registro.totalCrimes
+        varicaoResidencial.innerHTML = registro.percentualVariacao
+        console.log(registro.percentualVariacao)
+
+      }
+      if (registro.tipoLocal == "Comercial" && registro.mes == 11) {
+        totaisComercial = registro.totalCrimes
+        varicaoComecial.innerHTML = registro.percentualVariacao
+
+        console.log(registro.percentualVariacao)
+      }
 
     }
 
-    if(registro.natureza == "Furto"){
-      console.log(registro.totalCrimes)
-      totalFurtos += registro.totalCrimes
+    if (registro.natureza == "Furto" || registro.tipoLocal == "Roubo") {
+      var totalCasos = totalFurtos + totalRoubos
+      var mediaMensalCasos = totalCasos / 2
+      totalOcorrencia.innerHTML = totalCasos
+      mediaMensal.innerHTML = mediaMensalCasos
+      totalFurto.innerHTML = ` (${totalFurtos}) <br> Total de Furtos`
+      totalRoubo.innerHTML = ` (${totalRoubos}) <br> Total de Furtos`
+      porcemtagemTotalFurtos.innerHTML = `${(totalFurtos / totalCasos) * 100} %`
+      porcemtagemTotalRoubos.innerHTML = `${(totalRoubos / totalCasos) * 100} %`
+    }
+    if (registro.tipoLocal == "Comercial" || registro.tipoLocal == "Residencial") {
+      totalComercial.innerHTML = ` (${totaisComercial}) <br> Comercial`
+      totalResidencial.innerHTML = ` (${totaisResidencial}) <br> Residencial`
+
     }
 
-    if(registro.tipoLocal == "Residencial" && registro.mes == 11) {
-      totaisResidencial = registro.totalCrimes
-      varicaoResidencial.innerHTML = registro.percentualVariacao
-      console.log(registro.percentualVariacao)
-
-    } 
-    if(registro.tipoLocal == "Comercial" && registro.mes == 11) {
-      totaisComercial = registro.totalCrimes
-      varicaoComecial.innerHTML = registro.percentualVariacao
-      
-      console.log(registro.percentualVariacao)
-    } 
-    
-}
-
-if(registro.natureza == "Furto" || registro.tipoLocal == "Roubo") {
-  var totalCasos =  totalFurtos + totalRoubos
-  var mediaMensalCasos = totalCasos / 2
-  totalOcorrencia.innerHTML = totalCasos 
-  mediaMensal.innerHTML = mediaMensalCasos
-  totalFurto.innerHTML = ` (${totalFurtos}) <br> Total de Furtos`
-  totalRoubo.innerHTML = ` (${totalRoubos}) <br> Total de Furtos`
-  porcemtagemTotalFurtos.innerHTML = `${(totalFurtos/totalCasos ) * 100} %`
-  porcemtagemTotalRoubos.innerHTML = `${(totalRoubos/totalCasos ) * 100} %`
-} 
-if(registro.tipoLocal == "Comercial" || registro.tipoLocal == "Residencial") {
-  totalComercial.innerHTML = ` (${totaisComercial}) <br> Comercial`
-  totalResidencial.innerHTML = ` (${totaisResidencial}) <br> Residencial`
-
-}
 
 
 
 
+    var arrayFurtos = [totalFurtos];
+    var arrayRoubos = [totalRoubos];
+  }
+  // console.log('----------------------------------------------');
+  // console.log('O gráfico será plotado com os respectivos valores:');
+  // console.log('Labels:');
+  // console.log(labels);
+  // console.log('Dados:');
+  // console.log(dados);
+  // console.log('----------------------------------------------');
 
-var arrayFurtos = [totalFurtos];
-var arrayRoubos = [totalRoubos];
-} 
-// console.log('----------------------------------------------');
-// console.log('O gráfico será plotado com os respectivos valores:');
-// console.log('Labels:');
-// console.log(labels);
-// console.log('Dados:');
-// console.log(dados);
-// console.log('----------------------------------------------');
+  // const ctx = document.getElementById('myChart');
+  // const ctx2 = document.getElementById('myChart2');
+  // const ctx3 = document.getElementById('myChart3');
+  // const ctx4 = document.getElementById('myChart4');
 
-// const ctx = document.getElementById('myChart');
-// const ctx2 = document.getElementById('myChart2');
-// const ctx3 = document.getElementById('myChart3');
-// const ctx4 = document.getElementById('myChart4');
+  // new Chart(ctx, {
+  //     type: 'bar',
+  //     data: {
+  //         labels: labels,
+  //         datasets: [{
+  //             label: "Os mais escolhidos",
+  //             data: dados,
+  //             backgroundColor: [
+  //                 'rgb(84, 5, 255)',
+  //                 'rgb(218, 165, 32)',
+  //                 'rgb(92, 107, 192)'
+  //             ],
+  //             borderWidth: 1
+  //         }]
+  //     },
+  //     options: {
+  //         scales: {
+  //             y: {
+  //                 beginAtZero: true
+  //             }
+  //         }
+  //     }
+  // });
 
-// new Chart(ctx, {
-//     type: 'bar',
-//     data: {
-//         labels: labels,
-//         datasets: [{
-//             label: "Os mais escolhidos",
-//             data: dados,
-//             backgroundColor: [
-//                 'rgb(84, 5, 255)',
-//                 'rgb(218, 165, 32)',
-//                 'rgb(92, 107, 192)'
-//             ],
-//             borderWidth: 1
-//         }]
-//     },
-//     options: {
-//         scales: {
-//             y: {
-//                 beginAtZero: true
-//             }
-//         }
-//     }
-// });
+  // new Chart(ctx2, {
+  //     type: 'bar',
+  //     data: {
+  //         labels: labelsN,
+  //         datasets: [{
+  //             label: 'Top Nebulosas',
+  //             data: dadosN,
+  //             backgroundColor: [
+  //                 'rgb(84, 5, 255)',
+  //                 'rgb(255, 192, 203)',
+  //                 'rgba(255, 205, 86)'
+  //             ],
+  //             borderWidth: 1
+  //         }]
+  //     },
 
-// new Chart(ctx2, {
-//     type: 'bar',
-//     data: {
-//         labels: labelsN,
-//         datasets: [{
-//             label: 'Top Nebulosas',
-//             data: dadosN,
-//             backgroundColor: [
-//                 'rgb(84, 5, 255)',
-//                 'rgb(255, 192, 203)',
-//                 'rgba(255, 205, 86)'
-//             ],
-//             borderWidth: 1
-//         }]
-//     },
+  //     options: {
+  //         indexAxis: 'y',
+  //     }
+  // });
+  // new Chart(ctx3, {
+  //     type: 'bar',
+  //     data: {
+  //         labels: labelsG,
+  //         datasets: [{
+  //             label: 'Top Galaxias',
+  //             data: dadosG,
+  //             backgroundColor: [
+  //                 'rgb(218, 165, 32)',
+  //                 'rgb(255, 192, 203)',
+  //                 'rgba(255, 205, 86)'
+  //             ],
+  //             borderWidth: 1
+  //         }]
+  //     },
 
-//     options: {
-//         indexAxis: 'y',
-//     }
-// });
-// new Chart(ctx3, {
-//     type: 'bar',
-//     data: {
-//         labels: labelsG,
-//         datasets: [{
-//             label: 'Top Galaxias',
-//             data: dadosG,
-//             backgroundColor: [
-//                 'rgb(218, 165, 32)',
-//                 'rgb(255, 192, 203)',
-//                 'rgba(255, 205, 86)'
-//             ],
-//             borderWidth: 1
-//         }]
-//     },
+  //     options: {
+  //         indexAxis: 'y',
+  //     }
+  // });
+  // new Chart(ctx4, {
+  //     type: 'bar',
+  //     data: {
+  //         labels: labelsP,
+  //         datasets: [{
+  //             label: 'Top Galaxias',
+  //             data: dadosP,
+  //             backgroundColor: [
+  //                 'rgb(92, 107, 192)',
+  //                 'rgb(255, 192, 203)',
+  //                 'rgba(255, 205, 86)'
+  //             ],
+  //             borderWidth: 1
+  //         }]
+  //     },
 
-//     options: {
-//         indexAxis: 'y',
-//     }
-// });
-// new Chart(ctx4, {
-//     type: 'bar',
-//     data: {
-//         labels: labelsP,
-//         datasets: [{
-//             label: 'Top Galaxias',
-//             data: dadosP,
-//             backgroundColor: [
-//                 'rgb(92, 107, 192)',
-//                 'rgb(255, 192, 203)',
-//                 'rgba(255, 205, 86)'
-//             ],
-//             borderWidth: 1
-//         }]
-//     },
+  //     options: {
+  //         indexAxis: 'y',
+  //     }
+  // });
 
-//     options: {
-//         indexAxis: 'y',
-//     }
-// });
+  // insertKPI(kpiNebulosa, kpiGalaxia, kpiPlaneta, labels[0], labels[1], labels[2], "nebulosa", "galaxia", '');
 
-// insertKPI(kpiNebulosa, kpiGalaxia, kpiPlaneta, labels[0], labels[1], labels[2], "nebulosa", "galaxia", '');
+  // insertKPI(kpiNebulosa1, kpiNebulosa2, kpiNebulosa3, labelsN[0], labelsN[1], labelsN[2], "nebulosa", "nebulosa", 'nebulosa');
 
-// insertKPI(kpiNebulosa1, kpiNebulosa2, kpiNebulosa3, labelsN[0], labelsN[1], labelsN[2], "nebulosa", "nebulosa", 'nebulosa');
+  // insertKPI(kpiGalaxia1, kpiGalaxia2, kpiGalaxia3, labelsG[0], labelsG[1], labelsG[2], "galaxia", "galaxia", "galaxia");
 
-// insertKPI(kpiGalaxia1, kpiGalaxia2, kpiGalaxia3, labelsG[0], labelsG[1], labelsG[2], "galaxia", "galaxia", "galaxia");
+  // insertKPI(kpiPlaneta1, kpiPlaneta2, kpiPlaneta3, labelsP[0], labelsP[1], labelsP[2], '', '', '');
 
-// insertKPI(kpiPlaneta1, kpiPlaneta2, kpiPlaneta3, labelsP[0], labelsP[1], labelsP[2], '', '', '');
+  // function insertKPI(nomeElement1, nomeElement2, nomeElement3, nome1, nome2, nome3, tipo1, tipo2, tipo3) {
+  //     nomeElement1.innerHTML = nome1;
+  //     nomeElement2.innerHTML = nome2;
+  //     nomeElement3.innerHTML = nome3;
+  //     nomeElement1.style.backgroundImage = `url(../img/${tipo1}${nome1}.jpg)`;
+  //     nomeElement2.style.backgroundImage = `url(../img/${tipo2}${nome2}.jpg)`;
+  //     nomeElement3.style.backgroundImage = `url(../img/${tipo3}${nome3}.jpg)`;
+  // }
 
-// function insertKPI(nomeElement1, nomeElement2, nomeElement3, nome1, nome2, nome3, tipo1, tipo2, tipo3) {
-//     nomeElement1.innerHTML = nome1;
-//     nomeElement2.innerHTML = nome2;
-//     nomeElement3.innerHTML = nome3;
-//     nomeElement1.style.backgroundImage = `url(../img/${tipo1}${nome1}.jpg)`;
-//     nomeElement2.style.backgroundImage = `url(../img/${tipo2}${nome2}.jpg)`;
-//     nomeElement3.style.backgroundImage = `url(../img/${tipo3}${nome3}.jpg)`;
-// }
-
-// }
+  // }
   obterDadosGrafico()
 </script>

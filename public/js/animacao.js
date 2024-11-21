@@ -4,8 +4,9 @@ const menuSideBar = document.getElementById("menuSideBar");
 const home = document.getElementsByClassName("dashicon")[0];
 const conta = document.getElementsByClassName("conta")[0];
 const lembretes = document.getElementsByClassName("lembretes")[0];
+const empresas = document.getElementsByClassName("empresas")[0];
 
-let h1Home, ContaHome, LembretesHome;
+let h1Home, ContaHome, LembretesHome, EmpresasHome;
 
 
 function toggleMenu() {
@@ -14,11 +15,13 @@ function toggleMenu() {
         if (h1Home) h1Home.style.display = 'none';
         if (ContaHome) ContaHome.style.display = 'none';
         if (LembretesHome) LembretesHome.style.display = 'none';
+        if (EmpresasHome) EmpresasHome.style.display = 'none';
         
         menuSideBar.classList.remove("sobrepor");
         home.style.display = "block";
         lembretes.style.display = "block";
         conta.style.display = "block";
+        empresas.style.display = "block";
     } else {
      
         menuSideBar.classList.add("sobrepor");
@@ -37,20 +40,26 @@ function toggleMenu() {
         
         if (!LembretesHome) {
             LembretesHome = document.createElement("a");
-            LembretesHome.textContent = "Lembretes";
+            LembretesHome.textContent = "Gerenciar Acessos";
             LembretesHome.classList.add("menuLink");
+        }
+
+        if (!EmpresasHome) {
+            EmpresasHome = document.createElement("a");
+            EmpresasHome.textContent = "Gerenciar Empresas";
+            EmpresasHome.classList.add("menuLink");
         }
         
       
         h1Home.style.display = 'block';
         ContaHome.style.display = 'block';
         LembretesHome.style.display = 'block';
-        
+        EmpresasHome.style.display = 'block';
        
         home.style.display = "none";
         lembretes.style.display = "none";
         conta.style.display = "none";
-        
+        empresas.style.display = "none";
     
         if (!menuSideBar.contains(h1Home)) {
             menuSideBar.appendChild(h1Home);
@@ -60,6 +69,9 @@ function toggleMenu() {
         }
         if (!menuSideBar.contains(LembretesHome)) {
             menuSideBar.appendChild(LembretesHome);
+        }
+        if (!menuSideBar.contains(EmpresasHome)) {
+            menuSideBar.appendChild(EmpresasHome);
         }
     }
 }
