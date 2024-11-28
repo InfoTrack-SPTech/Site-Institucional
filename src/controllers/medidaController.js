@@ -145,6 +145,41 @@ function bucarMes(req, res) {
         });
 }
 
+async function acessosPost(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var nome = req.body.nome;
+    var email = req.body.email;
+    var senha = req.body.senha;
+    var telefone = req.body.telefone;
+    var cargo = req.body.fkCargo;
+    var fkEmpresa = req.params.fkEmpresa;
+
+
+    if (nome == undefined) {
+        res.status(400).send("Seu nome está undefined!");
+    } else if (email == undefined) {
+        res.status(400).send("Seu email está undefined!");
+    } else if (senha == undefined) {
+        res.status(400).send("Sua senha está undefined!");
+    } else if (fkEmpresa == undefined) {
+        res.status(400).send("Sua empresa a vincular está undefined!");
+    } else if(cargo == undefined){
+        res.status(400).send("Seu cargo está undefined!");
+    } else {
+
+        await usuarioModel.buscarEmail(email).then(async (usuario) => {
+            if(usuario.length > 0){
+                res.status(404).send("Este email já foi cadastrado");
+            } else{
+                await usuarioModel.cadastrar(nome, email, senha, telefone, fkEmpresa).then((data) => {
+                    res.status(200).json(data);
+                })
+            }
+        })
+
+    }
+}
+
 
 module.exports = {
     buscarUltimasMedidas,
@@ -152,5 +187,7 @@ module.exports = {
     bucarBairro,
     bucarRua,
     bucarPeriodo,
-    bucarMes
+    bucarMes,
+    acessosPost
+
 };
