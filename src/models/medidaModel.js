@@ -121,6 +121,17 @@ function bucarMeses() {
     return database.executar(instrucaoSql);
 }
 
+function acessoUsuario(nome, email, senha, telefone, fkEmpresa) {
+    var instrucaoSql = `
+        INSERT INTO Usuario(email, nome, senha, telefone, fkCargo, fkEmpresa) 
+        VALUES(${email}", "${nome}", "${senha}", "${telefone}", 1, "${fkEmpresa}")`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+// adicionar as variaveis de parametros dentro da função, fazer template string pro values 
+
 
 
 module.exports = {
@@ -129,5 +140,6 @@ module.exports = {
     buscarBairros,
     buscarRuas,
     bucarPeriodos,
-    bucarMeses
+    bucarMeses,
+    acessoUsuario
 };

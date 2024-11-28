@@ -22,9 +22,15 @@ function buscarUsuario(email, senha){
     return database.executar(instrucaoSql);
 }
 
+function buscarUsuarioId(idUsuario){
+    var instrucaoSql = `SELECT * FROM Usuario WHERE idUsuario = ${idUsuario}`
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     autenticar,
     cadastrar,
     buscarEmail,
-    buscarUsuario
+    buscarUsuario,
+    buscarUsuarioId
 };

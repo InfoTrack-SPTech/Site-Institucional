@@ -24,5 +24,11 @@ router.get("/meses", function (req, res) {
     medidaController.bucarMes(req, res);
 });
 
+router.post("/acessos/:fkEmpresa", function (req, res) {
+    medidaController.acessosPost(req, res);
+});
+
+
+
 
 module.exports = router;
