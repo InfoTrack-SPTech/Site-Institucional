@@ -1,4 +1,5 @@
 var usuarioModel = require("../models/usuarioModel");
+const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 
 async function autenticar(req, res) {
     var email = req.body.emailServer;
@@ -14,7 +15,7 @@ async function autenticar(req, res) {
             if(usuarios.length <= 0){
                 res.status(404).send("Este usuário não foi encontrado");
             } else{
-                await usuarioModel.autenticar(email, senha).then((data) => {
+                await usuarioModel.retornarUsuarioAutenticar(email, senha).then((data) => {
                     res.status(200).json(data);
                 });
             }
@@ -58,7 +59,62 @@ async function cadastrar(req, res) {
     }
 }
 
+async function subirFoto(req, res){
+    try {
+        // Verificar se o arquivo foi enviado
+        if (!req.file) {
+            return res.status(400).send("Nenhum arquivo foi enviado.");
+        }
+
+        const { originalname, mimetype, buffer } = req.file;
+
+        // Configuração do cliente S3
+        const bucketName = "s3-foto-perfil";
+        const s3Cliente = new S3Client({
+            region: 'us-east-1',
+            credentials: {
+                accessKeyId: "",
+                secretAccessKey: "",
+                sessionToken: ""
+            }
+        });
+
+        const nomeImg = `${req.params.idUsuario}${originalname.substring(originalname.lastIndexOf("."))}`;
+        // Enviar o arquivo ao S3
+        const command = new PutObjectCommand({
+            Bucket: bucketName,
+            Key: `usuario-${req.params.idUsuario}/` + nomeImg, // Nome único para evitar substituições
+            Body: buffer, // Arquivo enviado no body
+            ContentType: mimetype // Tipo MIME do arquivo
+        });
+
+        await s3Cliente.send(command);
+        await usuarioModel.atualizarFotoPerfil(nomeImg, req.params.idUsuario);
+        let usuario = await usuarioModel.buscarUsuarioId(req.params.idUsuario);
+
+        res.status(200).json({ foto: usuario[0].imagem });
+    } catch (err) {
+        console.error("Erro ao subir imagem:", err);
+        res.status(500).json({ error: "Erro ao enviar a imagem." });
+    }
+}
+
+async function removerFoto(req, res){
+
+    const idUsuario = req.params.idUsuario;
+    usuarioModel.buscarUsuarioId(idUsuario).then(async (user) => {
+        if(user.length <= 0){
+            res.status(404).send("Usuário não encontrado");
+        } else{
+            await usuarioModel.atualizarFotoPerfil("", idUsuario);
+            res.status(200).send("Imagem removida");
+        }
+    })
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    subirFoto,
+    removerFoto
 }

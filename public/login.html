@@ -105,6 +105,12 @@
                         });
 
                         sessionStorage.ID_USUARIO = data[0].idUsuario;
+                        sessionStorage.NOME_USUARIO = data[0].nome;
+                        sessionStorage.FOTO_USUARIO = data[0].imagem;
+                        sessionStorage.TELEFONE_USUARIO = data[0].telefone;
+                        sessionStorage.CARGO_USUARIO = data[0].cargo;
+                        sessionStorage.EMAIL_USUARIO = data[0].email;
+                        sessionStorage.EMPRESA_USUARIO = data[0].empresa;
 
                         setTimeout(() => {
                             window.location.href = "../dashboard/dashboard.html";

@@ -282,7 +282,7 @@ fetchUltimas();
         ).toFixed()}%`;
     }
 
-    Highcharts.chart("containerTreemap", {
+    /* Highcharts.chart("containerTreemap", {
         chart: {
         backgroundColor: "#272B4A",
         style: {
@@ -354,7 +354,7 @@ fetchUltimas();
             borderColor: "#000000",
         },
         },
-    });
+    }); */
 
     if (chart3) {
         chart3.destroy(); // Destruir o gráfico anterior se ele já existir
