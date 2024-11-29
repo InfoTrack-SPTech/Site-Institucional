@@ -301,7 +301,6 @@ body.light-theme .logout:hover .logoutButton {
     height: 100px;
     border-radius: 50%;
     margin-right: 20px;
-    cursor: pointer;
 }
 
 .nome-usuario {
@@ -315,7 +314,10 @@ body.light-theme .logout:hover .logoutButton {
 }
 
 .detalhes-usuario {
-    color: white;
+    color: white; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .detalhes-usuario p {
@@ -368,6 +370,7 @@ body.light-theme .logout:hover .logoutButton {
     border-radius: 5px;
     text-align: left;
     width: 500px; 
+    top: 50%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     color: #fff;
     border: 2px solid #ccc;

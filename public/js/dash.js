@@ -282,8 +282,6 @@ fetchUltimas();
         ).toFixed()}%`;
     }
 
- 
-
     if (chart3) {
         chart3.destroy(); // Destruir o gráfico anterior se ele já existir
     }

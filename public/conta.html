@@ -50,12 +50,14 @@
             <h1>Minha Conta</h1>
             <div class="container">
                 <div class="section usuario-info">
-                    <img src="./assets/user.png" alt="foto-usuario" class="foto-usuario" id="imagem-perfil">
-                    <button id="openEditImageModal">
-                        <img src="./assets/edit.png" alt="Edit" class="edit-icon">
-                    </button>
-                    <div class="nome-usuario">
-                        <h3>Nome do Usuário</h3>
+                    <div class="detalhes-usuario">
+                        <div style="display: flex; flex-direction: row;">
+                            <img src="./assets/user.png" alt="foto-usuario" class="foto-usuario" id="imagem-perfil">
+                            <h3 class="nome-usuario" id="h3_nomeUsuario"><!-- Nome Usuario --></h3>
+                        </div>
+                        <button id="openEditImageModal" class="edit-button">
+                            <img src="./assets/edit.png" alt="Edit" class="edit-icon">
+                        </button>
                     </div>
                 </div>
 
@@ -66,14 +68,14 @@
                         <input type="file" id="imagem-input" accept=".png, .jpg, .jpeg" />
                         <button id="uploadImageBtn">Subir Imagem</button>
                         <button id="closeEditImageModal" class="cancelar">Cancelar</button>
+                        <button id="btnRemoverImagem" class="cancelar">Remover</button>
                     </div>
                 </div>
 
                 <div class="section usuario-info">
                     <div class="detalhes-usuario">
-                        <p>Email: usuario@exemplo.com</p>
-                        <p>Telefone: (11) 1234-5678</p>
-                        <p>Senha: ********</p>
+                        <p id="p_email"><!-- Email --> </p>
+                        <p id="p_telefone"><!-- Telefone --></p>
                         <button id="editButton" class="edit-button">
                             <img src="./assets/edit.png" alt="Edit" class="edit-icon">
                         </button>
@@ -96,14 +98,14 @@
                                     <input type="tel" id="telefone" name="telefone">
                                 </div>
                                 <div class="form-column">
-                                    <label for="sobrenome">Sobrenome:</label>
-                                    <input type="text" id="sobrenome" name="sobrenome">
+                                    <label for="senha">Senha atual:</label>
+                                    <input type="password" id="senha-atual" name="senha">
 
-                                    <label for="senha">Senha:</label>
+                                    <label for="senha">Nova senha:</label>
                                     <input type="password" id="senha" name="senha">
 
                                     <label for="confirma-senha">Confirmar Senha:</label>
-                                    <input type="password" id="confirma-senha" name="confirma-senha">
+                                    <input type="password" id="confirmar-senha" name="confirma-senha">
                                 </div>
                             </div>
                             <div class="form-buttons">
@@ -116,7 +118,8 @@
 
                 <div class="section usuario-info">
                     <div class="empresa-usuario">
-                        <p>Empresa/Cargo</p>
+                        <p id="p_empresa"><!-- Empresa --></p>
+                        <p id="p_cargo"><!-- Cargo --></p>
                     </div>
                 </div>
 
@@ -136,10 +139,22 @@
             </div>
         </main>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         window.onload = () => {
-            document.getElementById("imagem-perfil").src = "https://s3-foto-perfil.s3.us-east-1.amazonaws.com/" + sessionStorage.ID_USUARIO;
+
+            if(sessionStorage.FOTO_USUARIO != "null" && sessionStorage.FOTO_USUARIO.trim() != ""){
+                document.getElementById("imagem-perfil").src = `https://s3-foto-perfil.s3.us-east-1.amazonaws.com/usuario-${sessionStorage.ID_USUARIO}/` + sessionStorage.FOTO_USUARIO;
+            }
+            h3_nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO;
+            p_empresa.innerHTML = "Empresa: " + sessionStorage.EMPRESA_USUARIO;
+            p_cargo.innerHTML = "Cargo: " + sessionStorage.CARGO_USUARIO;
+            p_telefone.innerHTML = "Telefone: " + sessionStorage.TELEFONE_USUARIO;
+            p_email.innerHTML = "Email: " + sessionStorage.EMAIL_USUARIO;
+
+            nome.value =  sessionStorage.NOME_USUARIO;
+            email.value = sessionStorage.EMPRESA_USUARIO;
+            telefone.value = sessionStorage.TELEFONE_USUARIO;
         }
 
         document.getElementById("openEditImageModal").onclick = () => {
@@ -150,12 +165,40 @@
             document.getElementById("editImageModal").style.display = "none"; // Esconde o modal
         }
 
+        btnRemoverImagem.onclick = () => {
+
+            fetch(`/usuarios/removerImagem/${sessionStorage.ID_USUARIO}`, {
+                method: 'DELETE'
+            }).then((res) => {
+                if(res.ok){
+                    sessionStorage.FOTO_USUARIO = "";
+                    Swal.fire({
+                        title: 'Imagem removida',
+                        icon: 'success'
+                    })
+                    setTimeout(() => {
+                        location.reload()
+                    }, 1100)
+                } else{
+                    res.text().then((err) => {
+                        Swal.fire({
+                            title: err,
+                            icon: 'error'
+                        })
+                    })
+                }
+            })
+        }
+
         document.getElementById("uploadImageBtn").onclick = async () => {
             const input = document.getElementById("imagem-input");
             const file = input.files[0];
 
             if (!file) {
-                alert("Por favor, escolha uma imagem.");
+                Swal.fire({
+                    title: "Por favor escolha uma imagem",
+                    icon: 'error'
+                })
                 return;
             }
 
@@ -163,24 +206,31 @@
             formData.append("imagem", file);
 
             try {
-                const response = await fetch(`/subirImagem/${sessionStorage.ID_USUARIO}`, {
+                const response = await fetch(`/usuarios/subirImagem/${sessionStorage.ID_USUARIO}`, {
                     method: 'POST',
                     body: formData,
                 });
-
-                if (!response.ok) {
-                    throw new Error("Erro ao enviar a imagem.");
+                if (response.ok) {
+                    response.json().then((data) => {
+                        sessionStorage.FOTO_USUARIO = data.foto;
+                        Swal.fire({
+                            title: 'Imagem de perfil atualizada',
+                            icon: 'success'
+                        })
+                        setTimeout(() => {                
+                            location.reload();
+                        }, 1300)
+                    })
                 }
 
-                const data = await response.json();
-                console.log(data.message); // Mensagem de sucesso do backend
-                document.getElementById("imagem-perfil").src = URL.createObjectURL(file); // Atualiza a imagem de perfil
-                document.getElementById("editImageModal").style.display = "none"; // Esconde o modal
             } catch (error) {
                 console.error("Erro:", error);
-                alert("Erro ao enviar a imagem.");
+                Swal.fire({
+                    title: "Erro ao enviar a imagem",
+                    icon: 'error'
+                })
             }
-        };
+        };        
     </script>
 </body>
 
