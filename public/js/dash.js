@@ -1,12 +1,14 @@
     let chart3 = null;
     let chart5 = null;
     let chart6 = null;
+    let bairro = null;
 
 
     const ctx3 = document.getElementById("myChart3");
     const ctx4 = document.getElementById("myChart4");
     const ctx5 = document.getElementById("myChart5");
     const ctx6 = document.getElementById("myChart6");
+    const bairros = document.getElementById("bairros");
     var ultimas;
     var global;
     var cont = 0;
@@ -239,6 +241,7 @@ fetchUltimas();
             console.log(registro.periodo)
             perido.periodo.push(registro.periodo)
             perido.valores.push(parseInt(registro.valores.toString().replace(".", "")))
+            load.style.display = 'none';
         }
     }
 
@@ -464,6 +467,83 @@ fetchUltimas();
             title: {
             display: true,
             text: "As Ruas com as Maiores Médias de Índices de Criminalidade por Dia",
+            font: {
+                size: 18,
+                family: "Arial",
+                weight: "bold",
+            },
+            color: "#FFFFFF",
+            },
+            legend: {
+            display: false,
+            },
+            tooltip: {
+            callbacks: {
+                label: function (tooltipItem) {
+                return `Média: ${tooltipItem.raw}`;
+                },
+            },
+            },
+        },
+        scales: {
+            y: {
+            beginAtZero: true,
+            ticks: {
+                color: "#FFFFFF",
+            },
+            grid: {
+                display: false, // Remover a grade do gráfico
+            },
+            },
+            x: {
+            ticks: {
+                color: "#FFFFFF",
+            },
+            grid: {
+                display: false, // Remover a grade do gráfico
+            },
+            },
+        },
+        },
+    });
+
+    if (bairro) {
+        bairro.destroy();
+        console.log(nomeRuas.rua);
+    }
+
+
+    bairro = new Chart(bairros, {
+        type: "bar",
+        data: {
+        labels: nomeBairros.bairros,
+        datasets: [
+            {
+            label: "Média de Casos por Dia",
+            data: nomeBairros.valores,
+            backgroundColor: [
+                "rgba(135, 206, 250, 1)", // Rua das Flores
+                "rgba(144, 238, 144, 1)", // Avenida Paulista
+                "rgba(255, 215, 0, 1)", // Rua da Liberdade
+                "rgba(255, 228, 196, 1)", // Rua dos Alfeneiros
+                "rgba(173, 216, 230, 1)", // Rua dos Sampaio
+                "rgba(221, 160, 221, 1)", // Avenida São João
+                "rgba(173, 255, 47, 1)", // Rua da Esperança
+                "rgba(176, 224, 230, 1)", // Rua do Comércio
+                "rgba(240, 230, 140, 1)", // Rua da Cidadania
+                "rgba(200, 200, 255, 1)", // Rua do Lazer
+            ],
+            borderColor: "#000000",
+            borderWidth: 1,
+            },
+        ],
+        },
+        options: {
+        responsive: true,
+        plugins: {
+            title: {
+            display: true,
+            text: "Bairros com maiores indices de criminalidade ",
             font: {
                 size: 18,
                 family: "Arial",
