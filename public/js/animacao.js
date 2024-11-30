@@ -5,6 +5,20 @@ const home = document.getElementsByClassName("dashicon")[0];
 const conta = document.getElementsByClassName("conta")[0];
 const lembretes = document.getElementsByClassName("lembretes")[0];
 const empresas = document.getElementsByClassName("empresas")[0];
+let linkHome, linkConta, linkAcessos, linkEmpresas;
+if (window.location.pathname.endsWith("dashboard.html")) {
+    linkHome = "#";
+    linkConta = "../conta.html";
+    linkAcessos = "../acessos.html";
+    linkEmpresas = "../empresa.html";
+} else {
+    linkHome = "./dashboard/dashboard.html";
+    linkConta = "conta.html";
+    linkAcessos = "acessos.html";
+    linkEmpresas = "empresa.html";
+}
+
+
 
 let h1Home, ContaHome, LembretesHome, EmpresasHome;
 
@@ -30,24 +44,31 @@ function toggleMenu() {
             h1Home = document.createElement("a");
             h1Home.textContent = "Home";
             h1Home.classList.add("menuLink"); 
+            h1Home.href = linkHome
+
         }
         
         if (!ContaHome) {
             ContaHome = document.createElement("a");
             ContaHome.textContent = "Conta";
-            ContaHome.classList.add("menuLink");
+            ContaHome.classList.add("menuLink"); 
+            ContaHome.href = linkConta
+
         }
         
         if (!LembretesHome) {
             LembretesHome = document.createElement("a");
             LembretesHome.textContent = "Gerenciar Acessos";
             LembretesHome.classList.add("menuLink");
+            LembretesHome.href = linkAcessos
         }
 
         if (!EmpresasHome) {
             EmpresasHome = document.createElement("a");
             EmpresasHome.textContent = "Gerenciar Empresas";
             EmpresasHome.classList.add("menuLink");
+            EmpresasHome.href = linkEmpresas
+
         }
         
       
