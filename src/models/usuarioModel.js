@@ -30,9 +30,9 @@ function buscarUsuarioId(idUsuario){
 function retornarUsuarioAutenticar(email, senha){
     var instrucaoSql = `
     SELECT u.idUsuario, u.email, u.nome, u.telefone, u.imagem, empresa.nome AS empresa, cargo.nome AS cargo 
-    FROM usuario u
-	JOIN empresa ON idEmpresa = fkEmpresa
-    JOIN cargo ON idCargo = fkCargo
+    FROM Usuario u
+	JOIN Empresa ON idEmpresa = fkEmpresa
+    JOIN Cargo ON idCargo = fkCargo
     WHERE email = "${email}" AND senha = "${senha}"`;
     return database.executar(instrucaoSql);
 }
