@@ -247,7 +247,7 @@ fetchUltimas();
 
     if (registro.natureza == "FURTO" || registro.tipoLocal == "ROUBO") {
         var totalCasos = totalFurtos + totalRoubos;
-        var mediaMensalCasos = totalCasos / 6;
+        var mediaMensalCasos = totalCasos / 12;
         mediaMensal.innerHTML = formartarNum(mediaMensalCasos);
 
         totalOcorrencia.innerHTML = formartarNum(totalCasos);
