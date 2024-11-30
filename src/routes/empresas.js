@@ -24,4 +24,17 @@ router.get("/trazerEmpresas", function (req, res) {
   empresaController.listarEmpresas(req, res);
 });
 
+router.post("/adicionar", function (req, res) {
+  empresaController.adicionar(req, res);
+});
+
+router.put("/editar", function (req, res) {
+  empresaController.editar(req, res);
+});
+
+
+router.delete("/excluir/:idEmpresa", function (req, res) {
+  empresaController.excluir(req, res);
+}); 
+
 module.exports = router;

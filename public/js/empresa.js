@@ -1,16 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Fazendo a requisição para buscar as empresas
     fetch('empresas/trazerEmpresas')
-        .then(response => response.json()) // Converte a resposta para JSON
+        .then(response => response.json())
         .then(data => {
-            console.log(data); // Exibe os dados no console
-            renderEmpresas(data); // Chama a função que vai renderizar as empresas
+            console.log(data); 
+            empresas = data; 
+            renderEmpresas(data); 
         })
         .catch(error => {
             console.error('Erro ao buscar os dados:', error);
         });
 
-    // Obtendo os elementos da página
     const userListDiv = document.getElementById("lista-usuario");
     const confirmModal = document.getElementById("confirmModal");
     const addUserModal = document.getElementById("addUserModal");
@@ -29,12 +28,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const editUserPhoneInput = document.getElementById("editUserPhone");
     const saveUserChanges = document.getElementById("saveUserChanges");
 
-    let users = JSON.parse(localStorage.getItem('users')) || []; // Usuários armazenados no localStorage
+    let empresas = [];     
     let currentUserIndex = -1;
 
-    // Função para renderizar as empresas no HTML
     function renderEmpresas(empresas) {
-        userListDiv.innerHTML = ""; // Limpa a lista antes de adicionar os novos dados
+        userListDiv.innerHTML = ""; 
         empresas.forEach((empresa) => {
             const empresaDiv = document.createElement("div");
             empresaDiv.classList.add("nome-usuario");
@@ -50,12 +48,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Ação de abrir o modal para adicionar usuário
     document.getElementById('addUserIcon').addEventListener('click', () => {
         addUserModal.style.display = "block";
     });
 
-    // Fechar modal de adicionar usuário
     closeAddUserModal.addEventListener("click", () => {
         addUserModal.style.display = "none";
         userNameInput.value = ""; 
@@ -63,93 +59,112 @@ document.addEventListener("DOMContentLoaded", () => {
         userPhoneInput.value = ""; 
     });
 
-    // Adicionar novo usuário
     addUser.addEventListener("click", () => {
         const name = userNameInput.value;
         const cnpj = userCnpjInput.value;
         const phone = userPhoneInput.value;
-
+    
         if (name && cnpj && phone) {
-            users.push({ name, cnpj, phone }); 
-            updateUserList(); 
-            addUserModal.style.display = "none"; 
-            userNameInput.value = ""; 
-            userCnpjInput.value = ""; 
-            userPhoneInput.value = ""; 
+            fetch('empresas/adicionar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ nome: name, cnpj: cnpj, telefone: phone }),
+            })
+            .then(response => response.json())
+            .then(() => {
+                location.reload(); 
+            })
+            .catch(error => {
+                console.error('Erro ao adicionar empresa:', error);
+            });
         } else {
             alert("Por favor, preencha todos os campos.");
         }
     });
 
-    // Ação de editar usuário
     document.getElementById('editUserIcon').addEventListener('click', () => {
         const checkedCheckboxes = document.querySelectorAll('.user-checkbox:checked');
         
         if (checkedCheckboxes.length === 1) {
             const checkbox = checkedCheckboxes[0];
             currentUserIndex = Array.from(document.querySelectorAll('.user-checkbox')).indexOf(checkbox); 
-            const user = users[currentUserIndex];
-            editUserNameInput.value = user.name; 
-            editUserCnpjInput.value = user.cnpj; 
-            editUserPhoneInput.value = user.phone; 
+            const empresa = empresas[currentUserIndex];
+            editUserNameInput.value = empresa.nome; 
+            editUserCnpjInput.value = empresa.cnpj; 
+            editUserPhoneInput.value = empresa.telefone; 
             editUserModal.style.display = "block"; 
         } else {
             alert("Por favor, selecione uma empresa para editar.");
         }
     });
 
-    // Fechar modal de editar usuário
     closeEditUserModal.addEventListener("click", () => {
         editUserModal.style.display = "none";
     });
 
-    // Salvar as alterações do usuário
     saveUserChanges.addEventListener("click", () => {
         const updatedName = editUserNameInput.value;
         const updatedCnpj = editUserCnpjInput.value;
         const updatedPhone = editUserPhoneInput.value;
 
         if (updatedName && updatedCnpj && updatedPhone) {
-            users[currentUserIndex] = { name: updatedName, cnpj: updatedCnpj, phone: updatedPhone }; 
-            updateUserList();
-            editUserModal.style.display = "none"; 
+            fetch('empresas/editar', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    idEmpresa: empresas[currentUserIndex].idEmpresa, 
+                    nome: updatedName, 
+                    cnpj: updatedCnpj, 
+                    telefone: updatedPhone 
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Empresa editada:', data);
+                location.reload(); 
+                editUserModal.style.display = "none"; 
+            })
+            .catch(error => {
+                console.error('Erro ao editar empresa:', error);
+            });
         } else {
             alert("Por favor, preencha todos os campos.");
         }
     });
 
-    // Ação para deletar usuário
     document.getElementById('deleteIcon').addEventListener('click', () => {
         confirmModal.style.display = "block";
     });
 
-    // Fechar modal de confirmação de exclusão
     closeModal.addEventListener("click", () => {
         confirmModal.style.display = "none";
     });
 
-    // Cancelar a exclusão de usuário
     cancelDelete.addEventListener("click", () => {
         confirmModal.style.display = "none";
     });
 
-    // Confirmar a exclusão do usuário
     confirmDelete.addEventListener("click", () => {
         const checkboxes = document.querySelectorAll('.user-checkbox:checked');
         checkboxes.forEach(checkbox => {
-            const userDiv = checkbox.closest('.nome-usuario');
-            userListDiv.removeChild(userDiv);
-            users.splice(users.findIndex(user => user.name === checkbox.id), 1);
+            const empresaId = checkbox.id.split('-')[1]; 
+            console.log(empresaId)
+            fetch(`empresas/excluir/${empresaId}`, {
+                method: 'DELETE',
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Empresa excluída:', data);
+                location.reload();
+                confirmModal.style.display = "none"; 
+            })
+            .catch(error => {
+                console.error('Erro ao excluir empresa:', error);
+            });
         });
-        updateUserList(); 
-        confirmModal.style.display = "none"; 
     });
-
-    // Função para atualizar a lista de usuários no localStorage
-    function updateUserList() {
-        localStorage.setItem('users', JSON.stringify(users)); 
-    }
-
-    // Chama a função para renderizar as empresas quando o DOM estiver carregado
-    renderEmpresas([]);
 });
