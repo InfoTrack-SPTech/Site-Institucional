@@ -26,6 +26,7 @@ body {
   cursor: pointer;
   color: #fff;
   text-decoration: none;
+  z-index: 200;
 
 }
 
@@ -62,7 +63,7 @@ body {
 }
 
 .sobrepor {
-  z-index: 2;
+  z-index: 100;
   width: 20%;
   align-items: left;
 }
@@ -101,6 +102,7 @@ body {
   display: flex;
   width: 100%;
   height: 100vh;
+  z-index: 0;
 }
 
 .article {
@@ -108,7 +110,6 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .articleLateral {
@@ -124,7 +125,6 @@ body {
 
 .sec1 {
   display: flex;
-  padding: 10px;
   justify-content: space-between;
 
 }
@@ -225,7 +225,6 @@ p {
   margin-left: 3px;
   /* border-radius: 5%; */
   border-radius: 7px;
-  margin: 10px;
 }
 
 .primeiroBox {
@@ -252,7 +251,6 @@ p {
 
 .secBaixo {
   display: flex;
-  padding: 10px;
   justify-content: space-between;
 }
 
@@ -278,43 +276,58 @@ p {
   justify-content: center;
   align-items: center;
   /* margin: 0 10px;  */
-  padding: 10px;
   border-radius: 7px;
-}
-
-.secFiltro {
-  width: 99%;
-  height: 35px;
-  margin-left: -10px;
-  margin-top: 9px;
-  background-color: #666666;
-}
-
-.secFiltro {
-  display: flex;
-  /* justify-content: space-between; */
-}
-
-.boxFiltro select {
-  width: 268px;
-  height: 100%;
-  background-color: rgb(31, 24, 54);
-  color: white;
-  border-radius: 10%;
-  /* border-color: black; */
-}
-
-.highcharts-title tspan {
-  fill: #333366; 
-  font-size: 18px;
-  font-weight: bold;
-}
-
-#containerTreemap{
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
   margin: 10px;
 }
+/* Estilos básicos para centralizar e cobrir a tela */
+.load {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #191c32; /* Fundo semi-transparente */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Certifique-se de que está acima de outros elementos */
+  margin: auto;
+}
 
+/* Estilos para centralizar a imagem */
+.paiImagem {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  gap: 15px; /* Espaçamento entre a imagem e o texto */
+}
+
+/* Animação de rotação */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.casaImagem img {
+  width: 150px; /* Tamanho do ícone */
+  height: 150px;
+  animation: spin 1s linear infinite; /* Gira continuamente */
+  filter: brightness(0) invert(1);
+}
+
+/* Estilos para o texto */
+.texto-load {
+  font-size: 18px; /* Tamanho da fonte */
+  color: #ffffff; /* Cor do texto */
+  font-family: Arial, sans-serif; /* Família da fonte */
+  text-align: center; /* Centraliza o texto */
+}
