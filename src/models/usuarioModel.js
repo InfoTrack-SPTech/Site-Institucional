@@ -27,10 +27,27 @@ function buscarUsuarioId(idUsuario){
     return database.executar(instrucaoSql);
 }
 
+function retornarUsuarioAutenticar(email, senha){
+    var instrucaoSql = `
+    SELECT u.idUsuario, u.email, u.nome, u.telefone, u.imagem, empresa.nome AS empresa, cargo.nome AS cargo 
+    FROM usuario u
+	JOIN empresa ON idEmpresa = fkEmpresa
+    JOIN cargo ON idCargo = fkCargo
+    WHERE email = "${email}" AND senha = "${senha}"`;
+    return database.executar(instrucaoSql);
+}
+
+function atualizarFotoPerfil(nomeImagem, idUsuario){
+    var instrucaoSql = `UPDATE usuario SET imagem = "${nomeImagem}" WHERE idUsuario = ${idUsuario}`;
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     autenticar,
     cadastrar,
     buscarEmail,
     buscarUsuario,
-    buscarUsuarioId
+    buscarUsuarioId,
+    atualizarFotoPerfil,
+    retornarUsuarioAutenticar
 };
