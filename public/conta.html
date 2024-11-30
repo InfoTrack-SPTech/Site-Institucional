@@ -66,7 +66,7 @@
                     <div class="modal-editar">
                         <h3>Editar Imagem de Perfil</h3>
                         <input type="file" id="imagem-input" accept=".png, .jpg, .jpeg" />
-                        <button id="uploadImageBtn">Subir Imagem</button>
+                        <button id="uploadImageBtn" class="salvar">Subir Imagem</button>
                         <button id="closeEditImageModal" class="cancelar">Cancelar</button>
                         <button id="btnRemoverImagem" class="cancelar">Remover</button>
                     </div>
@@ -74,8 +74,9 @@
 
                 <div class="section usuario-info">
                     <div class="detalhes-usuario">
-                        <p id="p_email"><!-- Email --> </p>
-                        <p id="p_telefone"><!-- Telefone --></p>
+                        <p style="font-size: 22px; margin-left: 2%; width: 100%;">Dados do perfil:</p>
+                        <p id="p_email" style="margin-left: 2%; width: 100%;"><!-- Email --> </p>
+                        <p id="p_telefone" style="margin-left: 2%; width: 100%;"><!-- Telefone --></p>
                         <button id="editButton" class="edit-button">
                             <img src="./assets/edit.png" alt="Edit" class="edit-icon">
                         </button>
@@ -89,13 +90,13 @@
                             <div class="form-columns">
                                 <div class="form-column">
                                     <label for="nome">Nome:</label>
-                                    <input type="text" id="nome" name="nome">
+                                    <input type="text" id="nome" name="nome" maxlength="80" placeholder="Seu nome">
 
                                     <label for="email">Email:</label>
-                                    <input type="email" id="email" name="email">
+                                    <input type="email" id="email" name="email" maxlength="80" placeholder="Ex: infotrack@dominio.com">
 
                                     <label for="telefone">Telefone:</label>
-                                    <input type="tel" id="telefone" name="telefone">
+                                    <input type="tel" id="telefone" name="telefone" maxlength="15" placeholder="Ex: (99) 99999-9999">
                                 </div>
                                 <div class="form-column">
                                     <label for="senha">Senha atual:</label>
@@ -117,9 +118,10 @@
                 </div>
 
                 <div class="section usuario-info">
-                    <div class="empresa-usuario">
-                        <p id="p_empresa"><!-- Empresa --></p>
-                        <p id="p_cargo"><!-- Cargo --></p>
+                    <div class="detalhes-usuario">
+                        <p style="font-size: 22px; margin-left: 2%; width: 100%;">Dados adicionais:</p>
+                        <p id="p_empresa" style="margin-left: 2%; width: 100%;"><!-- Empresa --></p>
+                        <p id="p_cargo" style="margin-left: 2%; width: 100%;"><!-- Cargo --></p>
                     </div>
                 </div>
 
@@ -147,13 +149,13 @@
                 document.getElementById("imagem-perfil").src = `https://s3-foto-perfil.s3.us-east-1.amazonaws.com/usuario-${sessionStorage.ID_USUARIO}/` + sessionStorage.FOTO_USUARIO;
             }
             h3_nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO;
-            p_empresa.innerHTML = "Empresa: " + sessionStorage.EMPRESA_USUARIO;
-            p_cargo.innerHTML = "Cargo: " + sessionStorage.CARGO_USUARIO;
-            p_telefone.innerHTML = "Telefone: " + sessionStorage.TELEFONE_USUARIO;
-            p_email.innerHTML = "Email: " + sessionStorage.EMAIL_USUARIO;
+            p_empresa.innerHTML = "<strong>Empresa:</strong> " + sessionStorage.EMPRESA_USUARIO;
+            p_cargo.innerHTML = "<strong>Cargo:</strong> " + sessionStorage.CARGO_USUARIO;
+            p_telefone.innerHTML = "<strong>Telefone:</strong> " + sessionStorage.TELEFONE_USUARIO;
+            p_email.innerHTML = "<strong>Email:</strong> " + sessionStorage.EMAIL_USUARIO;
 
             nome.value =  sessionStorage.NOME_USUARIO;
-            email.value = sessionStorage.EMPRESA_USUARIO;
+            email.value = sessionStorage.EMAIL_USUARIO;
             telefone.value = sessionStorage.TELEFONE_USUARIO;
         }
 
