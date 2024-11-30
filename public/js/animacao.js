@@ -6,6 +6,28 @@ const conta = document.getElementsByClassName("conta")[0];
 const lembretes = document.getElementsByClassName("lembretes")[0];
 const empresas = document.getElementsByClassName("empresas")[0];
 let linkHome, linkConta, linkAcessos, linkEmpresas;
+let h1Home, ContaHome, LembretesHome, EmpresasHome;
+
+function displayEmpresas(){
+    if(sessionStorage.EMPRESA_USUARIO == 'InfoTrack'){
+        empresas.style.display = 'block'
+        return true
+    }
+    else{
+        empresas.style.display = 'none'
+        console.log(sessionStorage.EMPRESA_USUARIO)
+        return false
+    }
+
+    
+}
+
+
+function blockEmpresa(){
+    EmpresasHome.style.display = 'block';
+
+}
+displayEmpresas()
 if (window.location.pathname.endsWith("dashboard.html")) {
     linkHome = "#";
     linkConta = "../conta.html";
@@ -20,7 +42,6 @@ if (window.location.pathname.endsWith("dashboard.html")) {
 
 
 
-let h1Home, ContaHome, LembretesHome, EmpresasHome;
 
 
 function toggleMenu() {
@@ -35,7 +56,7 @@ function toggleMenu() {
         home.style.display = "block";
         lembretes.style.display = "block";
         conta.style.display = "block";
-        empresas.style.display = "block";
+        displayEmpresas()
     } else {
      
         menuSideBar.classList.add("sobrepor");
@@ -45,7 +66,6 @@ function toggleMenu() {
             h1Home.textContent = "Home";
             h1Home.classList.add("menuLink"); 
             h1Home.href = linkHome
-
         }
         
         if (!ContaHome) {
@@ -63,19 +83,18 @@ function toggleMenu() {
             LembretesHome.href = linkAcessos
         }
 
-        if (!EmpresasHome) {
+        if (!EmpresasHome && displayEmpresas()) {
             EmpresasHome = document.createElement("a");
             EmpresasHome.textContent = "Gerenciar Empresas";
             EmpresasHome.classList.add("menuLink");
             EmpresasHome.href = linkEmpresas
-
+            blockEmpresa()
         }
         
       
         h1Home.style.display = 'block';
         ContaHome.style.display = 'block';
         LembretesHome.style.display = 'block';
-        EmpresasHome.style.display = 'block';
        
         home.style.display = "none";
         lembretes.style.display = "none";

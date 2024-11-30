@@ -1,5 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const users = JSON.parse(localStorage.getItem('users')) || []; 
+    // Fazendo a requisição para buscar as empresas
+    fetch('empresas/trazerEmpresas')
+        .then(response => response.json()) // Converte a resposta para JSON
+        .then(data => {
+            console.log(data); // Exibe os dados no console
+            renderEmpresas(data); // Chama a função que vai renderizar as empresas
+        })
+        .catch(error => {
+            console.error('Erro ao buscar os dados:', error);
+        });
+
+    // Obtendo os elementos da página
     const userListDiv = document.getElementById("lista-usuario");
     const confirmModal = document.getElementById("confirmModal");
     const addUserModal = document.getElementById("addUserModal");
@@ -18,30 +29,33 @@ document.addEventListener("DOMContentLoaded", () => {
     const editUserPhoneInput = document.getElementById("editUserPhone");
     const saveUserChanges = document.getElementById("saveUserChanges");
 
-    let currentUserIndex = -1; 
+    let users = JSON.parse(localStorage.getItem('users')) || []; // Usuários armazenados no localStorage
+    let currentUserIndex = -1;
 
-    function updateUserList() {
-        userListDiv.innerHTML = ""; 
-        users.forEach((user, index) => {
-            const userDiv = document.createElement("div");
-            userDiv.classList.add("nome-usuario");
-            userDiv.innerHTML = `
-                <input type="checkbox" class="user-checkbox" id="${user.name}">
-                <label for="${user.name}">
-                    <h3>${user.name}</h3>
-                    <p>CNPJ: ${user.cnpj}</p>
-                    <p>Telefone: ${user.phone}</p>
+    // Função para renderizar as empresas no HTML
+    function renderEmpresas(empresas) {
+        userListDiv.innerHTML = ""; // Limpa a lista antes de adicionar os novos dados
+        empresas.forEach((empresa) => {
+            const empresaDiv = document.createElement("div");
+            empresaDiv.classList.add("nome-usuario");
+            empresaDiv.innerHTML = `
+                <input type="checkbox" class="user-checkbox" id="empresa-${empresa.idEmpresa}">
+                <label for="empresa-${empresa.idEmpresa}">
+                    <h3>${empresa.nome}</h3>
+                    <p>CNPJ: ${empresa.cnpj}</p>
+                    <p>Telefone: ${empresa.telefone}</p>
                 </label>
             `;
-            userListDiv.appendChild(userDiv);
+            userListDiv.appendChild(empresaDiv);
         });
-        localStorage.setItem('users', JSON.stringify(users)); 
     }
 
+    // Ação de abrir o modal para adicionar usuário
     document.getElementById('addUserIcon').addEventListener('click', () => {
         addUserModal.style.display = "block";
     });
 
+    // Fechar modal de adicionar usuário
     closeAddUserModal.addEventListener("click", () => {
         addUserModal.style.display = "none";
         userNameInput.value = ""; 
@@ -49,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
         userPhoneInput.value = ""; 
     });
 
+    // Adicionar novo usuário
     addUser.addEventListener("click", () => {
         const name = userNameInput.value;
         const cnpj = userCnpjInput.value;
@@ -62,10 +77,11 @@ document.addEventListener("DOMContentLoaded", () => {
             userCnpjInput.value = ""; 
             userPhoneInput.value = ""; 
         } else {
-            alert("Por favor, preencha todos os campos."); 
+            alert("Por favor, preencha todos os campos.");
         }
     });
 
+    // Ação de editar usuário
     document.getElementById('editUserIcon').addEventListener('click', () => {
         const checkedCheckboxes = document.querySelectorAll('.user-checkbox:checked');
         
@@ -78,14 +94,16 @@ document.addEventListener("DOMContentLoaded", () => {
             editUserPhoneInput.value = user.phone; 
             editUserModal.style.display = "block"; 
         } else {
-            alert("Por favor, selecione uma empresa para editar."); 
+            alert("Por favor, selecione uma empresa para editar.");
         }
     });
 
+    // Fechar modal de editar usuário
     closeEditUserModal.addEventListener("click", () => {
         editUserModal.style.display = "none";
     });
 
+    // Salvar as alterações do usuário
     saveUserChanges.addEventListener("click", () => {
         const updatedName = editUserNameInput.value;
         const updatedCnpj = editUserCnpjInput.value;
@@ -96,22 +114,26 @@ document.addEventListener("DOMContentLoaded", () => {
             updateUserList();
             editUserModal.style.display = "none"; 
         } else {
-            alert("Por favor, preencha todos os campos."); 
+            alert("Por favor, preencha todos os campos.");
         }
     });
 
+    // Ação para deletar usuário
     document.getElementById('deleteIcon').addEventListener('click', () => {
         confirmModal.style.display = "block";
     });
 
+    // Fechar modal de confirmação de exclusão
     closeModal.addEventListener("click", () => {
         confirmModal.style.display = "none";
     });
 
+    // Cancelar a exclusão de usuário
     cancelDelete.addEventListener("click", () => {
         confirmModal.style.display = "none";
     });
 
+    // Confirmar a exclusão do usuário
     confirmDelete.addEventListener("click", () => {
         const checkboxes = document.querySelectorAll('.user-checkbox:checked');
         checkboxes.forEach(checkbox => {
@@ -123,5 +145,11 @@ document.addEventListener("DOMContentLoaded", () => {
         confirmModal.style.display = "none"; 
     });
 
-    updateUserList(); 
+    // Função para atualizar a lista de usuários no localStorage
+    function updateUserList() {
+        localStorage.setItem('users', JSON.stringify(users)); 
+    }
+
+    // Chama a função para renderizar as empresas quando o DOM estiver carregado
+    renderEmpresas([]);
 });
