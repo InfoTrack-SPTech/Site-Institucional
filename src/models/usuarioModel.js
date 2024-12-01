@@ -62,10 +62,10 @@ function excluirUsuario(idUsuario) {
     return database.executar(instrucaoSql);
 }
 
-function atualizarSenha(idUsuario, novaSenhaHash) {
+/* function atualizarSenha(idUsuario, novaSenhaHash) {
     var instrucaoSql = `UPDATE Usuario SET senha = "${novaSenhaHash}" WHERE idUsuario = ${idUsuario}`;
     return database.executar(instrucaoSql);
-}
+}*/
 
 module.exports = {
     autenticar,

@@ -39,22 +39,35 @@ document.addEventListener('DOMContentLoaded', function() {
         const senhaAtual = prompt("Por favor, insira sua senha atual para confirmar a exclusão:"); 
 
         try {
-            const response = await fetch(`/usuarios/excluir/${sessionStorage.ID_USUARIO}`, {
+            await fetch(`/usuarios/excluirConta/${sessionStorage.ID_USUARIO}/${sessionStorage.CARGO_USUARIO}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ senha: senhaAtual }), 
-            });
-
-            if (response.ok) {
-                alert("Conta excluída com sucesso!");
-                document.getElementById("confirmModal").style.display = "none"; 
-                window.location.href = "/"; // Redireciona após a exclusão
-            } else {
-                const errorMessage = await response.text();
-                alert(errorMessage);
-            }
+            }).then((res) => {
+                if(res.ok){
+                    res.json().then((data) => {
+                        Swal.fire({
+                            title: data.mensagem,
+                            icon: 'success'
+                        })
+                    })
+                    setTimeout(() => {
+                        window.location.href = "index.html"
+                    }, 1200)
+                } else{
+                    res.json().then((err) => {
+                        Swal.fire({
+                            title: err.mensagem,
+                            icon: 'error'
+                        })
+                    })
+                    setTimeout(() => {
+                        location.reload()
+                    }, 1300)
+                }
+            })
         } catch (error) {
             console.error("Erro ao excluir conta:", error);
             alert("Houve um erro ao tentar excluir sua conta.");
@@ -65,40 +78,53 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("edit-form").onsubmit = async (event) => {
         event.preventDefault(); 
 
-        const senhaAtual = document.getElementById("senha-atual").value;
+        const senhaAtual = document.getElementById("senha").value;
         const nome = document.getElementById("nome").value;
-        const email = document.getElementById("email").value;
         const telefone = document.getElementById("telefone").value;
 
         if (!senhaAtual) {
-            showError("Por favor, insira sua senha atual.");
+            Swal.fire({
+                title: "Por favor Insira sua senha",
+                icon: 'error'
+            })
             return;
         }
 
         try {
-            const response = await fetch(`/usuarios/verificarSenha/${sessionStorage.ID_USUARIO}`, {
-                method: 'POST',
+            fetch(`/usuarios/editarConta/${sessionStorage.ID_USUARIO}`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ senha: senhaAtual })
-            });
+                body: JSON.stringify({
+                    nomeUsuario: nome,
+                    telefoneUsuario: telefone,
+                    senhaUsuario: senhaAtual,
+                })
+            }).then((res) => {
+                if(res.ok){
+                    res.json().then((data) => {
+                        Swal.fire({
+                            title: data.mensagem,
+                            icon: 'success'
+                        })
+                    })
 
-            if (response.ok) {
-                await fetch(`/usuarios/atualizar/${sessionStorage.ID_USUARIO}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ nome, email, telefone })
-                });
+                    sessionStorage.NOME_USUARIO = nome;
+                    sessionStorage.TELEFONE_USUARIO = telefone;                    
 
-                alert("Informações atualizadas com sucesso!");
-                document.getElementById("editModal").style.display = "none"; 
-            } else {
-                const errorMessage = await response.text();
-                showError(errorMessage); // Exibir mensagem de erro
-            }
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1200)
+                } else{
+                    res.json().then((err) => {
+                        Swal.fire({
+                            title: err.mensagem,
+                            icon: 'error'
+                        })
+                    })
+                }
+            })
         } catch (error) {
             console.error("Erro ao atualizar informações:", error);
             showError("Houve um erro ao atualizar as informações.");
@@ -132,35 +158,59 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Verifique se as novas senhas coincidem
         if (novaSenha !== confirmarSenha) {
-            showPasswordError("As novas senhas não coincidem.");
+            Swal.fire({
+                title: 'As novas senhas não coincidem',
+                icon: 'error'
+            })
             return;
-        }
-
+        } else if(novaSenha.length < 8){
+            Swal.fire({
+              title: "Senha muito curta",
+              text: "Minímo 8 caracteres",
+              icon: "error"
+            });
+            return;
+        } else if(novaSenha.indexOf("!") == -1 && novaSenha.indexOf("&") == -1 && novaSenha.indexOf("@") == -1 && novaSenha.indexOf("#") && novaSenha.indexOf("$") == -1){
+            Swal.fire({ 
+                title: "A senha precisa de ao menos um caractere especial",
+                icon: "error"
+            });
+            return;
+        } 
+    
         try {
-            const response = await fetch(`/usuarios/verificarSenha/${sessionStorage.ID_USUARIO}`, {
-                method: 'POST',
+
+            fetch(`/usuarios/atualizarSenha/${sessionStorage.ID_USUARIO}`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ senha: senhaAtual })
-            });
+                body: JSON.stringify({
+                    senhaAtualUsuario: senhaAtual,
+                    senhaNovaUsuario: novaSenha,
+                    senhaConfirmarusuario: confirmarSenha  
+                })
+            }).then((res) => {
+                if(res.ok){
+                    res.json().then((data) => {
+                        Swal.fire({
+                            title: data.mensagem,
+                            icon: 'success'
+                        })
 
-            if (response.ok) {
-                // Se a senha atual estiver correta, atualize a senha
-                await fetch(`/usuarios/atualizarSenha/${sessionStorage.ID_USUARIO}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ novaSenha })
-                });
-
-                alert("Senha alterada com sucesso!");
-                document.getElementById("changePasswordModal").style.display = "none"; // Fechar o modal
-            } else {
-                const errorMessage = await response.text();
-                showPasswordError(errorMessage);
-            }
+                        setTimeout(() => {
+                            location.reload();
+                        }, 1200)
+                    })
+                } else{
+                    res.json().then((err) => {
+                        Swal.fire({
+                            title: err.mensagem,
+                            icon: 'error'
+                        })
+                    })
+                }
+            })
         } catch (error) {
             console.error("Erro ao alterar a senha:", error);
             showPasswordError("Houve um erro ao tentar alterar a senha.");

@@ -115,7 +115,7 @@ async function removerFoto(req, res){
 async function editarConta(req, res){
 
     const idUsuario = req.params.idUsuario;
-    const nome = req.body.emailUsuario;
+    const nome = req.body.nomeUsuario;
     const telefone = req.body.telefoneUsuario;
     const senha = req.body.senhaUsuario;
 
@@ -152,10 +152,12 @@ async function excluirConta(req, res){
 
     const idUsuario = req.params.idUsuario;
     const cargo = req.params.cargo;
+    const senha = req.body.senha;
 
     const usuario = await usuarioModel.buscarUsuarioId(idUsuario).then((data) => {
         return data.length > 0 ? data[0] : null;
     })
+
     if(usuario == null){
         res.status(404).json({
             codigo: 404, 
@@ -165,6 +167,11 @@ async function excluirConta(req, res){
         res.status(404).json({
             codigo: 404, 
             mensagem: "Você não tem permissão para excluir sua conta"
+        })
+    } else if(senha != usuario.senha){
+        res.status(404).json({
+            codigo: 404, 
+            mensagem: "Senha fornecida incorreta"
         })
     } else{
         usuarioModel.excluirContaId(idUsuario).then(() => {
@@ -204,7 +211,7 @@ async function atualizarSenha(req, res){
     } else if(senhaNova == senhaAntiga || confirmarSenha == senhaAntiga){
         res.status(404).json({
             codigo: 404,
-            mensagem: "A senha nova não pode ser igual a antiga"
+            mensagem: "A nova senha não pode ser igual a antiga"
         })
     } else if(senhaNova != confirmarSenha){
         res.status(404).json({
@@ -218,7 +225,9 @@ async function atualizarSenha(req, res){
                 mensagem: "Operação realizada com sucesso!"
             })
         })
-      
+    }
+}
+
 async function excluirUsuario(req, res) {
     const idUsuario = req.params.idUsuario;
     const senhaAtual = req.body.senha; 
@@ -271,9 +280,9 @@ async function verificarSenha(req, res) {
     }    
 }
 
-const bcrypt = require('bcrypt'); // Importar bcrypt para hashing de senhas
+// const bcrypt = require('bcrypt'); // Importar bcrypt para hashing de senhas
 
-async function atualizarSenha(req, res) {
+/* async function atualizarSenha(req, res) {
     const idUsuario = req.params.idUsuario;
     const { novaSenha } = req.body;
 
@@ -292,7 +301,7 @@ async function atualizarSenha(req, res) {
         console.error("Erro ao atualizar a senha:", error);
         res.status(500).send("Erro ao atualizar a senha.");
     }
-}
+} */
 
 module.exports = {
     autenticar,

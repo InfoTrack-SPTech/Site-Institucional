@@ -55,11 +55,10 @@
                 </div>
                 <div id="confirmModal" class="modal" style="display: none;">
                     <div class="modal-content">
-                        <button id="closeModal">Fechar</button> <!-- Este ID deve corresponder -->
                         <h2>Confirmação de Exclusão</h2>
                         <p>Você tem certeza que deseja excluir sua conta?</p>
-                        <button id="cancelDelete">Cancelar</button>
-                        <button id="confirmDelete">Confirmar</button>
+                        <button id="confirmDelete" style="background-color: #4CAF50;">Confirmar</button>
+                        <button id="cancelDelete" style="background-color: #f44336;">Cancelar</button>
                     </div>
                 </div>
                 <div class="section usuario-info">
@@ -107,21 +106,21 @@
                             <div class="form-columns">
                                 <div class="form-column">
                                     <label for="nome">Nome:</label>
-                                    <input type="text" id="nome" name="nome">
+                                    <input type="text" id="nome" name="nome" maxlength="80" placeholder="Seu nome">
 
                                     <label for="email">Email:</label>
-                                    <input type="email" id="email" name="email">
+                                    <input type="email" id="email" name="email" readonly maxlength="80" placeholder="Ex: usuario@infotrack.com" style="background-color: gainsboro;">
 
                                     <label for="telefone">Telefone:</label>
-                                    <input type="tel" id="telefone" name="telefone">
+                                    <input type="tel" id="telefone" name="telefone" maxlength="15" placeholder="Ex: (99) 99999-999">
                                 </div>
                                 <div class="form-column">
                                     <label for="senha">Senha atual:</label>
-                                    <input type="password" id="senha-atual" name="senha">
+                                    <input type="password" id="senha" name="senha" placeholder="Senha da conta">
                                 </div>
                             </div>
                             <div class="form-buttons">
-                                <button type="submit" class="salvar">Salvar</button>
+                                <button class="salvar" id="btn_salvarDados">Salvar</button>
                                 <button type="button" id="cancelEdit" class="cancelar">Cancelar</button>
                             </div>
                             <div id="error-message" style="color: red; display: none;"></div> <!-- Mensagem de erro -->
@@ -131,7 +130,7 @@
 
                 <div id="changePasswordModal" class="modal" style="display: none;">
                     <div class="modal-content">
-                        <span id="cancelChangePassword" class="close-button">Cancelar</span>
+                        
                         <h2>Mudar Senha</h2>
                         <form id="change-password-form">
                             <label for="senha-atual">Senha Atual</label>
@@ -143,7 +142,8 @@
                             <label for="confirmar-senha">Confirmar Nova Senha</label>
                             <input type="password" id="confirmar-senha" required>
                 
-                            <button type="submit">Alterar Senha</button>
+                            <button type="submit" style="background-color: #4CAF50;">Alterar Senha</button>
+                            <button id="cancelChangePassword" class="close-button" style="background-color: #f44336;">Cancelar</button>
                         </form>
                         <div id="password-error-message" style="display: none; color: red;"></div>
                     </div>
@@ -176,14 +176,18 @@
     <script>
         window.onload = () => {
 
+            if(sessionStorage.CARGO_USUARIO == "Gerente" || sessionStorage.CARGO_USUARIO == "Administrador"){
+                document.getElementById("excluirConta").style.display = 'flex';
+            }
+
             if (sessionStorage.FOTO_USUARIO != "null" && sessionStorage.FOTO_USUARIO.trim() != "") {
                 document.getElementById("imagem-perfil").src = `https://s3-foto-perfil.s3.us-east-1.amazonaws.com/usuario-${sessionStorage.ID_USUARIO}/` + sessionStorage.FOTO_USUARIO;
             }
             h3_nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO;
-            p_empresa.innerHTML = "Empresa: " + sessionStorage.EMPRESA_USUARIO;
-            p_cargo.innerHTML = "Cargo: " + sessionStorage.CARGO_USUARIO;
-            p_telefone.innerHTML = "Telefone: " + sessionStorage.TELEFONE_USUARIO;
-            p_email.innerHTML = "Email: " + sessionStorage.EMAIL_USUARIO;
+            p_empresa.innerHTML = "<strong>Empresa:</strong> " + sessionStorage.EMPRESA_USUARIO;
+            p_cargo.innerHTML = "<strong>Cargo:</strong> " + sessionStorage.CARGO_USUARIO;
+            p_telefone.innerHTML = "<strong>Telefone:</strong> " + sessionStorage.TELEFONE_USUARIO;
+            p_email.innerHTML = "<strong>Email:</strong> " + sessionStorage.EMAIL_USUARIO;
 
             nome.value =  sessionStorage.NOME_USUARIO;
             email.value = sessionStorage.EMAIL_USUARIO;
@@ -264,6 +268,10 @@
                 })
             }
         };        
+    
+        btn_salvarDados.onclick = () => {
+
+        }
     </script>
 </body>
 
