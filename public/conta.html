@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Conta</title>
+
+    <link rel="stylesheet" href="./css/conta.css">
+    <script src="./js/animacao.js" defer></script>
+    <script src="./js/tema.js" defer></script>
+    <script src="./js/logoutModal.js"></script>
+    <script src="./js/fotoPerfil.js"></script>
+    <script src="./js/editarModal.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+</head>
+
+<body>
+    <div class="nav">
+        <nav class="sidebar" id="menuSideBar">
+            <div class="sanduiche">
+                <img src="./assets/menu-aberto (1).png" alt="" id="iconMenuSideBar">
+            </div>
+            <div class="dashicon">
+                <a href="./dashboard/dashboard.html">
+                    <img src="./assets/silhueta-de-icone-de-casa.png" alt="">
+                </a>
+            </div>
+            <div class="conta">
+                <a href="./conta.html">
+                    <img src="./assets/conta.png" alt="">
+                </a>
+            </div>
+            <div class="lembretes">
+                <a href="./acessos.html">
+                    <img src="./assets/lock.png" alt="">
+                </a>
+            </div>
+            <div class="empresas">
+                <a href="./empresa.html">
+                    <img src="./assets/workplace.png" alt="">
+                </a>
+            </div>
+            <div class="switch">
+                <input type="checkbox" id="themeSwitch" class="switch-input" role="switch">
+                <label for="themeSwitch" class="switch-label"></label>
+            </div>
+        </nav>
+        <main class="main-content">
+            <h1>Minha Conta</h1>
+            <div class="container">
+                <div class="excluir-conta" id="excluirConta">
+                    <img src="./assets/remove.png" alt="Excluir Conta" class="excluir-icon">
+                    <span>Excluir Conta</span>
+                </div>
+                <div id="confirmModal" class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <button id="closeModal">Fechar</button> <!-- Este ID deve corresponder -->
+                        <h2>Confirmação de Exclusão</h2>
+                        <p>Você tem certeza que deseja excluir sua conta?</p>
+                        <button id="cancelDelete">Cancelar</button>
+                        <button id="confirmDelete">Confirmar</button>
+                    </div>
+                </div>
+                <div class="section usuario-info">
+                    <div class="detalhes-usuario">
+                        <div style="display: flex; flex-direction: row;">
+                            <img src="./assets/user.png" alt="foto-usuario" class="foto-usuario" id="imagem-perfil">
+                            <h3 class="nome-usuario" id="h3_nomeUsuario"><!-- Nome Usuario --></h3>
+                        </div>
+                        <button id="openEditImageModal" class="edit-button">
+                            <img src="./assets/edit.png" alt="Edit" class="edit-icon">
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Modal para editar imagem -->
+                <div id="editImageModal" class="modal" style="display:none;">
+                    <div class="modal-editar">
+                        <h3>Editar Imagem de Perfil</h3>
+                        <input type="file" id="imagem-input" accept=".png, .jpg, .jpeg" />
+                        <button id="uploadImageBtn" class="salvar">Subir Imagem</button>
+                        <button id="closeEditImageModal" class="cancelar">Cancelar</button>
+                        <button id="btnRemoverImagem" class="cancelar">Remover</button>
+                    </div>
+                </div>
+
+                <div class="section usuario-info">
+                    <div class="detalhes-usuario">
+                        <p id="p_email"><!-- Email --> </p>
+                        <p id="p_telefone"><!-- Telefone --></p>
+                        <button id="editButton" class="edit-button">
+                            <img src="./assets/edit.png" alt="Edit" class="edit-icon">
+                        </button>
+                        <div class="button-container">
+                            <button id="mudarSenhaButton" class="lock-button">
+                                <img src="./assets/lock.png" alt="Alterar Senha" class="edit-icon">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="editModal" class="modal" style="display:none;">
+                    <div class="modal-editar">
+                        <h3>Editar Informações</h3>
+                        <form class="edit-form" id="edit-form">
+                            <div class="form-columns">
+                                <div class="form-column">
+                                    <label for="nome">Nome:</label>
+                                    <input type="text" id="nome" name="nome">
+
+                                    <label for="email">Email:</label>
+                                    <input type="email" id="email" name="email">
+
+                                    <label for="telefone">Telefone:</label>
+                                    <input type="tel" id="telefone" name="telefone">
+                                </div>
+                                <div class="form-column">
+                                    <label for="senha">Senha atual:</label>
+                                    <input type="password" id="senha-atual" name="senha">
+                                </div>
+                            </div>
+                            <div class="form-buttons">
+                                <button type="submit" class="salvar">Salvar</button>
+                                <button type="button" id="cancelEdit" class="cancelar">Cancelar</button>
+                            </div>
+                            <div id="error-message" style="color: red; display: none;"></div> <!-- Mensagem de erro -->
+                        </form>
+                    </div>
+                </div>
+
+                <div id="changePasswordModal" class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <span id="cancelChangePassword" class="close-button">Cancelar</span>
+                        <h2>Mudar Senha</h2>
+                        <form id="change-password-form">
+                            <label for="senha-atual">Senha Atual</label>
+                            <input type="password" id="senha-atual" required>
+                
+                            <label for="nova-senha">Nova Senha</label>
+                            <input type="password" id="nova-senha" required>
+                
+                            <label for="confirmar-senha">Confirmar Nova Senha</label>
+                            <input type="password" id="confirmar-senha" required>
+                
+                            <button type="submit">Alterar Senha</button>
+                        </form>
+                        <div id="password-error-message" style="display: none; color: red;"></div>
+                    </div>
+                </div>
+
+                <div class="section usuario-info">
+                    <div class="empresa-usuario">
+                        <p id="p_empresa"><!-- Empresa --></p>
+                        <p id="p_cargo"><!-- Cargo --></p>
+                    </div>
+                </div>
+
+                <main>
+                    <h2 class="logout" id="logoutButton">
+                        <img src="./assets/logout.png" alt="Logout Icon" class="logout-icon"> Sair da conta
+                    </h2>
+                </main>
+
+                <div id="logoutModal" class="modal" style="display:none;">
+                    <div class="modal-content">
+                        <p>Tem certeza de que deseja sair da conta?</p>
+                        <button id="confirmLogout" class="confirmarLogout">Confirmar</button>
+                        <button id="cancelLogout" class="cancelarLogout">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        window.onload = () => {
+
+            if (sessionStorage.FOTO_USUARIO != "null" && sessionStorage.FOTO_USUARIO.trim() != "") {
+                document.getElementById("imagem-perfil").src = `https://s3-foto-perfil.s3.us-east-1.amazonaws.com/usuario-${sessionStorage.ID_USUARIO}/` + sessionStorage.FOTO_USUARIO;
+            }
+            h3_nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO;
+            p_empresa.innerHTML = "Empresa: " + sessionStorage.EMPRESA_USUARIO;
+            p_cargo.innerHTML = "Cargo: " + sessionStorage.CARGO_USUARIO;
+            p_telefone.innerHTML = "Telefone: " + sessionStorage.TELEFONE_USUARIO;
+            p_email.innerHTML = "Email: " + sessionStorage.EMAIL_USUARIO;
+
+            nome.value = sessionStorage.NOME_USUARIO;
+            email.value = sessionStorage.EMPRESA_USUARIO;
+            telefone.value = sessionStorage.TELEFONE_USUARIO;
+        }
+
+        document.getElementById("openEditImageModal").onclick = () => {
+            document.getElementById("editImageModal").style.display = "flex";
+        }
+
+        document.getElementById("closeEditImageModal").onclick = () => {
+            document.getElementById("editImageModal").style.display = "none";
+        }
+
+        btnRemoverImagem.onclick = () => {
+
+            fetch(`/usuarios/removerImagem/${sessionStorage.ID_USUARIO}`, {
+                method: 'DELETE'
+            }).then((res) => {
+                if (res.ok) {
+                    sessionStorage.FOTO_USUARIO = "";
+                    Swal.fire({
+                        title: 'Imagem removida',
+                        icon: 'success'
+                    })
+                    setTimeout(() => {
+                        location.reload()
+                    }, 1100)
+                } else {
+                    res.text().then((err) => {
+                        Swal.fire({
+                            title: err,
+                            icon: 'error'
+                        })
+                    })
+                }
+            })
+        }
+
+        document.getElementById("uploadImageBtn").onclick = async () => {
+            const input = document.getElementById("imagem-input");
+            const file = input.files[0];
+
+            if (!file) {
+                Swal.fire({
+                    title: "Por favor escolha uma imagem",
+                    icon: 'error'
+                })
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("imagem", file);
+
+            try {
+                const response = await fetch(`/usuarios/subirImagem/${sessionStorage.ID_USUARIO}`, {
+                    method: 'POST',
+                    body: formData,
+                });
+                if (response.ok) {
+                    response.json().then((data) => {
+                        sessionStorage.FOTO_USUARIO = data.foto;
+                        Swal.fire({
+                            title: 'Imagem de perfil atualizada',
+                            icon: 'success'
+                        })
+                        setTimeout(() => {
+                            location.reload();
+                        }, 1300)
+                    })
+                }
+
+            } catch (error) {
+                console.error("Erro:", error);
+                Swal.fire({
+                    title: "Erro ao enviar a imagem",
+                    icon: 'error'
+                })
+            }
+        };        
+    </script>
+</body>
+
+</html>

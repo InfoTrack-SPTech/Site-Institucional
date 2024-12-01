@@ -24,7 +24,7 @@
         <li>
           <a href="index.html">Início</a>
         </li>
-  
+
         <li>|</li>
         <li>
           <a href="login.html">Login</a>
@@ -73,16 +73,12 @@
           </div>
           <div class="campo">
             <span>Empresa:</span>
-            <input id="empresa_input" type="text" placeholder="Nome da Empresa" />
-          </div>
-          <div class="campo">
-            <span>Cargo:</span>
-            <input id="cargo_input" type="text" placeholder="Seu cargo" />
+            <select id="empresa_select">
+              <option selected value="#">Selecione Empresa</option>
+            </select>
           </div>
           <button class="botao" onclick="cadastrar()">Cadastrar</button>
         </div>
-
-        <div id="div_erros_login"></div>
       </div>
     </div>
   </div>
@@ -90,118 +86,115 @@
 </body>
 
 </html>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 
-  // Array para armazenar empresas cadastradas para validação de código de ativação 
-  let listaEmpresasCadastradas = [];
+  window.onload = async() => {
+    await listarEmpresas();
+  }
 
-  function cadastrar() {
-    // aguardar();
+  const listarEmpresas = async () => {
 
-    //Recupere o valor da nova input pelo nome do id
-    // Agora vá para o método fetch logo abaixo
-    var nomeVar = nome_input.value;
-    var emailVar = email_input.value;
-    var senhaVar = senha_input.value;
-    var confirmacaoSenhaVar = confirmacao_senha_input.value;
-    var codigoVar = codigo_input.value;
-    var idEmpresaVincular
-
-    // Verificando se há algum campo em branco
-    if (
-      nomeVar == "" ||
-      emailVar == "" ||
-      senhaVar == "" ||
-      confirmacaoSenhaVar == "" ||
-      codigoVar == ""
-    ) {
-      cardErro.style.display = "block";
-      div_erros_login.innerHTML =
-        "Preencha os campos corretamente.";
-
-      finalizarAguardar();
-      return false;
-    } else {
-      setInterval(sumirMensagem, 5000);
-    }
-
-    // Verificando se o código de ativação é de alguma empresa cadastrada
-    for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
-      if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
-        idEmpresaVincular = listaEmpresasCadastradas[i].id
-        console.log("Código de ativação válido.");
-        break;
-      } else {
-        cardErro.style.display = "block";
-        mensagem_erro.innerHTML = "Código inválido";
-        finalizarAguardar();
-      }
-    }
-
-    // Enviando o valor da nova input
-    fetch("/usuarios/cadastrar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
-        nomeServer: nomeVar,
-        emailServer: emailVar,
-        senhaServer: senhaVar,
-        idEmpresaVincularServer: idEmpresaVincular
-      }),
+    const url = "/empresas/listar";
+    const getAPI = await fetch(url, {
+      method: 'GET',
+      mode: 'cors'
     })
-      .then(function (resposta) {
-        console.log("resposta: ", resposta);
 
-        if (resposta.ok) {
-          cardErro.style.display = "block";
+    const res = getAPI.json().then((data) => {
+      data.map((item) => {
+        empresa_select.innerHTML += `
+          <option value="${item.idEmpresa}">${item.nome}</option>
+        `;
+      })
+    });
+    
+ }
 
-          mensagem_erro.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+  const cadastrar = async () => {
 
-          setTimeout(() => {
-            window.location = "login.html";
-          }, "2000");
+    const nome = nome_input.value;
+    const email = email_input.value;
+    const senha = senha_input.value;
+    const telefone = telefone_input.value;
+    const idEmpresa = empresa_select.value;
+    const confirmarSenha = confirmacao_senha_input.value;
 
-          limparFormulario();
-          finalizarAguardar();
-        } else {
-          throw "Houve um erro ao tentar realizar o cadastro!";
+    if(nome == "" || email == "" || senha == "" || telefone == "" || idEmpresa <= 0){
+      Swal.fire({
+        title: "Operação não realizada!", 
+        text: "Informe todos os campos",
+        icon: "error"
+      });
+    } else if(email.indexOf("@") == -1 || email.indexOf(".") == -1){
+      Swal.fire({
+        title: "Operação não realizada!", 
+        text: "Esse email é inválido",
+        icon: "error"
+      });
+    } else if(senha.length < 8){
+      Swal.fire({
+        title: "Operação não realizada!", 
+        text: "Senha muito curta",
+        icon: "error"
+      });
+    } else if(senha.indexOf("&") == -1 && senha.indexOf("@") == -1 && senha.indexOf("#") && senha.indexOf("$") == -1){
+      Swal.fire({
+        title: "Operação não realizada!", 
+        text: "A senha precisa de ao menos um caractere especial",
+        icon: "error"
+      });
+    } else if(senha != confirmarSenha){
+      Swal.fire({
+        title: "Operação não realizada!", 
+        text: "As senhas não são iguais",
+        icon: "error"
+      });
+    } else if(idEmpresa <= 0 || idEmpresa == "#"){
+      Swal.fire({
+        title: "Operação não realizada!", 
+        text: "A empresa selecionada é inválida",
+        icon: "error"
+      });
+    } else {
+      
+      fetch(`/usuarios/cadastrar/${idEmpresa}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          nomeServer: nome,
+          emailServer: email,
+          senhaServer: senha,
+          telefoneServer: telefone,
+          cargoServer: 1
+        })
+      }).then((res) => {
+
+        if(res.ok){
+          res.json().then((data) => {
+            
+            Swal.fire({
+              title: "Operação realizada com sucesso!", 
+              text: "Seu usuário foi cadastrado!",
+              icon: "success"
+            });
+            setTimeout(() => {
+              window.location.href = "./login.html";
+            }, 2000);
+          })
+        } else{
+          res.text().then((err) => {
+            Swal.fire({
+              title: "Operação não realizada!", 
+              text: err,
+              icon: "error"
+            });
+          })
         }
       })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-        finalizarAguardar();
-      });
 
-    return false;
-  }
-
-  // Listando empresas cadastradas 
-  function listar() {
-    fetch("/empresas/listar", {
-      method: "GET",
-    })
-      .then(function (resposta) {
-        resposta.json().then((empresas) => {
-          empresas.forEach((empresa) => {
-            listaEmpresasCadastradas.push(empresa);
-
-            console.log("listaEmpresasCadastradas")
-            console.log(listaEmpresasCadastradas[0].codigo_ativacao)
-          });
-        });
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
-  }
-
-  function sumirMensagem() {
-    cardErro.style.display = "none";
+    }
   }
 </script>

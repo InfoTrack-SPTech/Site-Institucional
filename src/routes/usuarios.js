@@ -1,15 +1,37 @@
 var express = require("express");
+const multer = require("multer");
 var router = express.Router();
 
 var usuarioController = require("../controllers/usuarioController");
 
 //Recebendo os dados do html e direcionando para a função cadastrar de usuarioController.js
-router.post("/cadastrar", function (req, res) {
+router.post("/cadastrar/:idEmpresa", function (req, res) {
     usuarioController.cadastrar(req, res);
 })
 
 router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
+});
+
+const upload = multer({ storage: multer.memoryStorage() });
+router.post("/subirImagem/:idUsuario", upload.single("imagem"), async (req, res) => { 
+   usuarioController.subirFoto(req, res); 
+});
+
+router.delete("/removerImagem/:idUsuario", (req, res) => {
+    usuarioController.removerFoto(req, res);
+})
+
+router.delete("/excluir/:idUsuario", (req, res) => {
+    usuarioController.excluirUsuario(req, res);
+});
+
+router.post("/verificarSenha/:idUsuario", (req, res) => {
+    usuarioController.verificarSenha(req, res);
+});
+
+router.put("/atualizarSenha/:idUsuario", (req, res) => {
+    usuarioController.atualizarSenha(req, res);
 });
 
 module.exports = router;

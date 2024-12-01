@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Acessos</title>
+
+    <link rel="stylesheet" href="./css/empresa.css">
+    <script src="./js/animacao.js" defer></script>
+    <script src="./js/tema.js" defer></script>
+    <script src="./js/acessos.js" defer></script>
+</head>
+<body>
+    <div class="nav">
+        <nav class="sidebar" id="menuSideBar">
+            <div class="sanduiche">
+                <img src="./assets/menu-aberto (1).png" alt="" id="iconMenuSideBar">
+            </div>
+            <div class="dashicon">
+                <a href="./dashboard/dashboard.html">
+                    <img src="./assets/silhueta-de-icone-de-casa.png" alt="">
+                </a>
+            </div>
+            <div class="conta">
+                <a href="conta.html">
+                    <img src="./assets/conta.png" alt="">
+                </a>
+            </div>
+            <div class="lembretes">
+                <a href="acessos.html">
+                    <img src="./assets/lock.png" alt="">
+                </a>
+            </div>
+            <div class="empresas">
+                <a href="empresa.html">
+                    <img src="./assets/workplace.png" alt="">
+                </a>
+            </div>
+            <div class="switch">
+                <input type="checkbox" id="themeSwitch" class="switch-input" role="switch">
+                <label for="themeSwitch" class="switch-label"></label>
+            </div>
+        </nav>
+        <main class="main-content">
+            <h1>Gerenciamento de Acessos</h1>
+            <div class="container">
+                <div class="icon-container">
+                    <img src="./assets/remove.png" alt="Icon 1" class="icon" id="deleteIcon">
+                    <img src="./assets/plus.png" alt="Icon 2" class="icon" id="addUserIcon">
+                    <img src="./assets/edit.png" alt="Icon 3" class="icon" id="editUserIcon">
+                </div>
+                <div class="section lista-acessos">
+                    <div class="lista-usuario" id="lista-usuario">
+                        <!-- Usuários serão adicionados aqui -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal de Confirmação de Exclusão -->
+            <div id="confirmModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-button" id="closeModal">&times;</span>
+                    <h2>Confirmar Exclusão</h2>
+                    <p>Tem certeza de que deseja excluir o(s) usuário(s) selecionado(s)?</p>
+                    <button id="confirmDelete" class="confirm-button">Sim, excluir</button>
+                    <button id="cancelDelete" class="cancel-button">Cancelar</button>
+                </div>
+            </div>
+
+            <!-- Modal de Adicionar Usuário -->
+            <div id="addUserModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-button" id="closeAddUserModal">&times;</span>
+                    <h2>Adicionar Usuário</h2>
+                    <label for="userName">Nome:</label>
+                    <input type="text" id="userName" placeholder="Digite o nome">
+                    <label for="userEmail">Email:</label>
+                    <input type="email" id="userEmail" placeholder="Digite o email">
+                    <label for="userPhone">Telefone:</label>
+                    <input type="text" id="userPhone" placeholder="Digite o telefone">
+                    <button id="addUser" class="confirm-button">Adicionar Usuário</button>
+                </div>
+            </div>
+
+            <!-- Modal de Editar Usuário -->
+            <div id="editUserModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-button" id="closeEditUserModal">&times;</span>
+                    <h2>Editar Usuário</h2>
+                    <label for="editUserName">Nome:</label>
+                    <input type="text" id="editUserName" placeholder="Digite o nome">
+                    <label for="editUserEmail">Email:</label>
+                    <input type="email" id="editUserEmail" placeholder="Digite o email">
+                    <label for="editUserPhone">Telefone:</label>
+                    <input type="text" id="editUserPhone" placeholder="Digite o telefone">
+                    <button id="saveUserChanges" class="confirm-button">Salvar Alterações</button>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</html>

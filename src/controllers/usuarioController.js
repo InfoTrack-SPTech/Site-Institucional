@@ -1,7 +1,7 @@
 var usuarioModel = require("../models/usuarioModel");
-var aquarioModel = require("../models/aquarioModel");
+const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 
-function autenticar(req, res) {
+async function autenticar(req, res) {
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
 
@@ -11,52 +11,27 @@ function autenticar(req, res) {
         res.status(400).send("Sua senha está indefinida!");
     } else {
 
-        usuarioModel.autenticar(email, senha)
-            .then(
-                function (resultadoAutenticar) {
-                    console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
-                    console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); // transforma JSON em String
-
-                    if (resultadoAutenticar.length == 1) {
-                        console.log(resultadoAutenticar);
-
-                        aquarioModel.buscarAquariosPorEmpresa(resultadoAutenticar[0].empresaId)
-                            .then((resultadoAquarios) => {
-                                if (resultadoAquarios.length > 0) {
-                                    res.json({
-                                        id: resultadoAutenticar[0].id,
-                                        email: resultadoAutenticar[0].email,
-                                        nome: resultadoAutenticar[0].nome,
-                                        senha: resultadoAutenticar[0].senha,
-                                        aquarios: resultadoAquarios
-                                    });
-                                } else {
-                                    res.status(204).json({ aquarios: [] });
-                                }
-                            })
-                    } else if (resultadoAutenticar.length == 0) {
-                        res.status(403).send("Email e/ou senha inválido(s)");
-                    } else {
-                        res.status(403).send("Mais de um usuário com o mesmo login e senha!");
-                    }
-                }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
+        await usuarioModel.buscarUsuario(email, senha).then(async (usuarios) => {
+            if(usuarios.length <= 0){
+                res.status(404).send("Este usuário não foi encontrado");
+            } else{
+                await usuarioModel.retornarUsuarioAutenticar(email, senha).then((data) => {
+                    res.status(200).json(data);
+                });
+            }
+        });
     }
 
 }
 
-function cadastrar(req, res) {
+async function cadastrar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
-    var fkEmpresa = req.body.idEmpresaVincularServer;
+    var telefone = req.body.telefoneServer;
+    var cargo = req.body.cargoServer;
+    var fkEmpresa = req.params.idEmpresa;
 
     // Faça as validações dos valores
     if (nome == undefined) {
@@ -67,28 +42,157 @@ function cadastrar(req, res) {
         res.status(400).send("Sua senha está undefined!");
     } else if (fkEmpresa == undefined) {
         res.status(400).send("Sua empresa a vincular está undefined!");
+    } else if(cargo == undefined){
+        res.status(400).send("Seu cargo está undefined!");
     } else {
 
-        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, email, senha, fkEmpresa)
-            .then(
-                function (resultado) {
-                    res.json(resultado);
-                }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log(
-                        "\nHouve um erro ao realizar o cadastro! Erro: ",
-                        erro.sqlMessage
-                    );
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
+        await usuarioModel.buscarEmail(email).then(async (usuario) => {
+            if(usuario.length > 0){
+                res.status(404).send("Este email já foi cadastrado");
+            } else{
+                await usuarioModel.cadastrar(nome, email, senha, telefone, fkEmpresa).then((data) => {
+                    res.status(200).json(data);
+                })
+            }
+        })
+
+    }
+}
+
+async function subirFoto(req, res){
+    try {
+        // Verificar se o arquivo foi enviado
+        if (!req.file) {
+            return res.status(400).send("Nenhum arquivo foi enviado.");
+        }
+
+        const { originalname, mimetype, buffer } = req.file;
+
+        // Configuração do cliente S3
+        const bucketName = "s3-foto-perfil";
+        const s3Cliente = new S3Client({
+            region: 'us-east-1',
+            credentials: {
+                accessKeyId: "",
+                secretAccessKey: "",
+                sessionToken: ""
+            }
+        });
+
+        const nomeImg = `${req.params.idUsuario}${originalname.substring(originalname.lastIndexOf("."))}`;
+        // Enviar o arquivo ao S3
+        const command = new PutObjectCommand({
+            Bucket: bucketName,
+            Key: `usuario-${req.params.idUsuario}/` + nomeImg, // Nome único para evitar substituições
+            Body: buffer, // Arquivo enviado no body
+            ContentType: mimetype // Tipo MIME do arquivo
+        });
+
+        await s3Cliente.send(command);
+        await usuarioModel.atualizarFotoPerfil(nomeImg, req.params.idUsuario);
+        let usuario = await usuarioModel.buscarUsuarioId(req.params.idUsuario);
+
+        res.status(200).json({ foto: usuario[0].imagem });
+    } catch (err) {
+        console.error("Erro ao subir imagem:", err);
+        res.status(500).json({ error: "Erro ao enviar a imagem." });
+    }
+}
+
+async function removerFoto(req, res){
+
+    const idUsuario = req.params.idUsuario;
+    usuarioModel.buscarUsuarioId(idUsuario).then(async (user) => {
+        if(user.length <= 0){
+            res.status(404).send("Usuário não encontrado");
+        } else{
+            await usuarioModel.atualizarFotoPerfil("", idUsuario);
+            res.status(200).send("Imagem removida");
+        }
+    })
+}
+
+async function excluirUsuario(req, res) {
+    const idUsuario = req.params.idUsuario;
+    const senhaAtual = req.body.senha; 
+
+    if (!senhaAtual) {
+        return res.status(400).send("Senha atual é necessária para excluir a conta.");
+    }
+
+    try {
+
+        const usuarios = await usuarioModel.buscarUsuarioId(idUsuario);
+        if (usuarios.length === 0) {
+            return res.status(404).send("Usuário não encontrado.");
+        }
+
+        const usuario = usuarios[0];
+        if (usuario.senha !== senhaAtual) {
+            return res.status(403).send("Senha atual incorreta.");
+        }
+
+       
+        await usuarioModel.excluirUsuario(idUsuario); 
+        res.status(200).send("Usuário excluído com sucesso.");
+    } catch (error) {
+        console.error("Erro ao excluir usuário:", error);
+        res.status(500).send("Erro ao excluir usuário.");
+    }
+
+}
+
+async function verificarSenha(req, res) {
+    const idUsuario = req.params.idUsuario;
+    const senha = req.body.senha;
+
+    try {   
+        const usuarios = await usuarioModel.buscarUsuarioId(idUsuario);
+        if (usuarios.length === 0) {    
+            return res.status(404).send("Usuário nao encontrado.");
+        }
+
+        const usuario = usuarios[0];
+        if (usuario.senha !== senha) {
+            return res.status(403).send("Senha incorreta.");    
+        }
+
+        res.status(200).send("Senha correta.");
+    } catch (error) {
+        console.error("Erro ao verificar senha:", error);    
+        res.status(500).send("Erro ao verificar senha.");
+    }    
+}
+
+const bcrypt = require('bcrypt'); // Importar bcrypt para hashing de senhas
+
+async function atualizarSenha(req, res) {
+    const idUsuario = req.params.idUsuario;
+    const { novaSenha } = req.body;
+
+    if (!novaSenha) {
+        return res.status(400).send("Nova senha é necessária.");
+    }
+
+    try {
+        // Hash a nova senha
+        const novaSenhaHash = await bcrypt.hash(novaSenha, 10);
+        
+        // Atualizar a senha no banco de dados
+        await usuarioModel.atualizarSenha(idUsuario, novaSenhaHash);
+        res.status(200).send("Senha atualizada com sucesso.");
+    } catch (error) {
+        console.error("Erro ao atualizar a senha:", error);
+        res.status(500).send("Erro ao atualizar a senha.");
     }
 }
 
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    subirFoto,
+    removerFoto,
+    excluirUsuario,
+    verificarSenha,
+    atualizarSenha
 }
