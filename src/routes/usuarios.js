@@ -22,4 +22,16 @@ router.delete("/removerImagem/:idUsuario", (req, res) => {
     usuarioController.removerFoto(req, res);
 })
 
+router.put("/editarConta/:idUsuario", (req, res) => {
+    usuarioController.editarConta(req, res);
+})
+
+router.delete("/excluirConta/:idUsuario/:cargo", (req, res) => {
+    usuarioController.excluirConta(req, res);
+})
+
+router.put("/atualizarSenha/:idUsuario", (req, res) => {
+    usuarioController.atualizarSenha(req, res);
+})
+
 module.exports = router;
