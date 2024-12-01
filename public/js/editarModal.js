@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Abrir o modal de alteração de senha
     document.getElementById("mudarSenhaButton").onclick = () => {
-        document.getElementById("changePasswordModal").style.display = "block"; 
+        document.getElementById("changePasswordModal").style.display = "flex"; 
     };
 
     // Cancelar a alteração de senha
