@@ -34,4 +34,8 @@ router.put("/atualizarSenha/:idUsuario", (req, res) => {
     usuarioController.atualizarSenha(req, res);
 })
 
+router.post("/verificarSenha/:idUsuario", (req, res) => {
+    usuarioController.verificarSenha(req, res);
+});
+
 module.exports = router;

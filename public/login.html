@@ -103,7 +103,7 @@
                             title: "Operação realizada com sucesso!",
                             icon: 'success'
                         });
-
+                        
                         sessionStorage.ID_USUARIO = data[0].idUsuario;
                         sessionStorage.NOME_USUARIO = data[0].nome;
                         sessionStorage.FOTO_USUARIO = data[0].imagem;
@@ -111,6 +111,7 @@
                         sessionStorage.CARGO_USUARIO = data[0].cargo;
                         sessionStorage.EMAIL_USUARIO = data[0].email;
                         sessionStorage.EMPRESA_USUARIO = data[0].empresa;
+                        sessionStorage.EMPRESA_ID = data[0].idEmpresa;
 
                         setTimeout(() => {
                             window.location.href = "../dashboard/dashboard.html";

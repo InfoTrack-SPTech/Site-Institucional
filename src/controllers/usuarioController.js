@@ -218,6 +218,79 @@ async function atualizarSenha(req, res){
                 mensagem: "Operação realizada com sucesso!"
             })
         })
+      
+async function excluirUsuario(req, res) {
+    const idUsuario = req.params.idUsuario;
+    const senhaAtual = req.body.senha; 
+
+    if (!senhaAtual) {
+        return res.status(400).send("Senha atual é necessária para excluir a conta.");
+    }
+
+    try {
+
+        const usuarios = await usuarioModel.buscarUsuarioId(idUsuario);
+        if (usuarios.length === 0) {
+            return res.status(404).send("Usuário não encontrado.");
+        }
+
+        const usuario = usuarios[0];
+        if (usuario.senha !== senhaAtual) {
+            return res.status(403).send("Senha atual incorreta.");
+        }
+
+       
+        await usuarioModel.excluirUsuario(idUsuario); 
+        res.status(200).send("Usuário excluído com sucesso.");
+    } catch (error) {
+        console.error("Erro ao excluir usuário:", error);
+        res.status(500).send("Erro ao excluir usuário.");
+    }
+
+}
+
+async function verificarSenha(req, res) {
+    const idUsuario = req.params.idUsuario;
+    const senha = req.body.senha;
+
+    try {   
+        const usuarios = await usuarioModel.buscarUsuarioId(idUsuario);
+        if (usuarios.length === 0) {    
+            return res.status(404).send("Usuário nao encontrado.");
+        }
+
+        const usuario = usuarios[0];
+        if (usuario.senha !== senha) {
+            return res.status(403).send("Senha incorreta.");    
+        }
+
+        res.status(200).send("Senha correta.");
+    } catch (error) {
+        console.error("Erro ao verificar senha:", error);    
+        res.status(500).send("Erro ao verificar senha.");
+    }    
+}
+
+const bcrypt = require('bcrypt'); // Importar bcrypt para hashing de senhas
+
+async function atualizarSenha(req, res) {
+    const idUsuario = req.params.idUsuario;
+    const { novaSenha } = req.body;
+
+    if (!novaSenha) {
+        return res.status(400).send("Nova senha é necessária.");
+    }
+
+    try {
+        // Hash a nova senha
+        const novaSenhaHash = await bcrypt.hash(novaSenha, 10);
+        
+        // Atualizar a senha no banco de dados
+        await usuarioModel.atualizarSenha(idUsuario, novaSenhaHash);
+        res.status(200).send("Senha atualizada com sucesso.");
+    } catch (error) {
+        console.error("Erro ao atualizar a senha:", error);
+        res.status(500).send("Erro ao atualizar a senha.");
     }
 }
 
@@ -228,5 +301,7 @@ module.exports = {
     removerFoto,
     editarConta,
     excluirConta,
+    excluirUsuario,
+    verificarSenha,
     atualizarSenha
 }

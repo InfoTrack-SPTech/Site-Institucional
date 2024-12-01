@@ -1,5 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const users = JSON.parse(localStorage.getItem('users')) || []; 
+    fetch('empresas/trazerEmpresas')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); 
+            empresas = data; 
+            renderEmpresas(data); 
+        })
+        .catch(error => {
+            console.error('Erro ao buscar os dados:', error);
+        });
+
     const userListDiv = document.getElementById("lista-usuario");
     const confirmModal = document.getElementById("confirmModal");
     const addUserModal = document.getElementById("addUserModal");
@@ -18,24 +28,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const editUserPhoneInput = document.getElementById("editUserPhone");
     const saveUserChanges = document.getElementById("saveUserChanges");
 
-    let currentUserIndex = -1; 
+    let empresas = [];     
+    let currentUserIndex = -1;
 
-    function updateUserList() {
+    function renderEmpresas(empresas) {
         userListDiv.innerHTML = ""; 
-        users.forEach((user, index) => {
-            const userDiv = document.createElement("div");
-            userDiv.classList.add("nome-usuario");
-            userDiv.innerHTML = `
-                <input type="checkbox" class="user-checkbox" id="${user.name}">
-                <label for="${user.name}">
-                    <h3>${user.name}</h3>
-                    <p>CNPJ: ${user.cnpj}</p>
-                    <p>Telefone: ${user.phone}</p>
+        empresas.forEach((empresa) => {
+            const empresaDiv = document.createElement("div");
+            empresaDiv.classList.add("nome-usuario");
+            empresaDiv.innerHTML = `
+                <input type="checkbox" class="user-checkbox" id="empresa-${empresa.idEmpresa}">
+                <label for="empresa-${empresa.idEmpresa}">
+                    <h3>${empresa.nome}</h3>
+                    <p>CNPJ: ${empresa.cnpj}</p>
+                    <p>Telefone: ${empresa.telefone}</p>
                 </label>
             `;
-            userListDiv.appendChild(userDiv);
+            userListDiv.appendChild(empresaDiv);
         });
-        localStorage.setItem('users', JSON.stringify(users)); 
     }
 
     document.getElementById('addUserIcon').addEventListener('click', () => {
@@ -53,16 +63,24 @@ document.addEventListener("DOMContentLoaded", () => {
         const name = userNameInput.value;
         const cnpj = userCnpjInput.value;
         const phone = userPhoneInput.value;
-
+    
         if (name && cnpj && phone) {
-            users.push({ name, cnpj, phone }); 
-            updateUserList(); 
-            addUserModal.style.display = "none"; 
-            userNameInput.value = ""; 
-            userCnpjInput.value = ""; 
-            userPhoneInput.value = ""; 
+            fetch('empresas/adicionar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ nome: name, cnpj: cnpj, telefone: phone }),
+            })
+            .then(response => response.json())
+            .then(() => {
+                location.reload(); 
+            })
+            .catch(error => {
+                console.error('Erro ao adicionar empresa:', error);
+            });
         } else {
-            alert("Por favor, preencha todos os campos."); 
+            alert("Por favor, preencha todos os campos.");
         }
     });
 
@@ -72,13 +90,13 @@ document.addEventListener("DOMContentLoaded", () => {
         if (checkedCheckboxes.length === 1) {
             const checkbox = checkedCheckboxes[0];
             currentUserIndex = Array.from(document.querySelectorAll('.user-checkbox')).indexOf(checkbox); 
-            const user = users[currentUserIndex];
-            editUserNameInput.value = user.name; 
-            editUserCnpjInput.value = user.cnpj; 
-            editUserPhoneInput.value = user.phone; 
+            const empresa = empresas[currentUserIndex];
+            editUserNameInput.value = empresa.nome; 
+            editUserCnpjInput.value = empresa.cnpj; 
+            editUserPhoneInput.value = empresa.telefone; 
             editUserModal.style.display = "block"; 
         } else {
-            alert("Por favor, selecione uma empresa para editar."); 
+            alert("Por favor, selecione uma empresa para editar.");
         }
     });
 
@@ -92,11 +110,29 @@ document.addEventListener("DOMContentLoaded", () => {
         const updatedPhone = editUserPhoneInput.value;
 
         if (updatedName && updatedCnpj && updatedPhone) {
-            users[currentUserIndex] = { name: updatedName, cnpj: updatedCnpj, phone: updatedPhone }; 
-            updateUserList();
-            editUserModal.style.display = "none"; 
+            fetch('empresas/editar', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    idEmpresa: empresas[currentUserIndex].idEmpresa, 
+                    nome: updatedName, 
+                    cnpj: updatedCnpj, 
+                    telefone: updatedPhone 
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Empresa editada:', data);
+                location.reload(); 
+                editUserModal.style.display = "none"; 
+            })
+            .catch(error => {
+                console.error('Erro ao editar empresa:', error);
+            });
         } else {
-            alert("Por favor, preencha todos os campos."); 
+            alert("Por favor, preencha todos os campos.");
         }
     });
 
@@ -115,13 +151,20 @@ document.addEventListener("DOMContentLoaded", () => {
     confirmDelete.addEventListener("click", () => {
         const checkboxes = document.querySelectorAll('.user-checkbox:checked');
         checkboxes.forEach(checkbox => {
-            const userDiv = checkbox.closest('.nome-usuario');
-            userListDiv.removeChild(userDiv);
-            users.splice(users.findIndex(user => user.name === checkbox.id), 1);
+            const empresaId = checkbox.id.split('-')[1]; 
+            console.log(empresaId)
+            fetch(`empresas/excluir/${empresaId}`, {
+                method: 'DELETE',
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Empresa excluída:', data);
+                location.reload();
+                confirmModal.style.display = "none"; 
+            })
+            .catch(error => {
+                console.error('Erro ao excluir empresa:', error);
+            });
         });
-        updateUserList(); 
-        confirmModal.style.display = "none"; 
     });
-
-    updateUserList(); 
 });

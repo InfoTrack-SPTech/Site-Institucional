@@ -1,16 +1,13 @@
 body {
     margin: 0;
     padding: 0;
-    overflow: hidden;
     background-color: #191c32;
     width: 100%;
-
 }
 
 body.light-theme {
     background-color: #f0f0f0;
 }
-
 
 body.light-theme .sidebar {
     background-color: #ccc;
@@ -53,13 +50,11 @@ body.light-theme .edit-button img {
     filter: invert(1);
 }
 
-
 .nav {
     box-sizing: border-box;
     width: 100%;
     height: 100%;
     display: flex;
-
 }
 
 .sidebar {
@@ -75,8 +70,11 @@ body.light-theme .edit-button img {
     text-decoration: none;
     justify-content: flex-start;
     align-items: center;
-    position: relative;
-
+    position: fixed;  /* Fixa a sidebar */
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Garante que a sidebar fique sobre os outros elementos */
+    height: 100%; /* Faz a sidebar ocupar toda a altura da tela */
 }
 
 .sidebar a {
@@ -117,31 +115,10 @@ body.light-theme .edit-button img {
     align-items: flex-start;
 }
 
-
-.sanduiche img {
-    margin-top: 5px;
-    height: 25px;
-    cursor: pointer;
-}
-
-.dashicon img {
-    margin-top: 40px;
-    height: 30px;
-    cursor: pointer;
-}
-
-.conta img {
-    margin-top: 15px;
-    height: 30px;
-    cursor: pointer;
-}
-
-.lembretes img {
-    margin-top: 15px;
-    height: 30px;
-    cursor: pointer;
-}
-
+.sanduiche img,
+.dashicon img,
+.conta img,
+.lembretes img,
 .empresas img {
     margin-top: 15px;
     height: 30px;
@@ -153,6 +130,7 @@ body.light-theme .edit-button img {
     padding: 20px;
     display: flex;
     flex-direction: column;
+    margin-left: 5%; /* Adiciona margem à esquerda para evitar sobreposição com a sidebar */
 }
 
 h1 {
@@ -227,13 +205,12 @@ h1 {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     color: white;
-    padding: 20px; /* Add padding for better spacing */
-    display: flex; /* Use flexbox for layout */
-    flex-direction: column; /* Stack items vertically */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .section::after {
-    /* content: ''; */
     position: absolute;
     left: 10px;
     right: 10px;
@@ -244,78 +221,72 @@ h1 {
 
 .icon-container {
     display: flex;
-    justify-content: flex-end; 
-    margin-bottom: 20px; 
+    justify-content: flex-end;
+    margin-bottom: 20px;
     width: 100%;
 }
 
 .icon {
-    width: 25px; 
-    height: 25px; 
-    cursor: pointer; 
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
     margin-left: 10px;
-    transition: transform 0.3s; 
+    transition: transform 0.3s;
 }
 
 .icon:hover {
-    transform: scale(1.1); 
+    transform: scale(1.1);
 }
-
-/* .nome-usuario p {
-    margin: 5px 0 0; 
-    color: #ffffff;
-} */
 
 .lista-usuario {
     display: flex;
-    flex-direction: column; 
-    margin-top: 20px; 
+    flex-direction: column;
+    margin-top: 20px;
 }
-
 
 .nome-usuario {
     display: flex;
-    align-items: center; 
-    margin: 10px 0; 
+    align-items: center;
+    margin: 10px 0;
     padding: 10px;
-    background-color: rgba(255, 255, 255, 0.1); 
-    border-radius: 5px; 
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
 }
 
 .nome-usuario h3 {
-    margin: 0; 
+    margin: 0;
 }
 
 .nome-usuario p {
-    margin: 5px 0 0; 
-    color: #aaa; 
+    margin: 5px 0 0;
+    color: #aaa;
 }
 
 .user-checkbox {
-    margin-right: 10px; 
+    margin-right: 10px;
 }
 
 .modal {
-    display: none; 
-    position: fixed; 
-    z-index: 1; 
+    display: none;
+    position: fixed;
+    z-index: 1;
     left: 0;
     top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgba(0, 0, 0, 0.4); 
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
     background-color: #191c32;
-    margin: 15% auto; 
+    margin: 15% auto;
     padding: 20px;
     border: 2px solid #ccc;
     color: white;
-    width: 80%; 
+    width: 80%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    border-radius:8px ;
+    border-radius: 8px;
 }
 
 .close-button {
@@ -333,29 +304,29 @@ h1 {
 }
 
 .confirm-button {
-    background-color: #4CAF50; 
-    color: white; 
-    border: none; 
-    padding: 10px 20px; 
-    border-radius: 5px; 
-    cursor: pointer; 
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .confirm-button:hover {
-    background-color: darkgreen; 
+    background-color: darkgreen;
 }
 
 .cancel-button {
-    background-color: #f44336; 
-    color: white; 
-    border: none; 
-    padding: 10px 20px; 
-    border-radius: 5px; 
-    cursor: pointer; 
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .cancel-button:hover {
-    background-color: darkred; 
+    background-color: darkred;
 }
 
 .modal-content input {
@@ -385,3 +356,5 @@ body.light-theme .section::after {
 body.light-theme .icon {
     filter: invert(1);
 }
+
+

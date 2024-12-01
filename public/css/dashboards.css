@@ -1,34 +1,35 @@
 body {
   margin: 0;
   padding: 0;
-  overflow: hidden;
-  background-color:#191c32;
+  background-color: #191c32;
   width: 100%;
-
+  display: flex;
+  overflow: hidden;
 }
 
 .main {
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
   display: flex;
-
+  width: 100%;
+  height: 100vh;
+  position: relative;
 }
 
 .sidebar {
-  box-sizing: border-box;
-  width: 5%;
+  position: fixed; /* Fixar a sidebar na lateral */
+  top: 0;
+  left: 0;
+  width: 30px; /* Ajuste aqui a largura que preferir */
   height: 100vh;
   background-color: rgb(31, 24, 54);
   padding: 20px;
   display: flex;
   flex-direction: column;
-  cursor: pointer;
   color: #fff;
-  text-decoration: none;
   z-index: 200;
-
+  display: flex;
+  align-items: flex-start;
 }
+
 
 .sidebar a {
   font-size: 20px;
@@ -54,6 +55,11 @@ body {
   color: #ffffff;
   transition: all 0.3s ease;
 }
+.sidebar .imgMid {
+  color: #ffffff;
+  transition: all 0.3s ease;
+  margin-left: -11px;
+}
 
 .sidebar img:hover {
   box-shadow: 0 0 10px rgb(169, 85, 247);
@@ -67,7 +73,6 @@ body {
   width: 20%;
   align-items: left;
 }
-
 
 .sanduiche img {
   margin-top: 5px;
@@ -92,6 +97,7 @@ body {
   height: 30px;
   cursor: pointer;
 }
+
 .empresas img {
   margin-top: 15px;
   height: 30px;
@@ -99,15 +105,15 @@ body {
 }
 
 .articlePai {
-  display: flex;
-  width: 100%;
+  margin-left: 5%;  /* Deixa espaço suficiente para a sidebar fixa */
+  width: 95%;  /* O conteúdo principal ocupa 95% da tela */
   height: 100vh;
-  z-index: 0;
+  display: flex;
 }
 
 .article {
-  width: 95%;
-  height: 100vh;
+  width: 100%;
+  height: 91%;
   display: flex;
   flex-direction: column;
 }
@@ -126,7 +132,6 @@ body {
 .sec1 {
   display: flex;
   justify-content: space-between;
-
 }
 
 .boxKpi {
@@ -134,48 +139,48 @@ body {
   height: auto;
   background-color: #272B4A;
   margin-right: 6px;
-  padding: 15px; 
-  box-sizing: border-box; 
-  display: flex; 
-  flex-direction: column; 
-  justify-content: space-between; 
-  color: white; 
+  padding: 15px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
   border-radius: 7px;
   margin: 5px;
-  text-overflow:clip;
+  text-overflow: clip;
   justify-content: center;
-  
 }
 
 .textoKpi {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-
 }
 
-.textoKpi h5{
+.textoKpi h5 {
   margin-bottom: 5px;
   text-align: center;
 }
-.textoKpi .p2{
+
+.textoKpi .p2 {
   font-size: 11px;
 }
-.textoKpi p{
+
+.textoKpi p {
   font-size: 12px;
   text-align: center;
   align-items: center;
   justify-content: center;
 }
 
-.textoKpi .pKpi1{
+.textoKpi .pKpi1 {
   font-weight: bold;
   font-size: 25px;
   text-align: center;
   justify-content: center;
 }
 
-.textoKpi .pKpi2{
+.textoKpi .pKpi2 {
   font-weight: bold;
   font-size: 30px;
   text-align: center;
@@ -183,23 +188,23 @@ body {
 }
 
 h5 {
-  font-size: 14px; 
-  margin: 0; 
+  font-size: 14px;
+  margin: 0;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 p {
-  font-size: 16px; 
-  margin: 0; 
-  white-space: nowrap; 
-  overflow: hidden; 
+  font-size: 16px;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.kpiCrime{
+.kpiCrime {
   display: flex;
- color: #ffffff;
+  color: #ffffff;
   box-sizing: border-box;
   padding: 10px;
   border-radius: 7px;
@@ -211,7 +216,7 @@ p {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content:space-evenly;
+  justify-content: space-evenly;
   overflow: hidden;
   align-items: center;
   margin-top: 5px;
@@ -221,9 +226,8 @@ p {
   box-sizing: border-box;
   width: 95%;
   height: auto;
-  background-color:#272B4A;
+  background-color: #272B4A;
   margin-left: 3px;
-  /* border-radius: 5%; */
   border-radius: 7px;
 }
 
@@ -231,22 +235,12 @@ p {
   margin: 10px;
 }
 
-/* .secMeio, .secBaixo{
-  display: flex;
-  width: 96.8%;
-  height: 38%;
-  margin-left: 10px;
-  justify-content: space-between;
-} */
-
 .secMeio {
   display: flex;
   width: 100%;
   height: 30%;
   margin-left: 10px;
   justify-content: space-between;
-  background-color: red;
-  padding: 10px;
 }
 
 .secBaixo {
@@ -254,31 +248,27 @@ p {
   justify-content: space-between;
 }
 
-
 .graficoMeio {
   width: 100%;
   height: 100%;
   background-color: #272B4A;
-  /* border-radius: 5%; */
   display: flex;
   justify-content: center;
   align-items: center;
-  /* margin: 0 10px;  */
 }
 
 .graficoBaixo {
   box-sizing: border-box;
   width: 100%;
-  height: 245px;
+  height: 91.5%;
   background-color: #272B4A;
-  /* border-radius: 5%; */
   display: flex;
   justify-content: center;
   align-items: center;
-  /* margin: 0 10px;  */
   border-radius: 7px;
   margin: 10px;
 }
+
 /* Estilos básicos para centralizar e cobrir a tela */
 .load {
   position: fixed;

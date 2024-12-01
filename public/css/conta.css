@@ -141,6 +141,7 @@ body.light-theme .edit-button img {
     height: 30px;
     cursor: pointer;
 }
+
 .empresas img {
     margin-top: 15px;
     height: 30px;
@@ -294,6 +295,7 @@ body.light-theme .logout:hover .logoutButton {
     padding: 8.5px;
     border-radius: 8px;
     background-color: #272B4A;
+    position: relative;
 }
 
 .foto-usuario {
@@ -301,6 +303,15 @@ body.light-theme .logout:hover .logoutButton {
     height: 100px;
     border-radius: 50%;
     margin-right: 20px;
+}
+
+.lock-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 40px;
 }
 
 .nome-usuario {
@@ -314,10 +325,23 @@ body.light-theme .logout:hover .logoutButton {
 }
 
 .detalhes-usuario {
-    color: white; 
+    color: white;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    padding: 10px;
+}
+
+/* .detalhes-usuario button{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+} */
+
+.button-container {
+    display: flex;
+    /* Flexbox para os botões */
+    align-items: flex-end;
 }
 
 .detalhes-usuario p {
@@ -369,11 +393,13 @@ body.light-theme .logout:hover .logoutButton {
     padding: 20px;
     border-radius: 5px;
     text-align: left;
-    width: 500px; 
+    width: 500px;
     top: 50%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     color: #fff;
     border: 2px solid #ccc;
+    max-width: 400px;
+    width: 90%;
 }
 
 .modal-editar h3 {
@@ -390,6 +416,8 @@ body.light-theme .logout:hover .logoutButton {
     color: #000;
 }
 
+
+
 .edit-form {
     display: flex;
     flex-direction: column;
@@ -405,7 +433,7 @@ body.light-theme .logout:hover .logoutButton {
 .form-column {
     display: flex;
     flex-direction: column;
-    width: 45%; 
+    width: 45%;
     margin: 0 5px;
 }
 
@@ -431,8 +459,28 @@ body.light-theme .logout:hover .logoutButton {
     background-color: #4CAF50;
 }
 
-.form-buttons button.cancelar { 
+.form-buttons button.cancelar {
     background-color: #f44336;
+}
+
+.modal-editar button.salvar {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 20px;
+    margin: 10px;
+}
+
+.modal-editar button.cancelar {
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 20px;
+    margin: 10px;
 }
 
 body.light-theme .modal-editar {
@@ -467,7 +515,7 @@ body.light-theme .modal-editar input {
 }
 
 .modal-content .confirmarLogout {
-    background-color: #4CAF50;      
+    background-color: #4CAF50;
 }
 
 .modal-content .cancelarLogout {
@@ -480,4 +528,31 @@ body.light-theme .modal-content {
     color: #000;
 }
 
+.excluir-conta {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    font-weight: bold;
+}
 
+.excluir-icon {
+    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+}
+
+.excluir-conta:hover {
+    color: #C70039;
+}
+
+body.light-theme .excluir-conta {
+    color: #000;
+}
+
+body.light-theme .excluir-icon {
+    filter: invert(1);
+}

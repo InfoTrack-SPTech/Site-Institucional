@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciamento de Acessos</title>
 
-    <link rel="stylesheet" href="./css/acessos.css">
+    <link rel="stylesheet" href="./css/empresa.css">
     <script src="./js/animacao.js" defer></script>
     <script src="./js/tema.js" defer></script>
     <script src="./js/acessos.js" defer></script>
@@ -22,17 +22,17 @@
                 </a>
             </div>
             <div class="conta">
-                <a href="./conta.html">
+                <a href="conta.html">
                     <img src="./assets/conta.png" alt="">
                 </a>
             </div>
             <div class="lembretes">
-                <a href="./acessos.html">
-                <img src="./assets/lock.png" alt="">
+                <a href="acessos.html">
+                    <img src="./assets/lock.png" alt="">
                 </a>
             </div>
             <div class="empresas">
-                <a href="./empresa.html">
+                <a href="empresa.html">
                     <img src="./assets/workplace.png" alt="">
                 </a>
             </div>
@@ -55,6 +55,8 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Modal de Confirmação de Exclusão -->
             <div id="confirmModal" class="modal">
                 <div class="modal-content">
                     <span class="close-button" id="closeModal">&times;</span>
@@ -64,6 +66,8 @@
                     <button id="cancelDelete" class="cancel-button">Cancelar</button>
                 </div>
             </div>
+
+            <!-- Modal de Adicionar Usuário -->
             <div id="addUserModal" class="modal">
                 <div class="modal-content">
                     <span class="close-button" id="closeAddUserModal">&times;</span>
@@ -72,9 +76,13 @@
                     <input type="text" id="userName" placeholder="Digite o nome">
                     <label for="userEmail">Email:</label>
                     <input type="email" id="userEmail" placeholder="Digite o email">
+                    <label for="userPhone">Telefone:</label>
+                    <input type="text" id="userPhone" placeholder="Digite o telefone">
                     <button id="addUser" class="confirm-button">Adicionar Usuário</button>
                 </div>
             </div>
+
+            <!-- Modal de Editar Usuário -->
             <div id="editUserModal" class="modal">
                 <div class="modal-content">
                     <span class="close-button" id="closeEditUserModal">&times;</span>
@@ -83,6 +91,8 @@
                     <input type="text" id="editUserName" placeholder="Digite o nome">
                     <label for="editUserEmail">Email:</label>
                     <input type="email" id="editUserEmail" placeholder="Digite o email">
+                    <label for="editUserPhone">Telefone:</label>
+                    <input type="text" id="editUserPhone" placeholder="Digite o telefone">
                     <button id="saveUserChanges" class="confirm-button">Salvar Alterações</button>
                 </div>
             </div>
@@ -90,5 +100,4 @@
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 </html>
