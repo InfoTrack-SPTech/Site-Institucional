@@ -15,7 +15,6 @@ function displayEmpresas(){
     }
     else{
         empresas.style.display = 'none'
-        console.log(sessionStorage.EMPRESA_USUARIO)
         return false
     }
 
