@@ -15,10 +15,12 @@ body {
 }
 
 .sidebar {
-  position: fixed; /* Fixar a sidebar na lateral */
+  position: fixed;
+  /* Fixar a sidebar na lateral */
   top: 0;
   left: 0;
-  width: 30px; /* Ajuste aqui a largura que preferir */
+  width: 30px;
+  /* Ajuste aqui a largura que preferir */
   height: 100vh;
   background-color: rgb(31, 24, 54);
   padding: 20px;
@@ -55,6 +57,7 @@ body {
   color: #ffffff;
   transition: all 0.3s ease;
 }
+
 .sidebar .imgMid {
   color: #ffffff;
   transition: all 0.3s ease;
@@ -105,8 +108,10 @@ body {
 }
 
 .articlePai {
-  margin-left: 5%;  /* Deixa espaço suficiente para a sidebar fixa */
-  width: 95%;  /* O conteúdo principal ocupa 95% da tela */
+  margin-left: 5%;
+  /* Deixa espaço suficiente para a sidebar fixa */
+  width: 95%;
+  /* O conteúdo principal ocupa 95% da tela */
   height: 100vh;
   display: flex;
 }
@@ -276,12 +281,14 @@ p {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #191c32; /* Fundo semi-transparente */
+  background-color: #191c32;
+  /* Fundo semi-transparente */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Certifique-se de que está acima de outros elementos */
+  z-index: 1000;
+  /* Certifique-se de que está acima de outros elementos */
   margin: auto;
 }
 
@@ -294,7 +301,8 @@ p {
   justify-content: center;
   align-items: center;
   color: #fff;
-  gap: 15px; /* Espaçamento entre a imagem e o texto */
+  gap: 15px;
+  /* Espaçamento entre a imagem e o texto */
 }
 
 /* Animação de rotação */
@@ -302,22 +310,148 @@ p {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
 .casaImagem img {
-  width: 150px; /* Tamanho do ícone */
+  width: 150px;
+  /* Tamanho do ícone */
   height: 150px;
-  animation: spin 1s linear infinite; /* Gira continuamente */
+  animation: spin 1s linear infinite;
+  /* Gira continuamente */
   filter: brightness(0) invert(1);
 }
 
 /* Estilos para o texto */
 .texto-load {
-  font-size: 18px; /* Tamanho da fonte */
-  color: #ffffff; /* Cor do texto */
-  font-family: Arial, sans-serif; /* Família da fonte */
-  text-align: center; /* Centraliza o texto */
+  font-size: 18px;
+  /* Tamanho da fonte */
+  color: #ffffff;
+  /* Cor do texto */
+  font-family: Arial, sans-serif;
+  /* Família da fonte */
+  text-align: center;
+  /* Centraliza o texto */
+}
+
+.switch {
+  position: absolute;
+  bottom: 50px;
+  cursor: pointer;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+}
+
+.switch-input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch-label {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 20px;
+}
+
+.switch-label:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3%;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+.switch-input:checked+.switch-label {
+  background-color: #2196F3;
+}
+
+.switch-input:checked+.switch-label:before {
+  transform: translateX(20px);
+}
+
+.logout-icon {
+  width: 20px;
+  height: 20px;
+  transition: filter 0.3s;
+}
+
+body.light-theme {
+  background-color: #f0f0f0;
+}
+
+
+body.light-theme .sidebar {
+  background-color: #ccc;
+  color: #000;
+}
+
+body.light-theme h1 {
+  color: black;
+}
+
+body.light-theme .section {
+  background-color: #ddd;
+}
+
+body.light-theme .section::after {
+  background: black;
+}
+
+body.light-theme h2 {
+  color: black;
+}
+
+body.light-theme h3 {
+  color: black;
+}
+
+body.light-theme p {
+  color: black;
+}
+
+body.light-theme .logout-icon img {
+  color: black;
+}
+
+body.light-theme .sidebar img {
+  filter: invert(1);
+}
+
+body.light-theme .edit-button img {
+  filter: invert(1);
+}
+
+body.light-theme .boxKpi {
+  background-color: #ccc;
+}
+
+body.light-theme .graficoBaixo {
+  background-color: #ccc;
+}
+
+body.light-theme .graficoLaterais {
+  background-color: #ccc !important;
+}
+
+body.light-theme canvas{
+  filter: invert(1);
+}
+
+body.light-theme .textoKpi{
+  color: black !important;
 }
