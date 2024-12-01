@@ -22,11 +22,9 @@
       <h1 class="titulo">INFOTRACK</h1>
       <ul class="navbar">
         <li>
-          <a href="index.html">Inicial</a>
+          <a href="index.html">Início</a>
         </li>
-        <!-- <li>
-          <a href="simulador.html">Simulador</a>
-        </li> -->
+
         <li>|</li>
         <li>
           <a href="login.html">Login</a>
@@ -140,7 +138,7 @@
         text: "Senha muito curta",
         icon: "error"
       });
-    } else if(senha.indexOf("&") == -1 && senha.indexOf("@") == -1 && senha.indexOf("#") && senha.indexOf("$") == -1){
+    } else if(senha.indexOf("!") == -1 && senha.indexOf("&") == -1 && senha.indexOf("@") == -1 && senha.indexOf("#") && senha.indexOf("$") == -1){
       Swal.fire({
         title: "Operação não realizada!", 
         text: "A senha precisa de ao menos um caractere especial",

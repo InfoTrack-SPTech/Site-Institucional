@@ -35,18 +35,26 @@
                 <li><a href="#inicio" class="active">Início</a></li>
                 <li><a href="#sobre">Sobre</a></li>
                 <li><a href="#servicos">Serviços</a></li>
-                <!-- <li><a href="./dashboard/dashboard.html">Dashboard</a></li> -->
+                <li><a href="cadastro.html">Dashboard</a></li>
                 <li><a href="#contato">Contato</a></li>
                 <li><a class="botaologin" href="cadastro.html">Cadastro</a></li>
             </ul>
+           
         </nav>
 
         <nav class="mobile">
-          <div class="sanduiche">
-            <img src="./assets/menu-aberto (1).png" alt="">
+          <div class="sanduiche" id="sanduiche" onclick="toggleMenu()">
+            <img src="./assets/menu-aberto (1).png" alt="Menu Toggle">
           </div>
+        
+          <ul class="nav-links" id="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
         </nav>
-
+        
     
         
     </div>
@@ -109,7 +117,7 @@
 
     <!-- SERVIÇOS -->
 
-    <section id="servicos" class="servicos ">
+    <section id="servicos" class="servicos">
         <h2>Nossos Serviços</h2>
         <hr class="solid">
         <p>Conheça os serviços que oferecemos para a sua empresa de segurança.</p>

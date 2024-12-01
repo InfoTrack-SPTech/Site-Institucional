@@ -372,24 +372,25 @@ body.light-theme .logout:hover .logoutButton {
 
 .button-container {
     display: flex;
-    /* Flexbox para os botões */
     align-items: flex-end;
 }
 
 .detalhes-usuario p {
     margin: 5px 0;
     font-size: 18px;
-    font-weight: bold;
 }
 
 .empresa-usuario {
     color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 10px;
 }
 
 .empresa-usuario p {
     margin: 5px 0;
     font-size: 18px;
-    font-weight: bold;
 }
 
 .edit-button {
@@ -565,7 +566,7 @@ body.light-theme .modal-content {
 }
 
 .excluir-conta {
-    display: flex;
+    display: none;
     align-items: center;
     cursor: pointer;
     position: absolute;
