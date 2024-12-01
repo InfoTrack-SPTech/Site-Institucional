@@ -1,3 +1,11 @@
+
+function toggleMenu() {
+  const navLinks = document.getElementById('nav-links');
+  navLinks.classList.toggle('active'); // Toggle 'active' class to show/hide menu
+}
+
+
+
 let menu = document.getElementById('navmenuL')
 let menuMobile = document.querySelector('.mobile')
 console.log(menuMobile)
