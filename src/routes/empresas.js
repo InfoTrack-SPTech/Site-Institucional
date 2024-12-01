@@ -24,12 +24,27 @@ router.get("/trazerEmpresas", function (req, res) {
   empresaController.listarEmpresas(req, res);
 });
 
+router.get("/trazerAcesso/:empresaUsuario", function (req, res) {
+  empresaController.listarAcessos(req, res);
+});
+
 router.post("/adicionar", function (req, res) {
   empresaController.adicionar(req, res);
 });
 
+router.post("/adicionarAcesso", function (req, res) {
+  empresaController.adicionarAcesso(req, res);
+});
+
 router.put("/editar", function (req, res) {
   empresaController.editar(req, res);
+});
+router.put("/editarAcesso", function (req, res) {
+  empresaController.editarAcesso(req, res);
+});
+
+router.delete("/excluirAcesso/:acessoId", function (req, res) {
+  empresaController.excluirAcesso(req, res);
 });
 
 

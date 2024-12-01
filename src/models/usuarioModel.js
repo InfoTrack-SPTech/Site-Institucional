@@ -29,9 +29,9 @@ function buscarUsuarioId(idUsuario){
 
 function retornarUsuarioAutenticar(email, senha){
     var instrucaoSql = `
-    SELECT u.idUsuario, u.email, u.nome, u.telefone, u.imagem, Empresa.nome AS empresa, Cargo.nome AS cargo 
+    SELECT u.idUsuario, u.email, u.nome, u.telefone, u.imagem, e.idEmpresa, e.nome AS empresa, Cargo.nome AS cargo 
     FROM Usuario u
-	JOIN Empresa ON idEmpresa = fkEmpresa
+    JOIN Empresa as e ON idEmpresa = fkEmpresa
     JOIN Cargo ON idCargo = fkCargo
     WHERE email = "${email}" AND senha = "${senha}"`;
     return database.executar(instrucaoSql);
