@@ -42,6 +42,16 @@ function atualizarFotoPerfil(nomeImagem, idUsuario){
     return database.executar(instrucaoSql);
 }
 
+function excluirUsuario(idUsuario) {
+    const instrucaoSql = `DELETE FROM Usuario WHERE idUsuario = ${idUsuario}`;
+    return database.executar(instrucaoSql);
+}
+
+function atualizarSenha(idUsuario, novaSenhaHash) {
+    var instrucaoSql = `UPDATE Usuario SET senha = "${novaSenhaHash}" WHERE idUsuario = ${idUsuario}`;
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     autenticar,
     cadastrar,
@@ -49,5 +59,7 @@ module.exports = {
     buscarUsuario,
     buscarUsuarioId,
     atualizarFotoPerfil,
-    retornarUsuarioAutenticar
+    retornarUsuarioAutenticar,
+    excluirUsuario,
+    atualizarSenha
 };
