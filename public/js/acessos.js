@@ -1,284 +1,218 @@
-const fkEmpresa = localStorage.getItem('fkEmpresa');
-
 document.addEventListener("DOMContentLoaded", () => {
-    const users = [];
+    const empresaUsuario = sessionStorage.getItem('EMPRESA_USUARIO');
+    const empresaUsuarioID = sessionStorage.getItem('EMPRESA_ID');
+    let usuarioID = sessionStorage.getItem('ID_USUARIO');  // Usando let para permitir reatribuição
+    console.log("Valor de empresaUsuario:", empresaUsuario);
+    console.log("Valor de empresaUsuarioID:", empresaUsuarioID);
+
+    // Ajustando a URL para passar o valor de empresaUsuario corretamente
+    fetch(`empresas/trazerAcesso/${empresaUsuario}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log("Dados recebidos:", data);  // Verifica os dados recebidos
+            acessos = data;  // Armazena os dados na variável acessos
+            renderAcessos(data);  // Passa os dados para renderizar
+        })
+        .catch(error => {
+            console.error('Erro ao buscar os dados:', error);
+        });
+
+    // Seleção de elementos do DOM
     const userListDiv = document.getElementById("lista-usuario");
-    const confirmModal = document.getElementById("confirmModal");
     const addUserModal = document.getElementById("addUserModal");
     const editUserModal = document.getElementById("editUserModal");
-    const closeAddUserModal = document.getElementById("closeAddUserModal");
-    const closeEditUserModal = document.getElementById("closeEditUserModal");
-    const confirmDelete = document.getElementById("confirmDelete");
-    const cancelDelete = document.getElementById("cancelDelete");
-    const addUserButton = document.getElementById("addUser");
+    const confirmModal = document.getElementById("confirmModal");
+
     const userNameInput = document.getElementById("userName");
     const userEmailInput = document.getElementById("userEmail");
-    const userPasswordInput = document.getElementById("userPassword");
     const userPhoneInput = document.getElementById("userPhone");
-    const userCargoInput = document.getElementById("userCargo");
-    const userEmpresaInput = document.getElementById("userEmpresa");
     const editUserNameInput = document.getElementById("editUserName");
     const editUserEmailInput = document.getElementById("editUserEmail");
-    const editUserPasswordInput = document.getElementById("editUserPassword");
     const editUserPhoneInput = document.getElementById("editUserPhone");
-    const editUserCargoInput = document.getElementById("editUserCargo");
-    const editUserEmpresaInput = document.getElementById("editUserEmpresa");
+
+    const addUser = document.getElementById("addUser");
     const saveUserChanges = document.getElementById("saveUserChanges");
 
-    let currentUserIndex = -1;
+    const closeAddUserModal = document.getElementById("closeAddUserModal");
+    const closeEditUserModal = document.getElementById("closeEditUserModal");
+    const closeModal = document.getElementById("closeModal");
 
-    function updateUserList() {
-        userListDiv.innerHTML = "";
-        users.forEach((user) => {
-            const userDiv = document.createElement("div");
-            userDiv.classList.add("nome-usuario");
-            userDiv.innerHTML = `
-                <input type="checkbox" class="user-checkbox" id="${user.idUsuario}">
-                <label for="${user.idUsuario}">
-                    <h3>${user.nome}</h3>
-                    <p>${user.email}</p>
-                    <p>${user.telefone}</p>
-                    <p>Cargo: ${user.nomeCargo}</p>
-                    <p>Empresa: ${user.nomeEmpresa}</p>
+    const cancelDelete = document.getElementById("cancelDelete");
+    const confirmDelete = document.getElementById("confirmDelete");
+
+    let acessos = []; // Armazenar os dados de acessos carregados
+    let currentAcessoIndex = -1; // Índice do acesso selecionado para edição/exclusão
+
+    // Função para renderizar acessos na lista
+    function renderAcessos(acessos) {
+        userListDiv.innerHTML = ""; // Limpa a lista antes de renderizar
+        acessos.forEach((acesso) => {
+            const acessoDiv = document.createElement("div");
+            acessoDiv.classList.add("nome-usuario");
+            acessoDiv.setAttribute('data-id', acesso.ID_Usuario);  // Adiciona o ID_Usuario no data-id
+            acessoDiv.innerHTML = `
+                <input type="checkbox" class="user-checkbox" id="acesso-${acesso.ID_Usuario}">
+                <label for="acesso-${acesso.ID_Usuario}">
+                    <h3>${acesso.Nome_Usuario}</h3>
+                    <p>Email: ${acesso.Email_Usuario}</p>
+                    <p>Cargo: ${acesso.Nome_Cargo}</p>
+                    <p>Telefone: ${acesso.Telefone_Usuario}</p>
                 </label>
             `;
-            userListDiv.appendChild(userDiv);
+            userListDiv.appendChild(acessoDiv);
         });
     }
 
-    // Fetch para obter os usuários
-    function fetchUsers() {
-        fetch(`/medidas/acessos/${fkEmpresa}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erro ao buscar usuários');
-                }
-                return response.json();
-            })
-            .then(data => {
-                users.push(...data);
-                updateUserList();
-            })
-            .catch(error => {
-                Swal.fire({
-                    title: 'Erro',
-                    text: error.message,
-                    icon: 'error'
-                });
-            });
-    }
-
-    // Abrir modal para adicionar usuário
+    // Modal de Adicionar Usuário
     document.getElementById('addUserIcon').addEventListener('click', () => {
-        addUserModal.style.display = "block"; // Exibe o modal
+        addUserModal.style.display = "block"; // Exibe o modal de adicionar usuário
     });
 
-    // Adicionar um novo usuário
-    addUserButton.addEventListener("click", () => {
+    closeAddUserModal.addEventListener("click", () => {
+        addUserModal.style.display = "none"; // Fecha o modal de adicionar usuário
+        userNameInput.value = ""; // Limpa os campos
+        userEmailInput.value = "";
+        userPhoneInput.value = ""; // Limpa o campo de telefone
+    });
+
+    // Ação de adicionar usuário
+    addUser.addEventListener("click", () => {
         const name = userNameInput.value;
         const email = userEmailInput.value;
-        const password = userPasswordInput.value;
-        const phone = userPhoneInput.value;
-        const cargo = userCargoInput.value;
-        const empresa = userEmpresaInput.value;
+        const phone = userPhoneInput.value; // Adicionando telefone
 
-        if (name && email && password && phone && cargo && empresa) {
-            const newUser = { 
-                nome: name, 
-                email: email, 
-                senha: password, 
-                telefone: phone,
-                fkCargo: cargo,
-                fkEmpresa: empresa
-            };
-
-            fetch('/usuarios', {
+        if (name && email && phone) {
+            fetch('empresas/adicionarAcesso', { // Envia dados para o backend
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(newUser)
+                body: JSON.stringify({
+                    nome: name,
+                    email: email,
+                    empresaUsuarioID: empresaUsuarioID, 
+                    telefone: phone
+                }),
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erro ao adicionar usuário');
-                }
-                return response.json();
-            })
-            .then(data => {
-                users.push(data);
-                updateUserList();
-                addUserModal.style.display = "none"; 
-                // Limpar campos
-                userNameInput.value = ""; 
-                userEmailInput.value = ""; 
-                userPasswordInput.value = ""; 
-                userPhoneInput.value = ""; 
-                userCargoInput.value = ""; 
-                userEmpresaInput.value = ""; 
-                Swal.fire({
-                    title: "Usuário adicionado com sucesso!",
-                    icon: 'success'
-                });
+            .then(response => response.json())
+            .then(() => {
+                location.reload(); // Recarrega a página para mostrar o novo usuário
             })
             .catch(error => {
-                Swal.fire({
-                    title: 'Erro',
-                    text: error.message,
-                    icon: 'error'
-                });
+                console.error('Erro ao adicionar usuário:', error);
             });
         } else {
-            Swal.fire({
-                title: "Operação não realizada!",
-                text: "Preencha todos os campos para continuar",
-                icon: 'error'
-            });
+            alert("Por favor, preencha todos os campos.");
         }
     });
 
-    // Editar um usuário
+    // Modal de Editar Usuário
     document.getElementById('editUserIcon').addEventListener('click', () => {
         const checkedCheckboxes = document.querySelectorAll('.user-checkbox:checked');
         
         if (checkedCheckboxes.length === 1) {
             const checkbox = checkedCheckboxes[0];
-            currentUserIndex = Array.from(document.querySelectorAll('.user-checkbox')).indexOf(checkbox); 
-            const user = users[currentUserIndex];
-            editUserNameInput.value = user.nome; 
-            editUserEmailInput.value = user.email; 
-            editUserPasswordInput.value = user.senha; 
-            editUserPhoneInput.value = user.telefone; 
-            editUserCargoInput.value = user.fkCargo; 
-            editUserEmpresaInput.value = user.fkEmpresa; 
-            editUserModal.style.display = "block"; 
+            currentAcessoIndex = Array.from(document.querySelectorAll('.user-checkbox')).indexOf(checkbox); 
+
+            // Verificar se o índice está dentro dos limites do array acessos
+            if (currentAcessoIndex >= 0 && currentAcessoIndex < acessos.length) {
+                const acesso = acessos[currentAcessoIndex];
+                editUserNameInput.value = acesso.Nome_Usuario;  // Preenche o campo de nome
+                editUserEmailInput.value = acesso.Email_Usuario;  // Preenche o campo de email
+                editUserPhoneInput.value = acesso.Telefone_Usuario;  // Preenche o campo de telefone
+
+                // Pega o ID_Usuario diretamente do data-id do div
+                usuarioID = document.querySelector('.user-checkbox:checked').closest('.nome-usuario').getAttribute('data-id');  // Atualiza o ID do usuário a ser editado
+
+                editUserModal.style.display = "block";  // Exibe o modal de edição
+            } else {
+                alert("Não foi possível localizar o usuário selecionado.");
+            }
         } else {
-            Swal.fire({
-                title: "Erro",
-                text: "Por favor, selecione um usuário para editar.",
-                icon: 'error'
-            });
+            alert("Por favor, selecione um usuário para editar.");
         }
-    });
-
-    saveUserChanges.addEventListener("click", () => {
-        const updatedName = editUserNameInput.value;
-        const updatedEmail = editUserEmailInput.value;
-        const updatedPassword = editUserPasswordInput.value;
-        const updatedPhone = editUserPhoneInput.value;
-        const updatedCargo = editUserCargoInput.value;
-        const updatedEmpresa = editUserEmpresaInput.value;
-
-        if (updatedName && updatedEmail && updatedPassword && updatedPhone && updatedCargo && updatedEmpresa) {
-            const updatedUser = { 
-                ...users[currentUserIndex],
-                nome: updatedName, 
-                email: updatedEmail, 
-                senha: updatedPassword, 
-                telefone: updatedPhone, 
-                fkCargo: updatedCargo, 
-                fkEmpresa: updatedEmpresa 
-            };
-
-            fetch(`/usuarios/${updatedUser.idUsuario}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(updatedUser)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erro ao atualizar usuário');
-                }
-                return response.json();
-            })
-            .then(data => {
-                users[currentUserIndex] = data; 
-                updateUserList();
-                editUserModal.style.display = "none"; 
-                Swal.fire({
-                    title: "Usuário atualizado com sucesso!",
-                    icon: 'success'
-                });
-            })
-            .catch(error => {
-                Swal.fire({
-                    title: 'Erro',
-                    text: error.message,
-                    icon: 'error'
-                });
-            });
-        } else {
-            Swal.fire({
-                title: "Operação não realizada!",
-                text: "Preencha todos os campos para continuar",
-                icon: 'error'
-            });
-        }
-    });
-
-    // Deletar um usuário
-    document.getElementById('deleteIcon').addEventListener('click', () => {
-        confirmModal.style.display = "block"; // Exibe o modal de confirmação
-    });
-
-    confirmDelete.addEventListener("click", () => {
-        const checkboxes = document.querySelectorAll('.user-checkbox:checked');
-        const deletePromises = Array.from(checkboxes).map(checkbox => {
-            const userDiv = checkbox.closest('.nome-usuario');
-            const userId = checkbox.id; // ID do usuário a ser deletado
-
-            return fetch(`/usuarios/${userId}`, {
-                method: 'DELETE'
-            })
-            .then(() => {
-                userListDiv.removeChild(userDiv);
-                users.splice(users.findIndex(user => user.idUsuario == userId), 1);
-            });
-        });
-
-        Promise.all(deletePromises)
-            .then(() => {
-                confirmModal.style.display = "none"; 
-                Swal.fire({
-                    title: "Usuário deletado com sucesso!",
-                    icon: 'success'
-                });
-            })
-            .catch(error => {
-                Swal.fire({
-                    title: 'Erro',
-                    text: error.message,
-                    icon: 'error'
-                });
-            });
-    });
-
-    // Fechar modais
-    closeAddUserModal.addEventListener("click", () => {
-        addUserModal.style.display = "none"; // Esconde o modal
-        // Limpar campos do modal de adicionar usuário
-        userNameInput.value = ""; 
-        userEmailInput.value = ""; 
-        userPasswordInput.value = ""; 
-        userPhoneInput.value = ""; 
-        userCargoInput.value = ""; 
-        userEmpresaInput.value = ""; 
     });
 
     closeEditUserModal.addEventListener("click", () => {
-        editUserModal.style.display = "none"; // Esconde o modal
+        editUserModal.style.display = "none"; // Fecha o modal de edição
     });
 
-    document.getElementById("closeModal").addEventListener("click", () => {
-        confirmModal.style.display = "none"; // Esconde o modal de confirmação
+    // Ação de salvar alterações no usuário
+    saveUserChanges.addEventListener("click", () => {
+        const updatedName = editUserNameInput.value;
+        const updatedEmail = editUserEmailInput.value;
+        const updatedPhone = editUserPhoneInput.value;  // Campo de telefone
+        
+        // Verifica se todos os campos necessários estão preenchidos
+        if (updatedName && updatedEmail && updatedPhone) {
+            fetch('empresas/editarAcesso', { // Envia dados de edição para o backend
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id: usuarioID,  // ID do acesso a ser editado (pegando do data-id)
+                    nome: updatedName,
+                    email: updatedEmail,
+                    telefone: updatedPhone,  // Passando o telefone atualizado
+                    empresaUsuarioID: empresaUsuarioID, // ID da empresa
+                }),
+            })
+            .then(response => response.json())
+            .then(() => {
+                location.reload(); // Recarrega a página após editar
+                editUserModal.style.display = "none"; // Fecha o modal
+            })
+            .catch(error => {
+                console.error('Erro ao editar usuário:', error);
+            });
+        } else {
+            alert("Por favor, preencha todos os campos.");
+        }
     });
 
-    cancelDelete.addEventListener("click", () => {
-        confirmModal.style.display = "none"; // Esconde o modal de confirmação
-    });
+// Modal de Exclusão
+document.getElementById('deleteIcon').addEventListener('click', () => {
+    const checkedCheckboxes = document.querySelectorAll('.user-checkbox:checked');
+    
+    if (checkedCheckboxes.length > 0) {
+        confirmModal.style.display = "block"; // Exibe o modal de confirmação de exclusão
+    } else {
+        alert("Por favor, selecione ao menos um usuário para excluir.");
+    }
+});
 
-    // Carregar usuários quando a página é carregada
-    fetchUsers();
+closeModal.addEventListener("click", () => {
+    confirmModal.style.display = "none"; // Fecha o modal de exclusão
+});
+
+cancelDelete.addEventListener("click", () => {
+    confirmModal.style.display = "none"; // Cancela a exclusão
+});
+
+confirmDelete.addEventListener("click", () => {
+    const checkedCheckboxes = document.querySelectorAll('.user-checkbox:checked');
+    checkedCheckboxes.forEach(checkbox => {
+        const acessoId = checkbox.id.split('-')[1]; // Extrai o ID do acesso
+
+        fetch(`empresas/excluirAcesso/${acessoId}`, { // Envia requisição para excluir acesso
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                empresaUsuarioID: empresaUsuarioID, // Passando o ID da empresa para excluir
+            }),
+        })
+        .then(response => response.json())
+        .then(() => {
+            location.reload(); // Recarrega a página após excluir
+            confirmModal.style.display = "none"; // Fecha o modal
+        })
+        .catch(error => {
+            console.error('Erro ao excluir acesso:', error);
+        });
+    });
+});
+
 });
