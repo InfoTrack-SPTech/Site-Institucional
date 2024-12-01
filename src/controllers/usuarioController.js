@@ -112,6 +112,113 @@ async function removerFoto(req, res){
     })
 }
 
+async function editarConta(req, res){
+
+    const idUsuario = req.params.idUsuario;
+    const nome = req.body.emailUsuario;
+    const telefone = req.body.telefoneUsuario;
+    const senha = req.body.senhaUsuario;
+
+    const usuario = await usuarioModel.buscarUsuarioId(idUsuario).then((data) => {
+        return data.length > 0 ? data[0] : null;
+    })
+    
+    if(usuario == null){
+        res.status(404).json({
+            codigo: 404,
+            mensagem: "Usuário não encontrado"
+        })
+    } else if(nome.trim() == "" || telefone.trim() == "" || senha.trim() == ""){
+        res.status(404).json({
+            codigo: 404,
+            mensagem: "Preencha todos os campos"
+        })
+    } else if(senha != usuario.senha){
+        res.status(404).json({
+            codigo: 404,
+            mensagem: "Senha fornecida incorreta"
+        })
+    } else{
+        await usuarioModel.atualizarConta(idUsuario, nome, telefone).then(() => {
+            res.status(200).json({
+                codigo: 200,
+                mensagem: "Operação realizada com sucesso!"
+            })
+        })
+    }
+}
+
+async function excluirConta(req, res){
+
+    const idUsuario = req.params.idUsuario;
+    const cargo = req.params.cargo;
+
+    const usuario = await usuarioModel.buscarUsuarioId(idUsuario).then((data) => {
+        return data.length > 0 ? data[0] : null;
+    })
+    if(usuario == null){
+        res.status(404).json({
+            codigo: 404, 
+            mensagem: "Usuário não encontrado"
+        })
+    } else if(cargo != "Gerente" && cargo != "Administrador" || cargo.trim() == ""){
+        res.status(404).json({
+            codigo: 404, 
+            mensagem: "Você não tem permissão para excluir sua conta"
+        })
+    } else{
+        usuarioModel.excluirContaId(idUsuario).then(() => {
+            res.status(200).json({
+                codigo: 200,
+                mensagem: "Operação realizada com sucesso!"
+            })
+        })
+    }
+}
+
+async function atualizarSenha(req, res){
+
+    const idUsuario = req.params.idUsuario;
+    const senhaAntiga = req.body.senhaAtualUsuario;
+    const senhaNova = req.body.senhaNovaUsuario;
+    const confirmarSenha = req.body.senhaConfirmarusuario;
+
+    const usuario = await usuarioModel.buscarUsuarioId(idUsuario).then((data) => {
+        return data.length > 0 ? data[0] : null;
+    })
+    if(usuario == null){
+        res.status(404).json({
+            codigo: 404,
+            mensagem: "Usuário não encontrado"
+        })
+    } else if(senhaAntiga.trim() == "" || senhaNova.trim() == "" || confirmarSenha.trim() == ""){
+        res.status(404).json({
+            codigo: 404,
+            mensagem: "Preencha todos os campos"
+        })
+    } else if(senhaAntiga != usuario.senha){
+        res.status(404).json({
+            codigo: 404,
+            mensagem: "Senha atual incorreta"
+        })
+    } else if(senhaNova == senhaAntiga || confirmarSenha == senhaAntiga){
+        res.status(404).json({
+            codigo: 404,
+            mensagem: "A senha nova não pode ser igual a antiga"
+        })
+    } else if(senhaNova != confirmarSenha){
+        res.status(404).json({
+            codigo: 404,
+            mensagem: "A nova senha e a confirmação da senha devem ser iguais"
+        }) 
+    } else {
+        usuarioModel.atualizarSenha(idUsuario, senhaNova).then(() => {
+            res.status(200).json({
+                codigo: 200,
+                mensagem: "Operação realizada com sucesso!"
+            })
+        })
+      
 async function excluirUsuario(req, res) {
     const idUsuario = req.params.idUsuario;
     const senhaAtual = req.body.senha; 
@@ -192,6 +299,8 @@ module.exports = {
     cadastrar,
     subirFoto,
     removerFoto,
+    editarConta,
+    excluirConta,
     excluirUsuario,
     verificarSenha,
     atualizarSenha

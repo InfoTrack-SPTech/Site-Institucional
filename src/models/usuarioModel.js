@@ -38,7 +38,22 @@ function retornarUsuarioAutenticar(email, senha){
 }
 
 function atualizarFotoPerfil(nomeImagem, idUsuario){
-    var instrucaoSql = `UPDATE usuario SET imagem = "${nomeImagem}" WHERE idUsuario = ${idUsuario}`;
+    var instrucaoSql = `UPDATE Usuario SET imagem = "${nomeImagem}" WHERE idUsuario = ${idUsuario}`;
+    return database.executar(instrucaoSql);
+}
+
+function atualizarConta(idUsuario, nome, telefone){
+    var instrucaoSql = `UPDATE Usuario SET nome = "${nome}", telefone = "${telefone}" WHERE idUsuario = ${idUsuario}`
+    return database.executar(instrucaoSql);
+}
+
+function excluirContaId(idUsuario){
+    var instrucaoSql = `DELETE FROM Usuario WHERE idUsuario = ${idUsuario}`;
+    return database.executar(instrucaoSql);
+}
+
+function atualizarSenha(idUsuario, novaSenha){
+    var instrucaoSql = `UPDATE Usuario SET senha = "${novaSenha}" WHERE idUsuario = ${idUsuario}`;
     return database.executar(instrucaoSql);
 }
 
@@ -60,6 +75,8 @@ module.exports = {
     buscarUsuarioId,
     atualizarFotoPerfil,
     retornarUsuarioAutenticar,
+    atualizarConta,
+    excluirContaId,
     excluirUsuario,
     atualizarSenha
 };
