@@ -17,7 +17,7 @@
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body class="index">
@@ -40,25 +40,33 @@
                 <li><a class="botaologin" href="cadastro.html">Cadastro</a></li>
             </ul>
            
-        </nav>
-
-        <nav class="mobile">
-          <div class="sanduiche" id="sanduiche" onclick="toggleMenu()">
-            <img src="./assets/menu-aberto (1).png" alt="Menu Toggle">
-          </div>
-        
-          <ul class="nav-links" id="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </nav>
-        
+        </nav>       
     
         
     </div>
-</header>
+    </header>
+
+    
+    <div class="mobile-container">
+
+
+      <div class="topnav">
+        <a href="#home" class="active">INFOTRACK</a>
+        <div id="myLinks">
+          <a href="#inicio" class="active">Início</a>
+          <a href="#sobre">Sobre</a>
+          <a href="#servicos">Serviços</a>
+          <a href="cadastro.html">Dashboard</a>
+          <a href="#contato">Contato</a>
+          <a href="cadastro.html">Cadastro</a>
+        </div>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+          <i class="fa fa-bars"></i>
+        </a>
+      </div>
+
+
+    </div>
 
 
     <section id="inicio" class="index-section">

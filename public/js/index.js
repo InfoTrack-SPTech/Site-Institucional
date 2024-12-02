@@ -1,31 +1,17 @@
 
 function toggleMenu() {
   const navLinks = document.getElementById('nav-links');
-  navLinks.classList.toggle('active'); // Toggle 'active' class to show/hide menu
+  navLinks.classList.toggle('active'); 
 }
 
-
-
-let menu = document.getElementById('navmenuL')
-let menuMobile = document.querySelector('.mobile')
-console.log(menuMobile)
-const larguraDaTela = window.innerWidth;
-console.log(larguraDaTela);
-
-if(larguraDaTela <= 1080) {
-  menu.style.display = 'none'
-  menuMobile.style.display = 'flex'
-
-  console.log('deu certo?')
-} else {
-  menu.style.display = 'flex'
-  menuMobile.style.display = 'none'
+function myFunction() {
+  var x = document.getElementById("myLinks");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
 }
-
-window.onload = function() {
-  handleScroll(); 
-};
-
 
 
 
