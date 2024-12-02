@@ -8,7 +8,7 @@ function autenticar(email, senha) {
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucaoSql
 function cadastrar(nome, email, senha, telefone, idEmpresa) {
     
-    var instrucaoSql = `INSERT INTO Usuario(email, nome, senha, telefone, fkCargo, fkEmpresa) VALUES("${email}", "${nome}", "${senha}", "${telefone}", 1, ${idEmpresa})`;
+    var instrucaoSql = `INSERT INTO Usuario(email, nome, senha, telefone, fkCargo, fkEmpresa) VALUES("${email}", "${nome}", "${senha}", "${telefone}", 2, ${idEmpresa})`;
     return database.executar(instrucaoSql);
 }
 

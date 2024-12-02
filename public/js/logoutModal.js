@@ -10,7 +10,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         confirmLogout.addEventListener('click', function() {
-            window.location.href = './public/index.html';
+            sessionStorage.clear(); 
+
+            window.location.href = './index.html';
+
+            history.replaceState(null, '', './index.html');
         });
 
         cancelLogout.addEventListener('click', function() {

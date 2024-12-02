@@ -43,8 +43,8 @@ function adicionarEmpresa(nome, cnpj, telefone) {
 
 function adicionarAcesso(email,nome  ,telefone,  empresaUsuarioID) {
   const instrucaoSql = `
-    INSERT INTO Usuario ( email, nome, senha,  telefone ,fkCargo,fkEmpresa  )
-    VALUES ('${email}','${nome}', '12345' ,'${telefone}', '3',  '${empresaUsuarioID}');
+    INSERT INTO Usuario ( email, nome, senha,  telefone ,fkCargo, fkEmpresa  )
+    VALUES ('${email}','${nome}', '12345' ,'${telefone}', '1',  '${empresaUsuarioID}');
   `;
 
   return database.executar(instrucaoSql);

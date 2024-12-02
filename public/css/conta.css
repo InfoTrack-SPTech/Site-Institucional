@@ -289,6 +289,38 @@ body.light-theme .logout:hover .logoutButton {
     flex-direction: column;
 }
 
+.modal-content h2 {
+    margin-bottom: 20px; 
+}
+
+.modal-content label {
+    display: block; 
+    margin-top: 10px; 
+}
+
+.modal-content input {
+    width: 100%; 
+    height: 30px; 
+    margin-top: 5px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    align-items: center;
+}
+
+.modal-content button {
+    background-color: #4CAF50; 
+    color: white; 
+    border: none;
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    margin-top: 10px; 
+}
+
+/* .modal-content button:hover {
+    background-color: #45a049; 
+} */
+
 .usuario-info {
     display: flex;
     align-items: center;
@@ -495,12 +527,16 @@ body.light-theme .modal-editar input {
     color: #fff;
 }
 
+body.light-theme  .lock-button img{
+    filter: invert(1);
+}
+
 .modal-content {
     background-color: #191c32;
     padding: 20px;
     border-radius: 5px;
     border: 2px solid #fff;
-    text-align: center;
+    /* text-align: center; */
     width: 400px;
     color: #fff;
 }
@@ -556,4 +592,8 @@ body.light-theme .excluir-conta {
 
 body.light-theme .excluir-icon {
     filter: invert(1);
+}
+
+#changePasswordModal {
+    display: none; 
 }
