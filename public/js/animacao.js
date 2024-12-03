@@ -1,32 +1,48 @@
-
+console.log('to na animação');
+console.log(sessionStorage.CARGO_USUARIO);
+const cargo = sessionStorage.CARGO_USUARIO; 
 const iconMenuSideBar = document.getElementById("iconMenuSideBar");
 const menuSideBar = document.getElementById("menuSideBar");
 const home = document.getElementsByClassName("dashicon")[0];
 const conta = document.getElementsByClassName("conta")[0];
 const lembretes = document.getElementsByClassName("lembretes")[0];
-const empresas = document.getElementsByClassName("empresas")[0];
+const empresas = document.getElementsByClassName("empresas")[0]; 
 let linkHome, linkConta, linkAcessos, linkEmpresas;
 let h1Home, ContaHome, LembretesHome, EmpresasHome;
 
-function displayEmpresas(){
-    if(sessionStorage.EMPRESA_USUARIO == 'InfoTrack'){
-        empresas.style.display = 'block'
-        return true
+function displayEmpresas() {
+    if (sessionStorage.EMPRESA_USUARIO === 'InfoTrack' && cargo === 'Administrador') {
+        empresas.style.display = 'block';
+        return true;
+    } else {
+        empresas.style.display = 'none';
+        return false;
     }
-    else{
-        empresas.style.display = 'none'
-        return false
-    }
+}
 
+
+function blockAcessos() {
+    console.log("Cargo atual:", cargo);
+    if (cargo === 'Administrador' || cargo === 'Gerente') {
+        LembretesHome.style.display = 'block';
+        lembretes.style.display = 'block'; 
+        if (!LembretesHome.parentNode) {
+            menuSideBar.appendChild(LembretesHome); 
+        }
+    } else {
     
+        console.log("Removendo LembretesHome para Analista");
+        LembretesHome.style.display = 'none'; 
+        lembretes.remove();
+        if (LembretesHome.parentNode) {
+            LembretesHome.remove(); 
+            
+        }
+    }
 }
 
-
-function blockEmpresa(){
-    EmpresasHome.style.display = 'block';
-
-}
-displayEmpresas()
+// Inicialização dos links
+displayEmpresas();
 if (window.location.pathname.endsWith("dashboard.html")) {
     linkHome = "#";
     linkConta = "../conta.html";
@@ -39,107 +55,84 @@ if (window.location.pathname.endsWith("dashboard.html")) {
     linkEmpresas = "empresa.html";
 }
 
-
-
-
-
+// Função para alternar a exibição do menu
 function toggleMenu() {
     if (menuSideBar.classList.contains("sobrepor")) {
-      
-        if (h1Home) h1Home.style.display = 'none';
-        if (ContaHome) ContaHome.style.display = 'none';
-        if (LembretesHome) LembretesHome.style.display = 'none';
-        if (EmpresasHome) EmpresasHome.style.display = 'none';
-        
+        // Remove elementos do menu
+        if (h1Home) h1Home.remove();
+        if (ContaHome) ContaHome.remove();
+        if (LembretesHome) LembretesHome.remove();
+        if (EmpresasHome) EmpresasHome.remove();
+
         menuSideBar.classList.remove("sobrepor");
         home.style.display = "block";
         lembretes.style.display = "block";
         conta.style.display = "block";
-        displayEmpresas()
+        displayEmpresas();
     } else {
-     
         menuSideBar.classList.add("sobrepor");
-       
+
+        // Criação dos elementos do menu
         if (!h1Home) {
             h1Home = document.createElement("a");
             h1Home.textContent = "Home";
-            h1Home.classList.add("menuLink"); 
-            h1Home.href = linkHome
+            h1Home.classList.add("menuLink");
+            h1Home.href = linkHome;
         }
-        
+
         if (!ContaHome) {
             ContaHome = document.createElement("a");
             ContaHome.textContent = "Conta";
-            ContaHome.classList.add("menuLink"); 
-            ContaHome.href = linkConta
-
+            ContaHome.classList.add("menuLink");
+            ContaHome.href = linkConta;
         }
-        
+
+        // LembretesHome (Gerenciar Acessos) só deve ser criado se o cargo for 'Administrador' ou 'Gerente'
         if (!LembretesHome) {
             LembretesHome = document.createElement("a");
             LembretesHome.textContent = "Gerenciar Acessos";
             LembretesHome.classList.add("menuLink");
-            LembretesHome.href = linkAcessos
+            LembretesHome.href = linkAcessos;
         }
 
-        if (!EmpresasHome && displayEmpresas()) {
+        // EmpresasHome só deve ser criado e adicionado se o cargo for 'Administrador'
+        if (!EmpresasHome) {
             EmpresasHome = document.createElement("a");
             EmpresasHome.textContent = "Gerenciar Empresas";
             EmpresasHome.classList.add("menuLink");
-            EmpresasHome.href = linkEmpresas
-            blockEmpresa()
+            EmpresasHome.href = linkEmpresas;
         }
-        
-      
-        h1Home.style.display = 'block';
-        ContaHome.style.display = 'block';
-        LembretesHome.style.display = 'block';
-       
-        home.style.display = "none";
-        lembretes.style.display = "none";
-        conta.style.display = "none";
-        empresas.style.display = "none";
-    
+
+        // Adiciona os elementos ao menu na ordem desejada
         if (!menuSideBar.contains(h1Home)) {
             menuSideBar.appendChild(h1Home);
         }
         if (!menuSideBar.contains(ContaHome)) {
             menuSideBar.appendChild(ContaHome);
         }
-        if (!menuSideBar.contains(LembretesHome)) {
-            menuSideBar.appendChild(LembretesHome);
+
+        blockAcessos(); // Chame a função para configurar a exibição de LembretesHome
+
+        // Adiciona LembretesHome se estiver visível
+        if (LembretesHome.style.display === 'block') {
+            if (!menuSideBar.contains(LembretesHome)) {
+                menuSideBar.appendChild(LembretesHome);
+            }
         }
-        if (!menuSideBar.contains(EmpresasHome)) {
-            menuSideBar.appendChild(EmpresasHome);
+
+        // Adiciona EmpresasHome se estiver visível
+        if (displayEmpresas()) {
+            if (!menuSideBar.contains(EmpresasHome)) {
+                menuSideBar.appendChild(EmpresasHome);
+            }
         }
+
+        // Esconde os elementos principais
+        home.style.display = "none";
+        lembretes.style.display = "none";
+        conta.style.display = "none";
+        empresas.style.display = "none";
     }
 }
 
 iconMenuSideBar.addEventListener("click", toggleMenu);
-
-
-
-
-
-
-
-
-
-
-
-// Bairro	Total de Casos
-// Sé	35.000
-// Brás	30.000
-// Liberdade	28.000
-// Vila Madalena	25.000
-// Mooca	22.000
-// Itaim Bibi	20.000
-// Tatuapé	18.000
-
-
-
-// Resumo Visual:
-// Período	Total de Casos
-// Dia	180.000
-// Noite	200.000
-// Madrugada	56.035
